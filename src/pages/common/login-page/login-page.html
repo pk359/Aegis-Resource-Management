@@ -1,0 +1,67 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title text-center>Aegis Login</ion-title>
+    </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+    <div id="loginDiv" *ngIf="activeForm ==='login'">
+        <h2>Login Page</h2>
+        <form method="POST" (ngSubmit)="login(email, password)" #loginForm="ngForm">
+            <ion-item>
+                <ion-input type="email" placeholder="Email" [(ngModel)]="email" name="email" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="password" placeholder="Password" [(ngModel)]="password" name="password" required></ion-input>
+            </ion-item>
+            <button ion-button block type="submit" [disabled]="!loginForm.form.valid">Submit</button>
+        </form>
+        <ion-row>
+            <ion-col width-50>
+                <button ion-button block round outline (click)="showForm('forgot')">Forgot Password?</button>
+            </ion-col>
+            <ion-col width-50>
+                <button ion-button block round outline (click)="showForm('signup')">Create a new account</button>
+            </ion-col>
+        </ion-row>
+
+
+    </div>
+    <div id="signupDiv" *ngIf="activeForm ==='signup'">
+        <h2>Signup Page</h2>
+        <form method="POST" (ngSubmit)="signup(name, email, password)" #signupForm="ngForm">
+            <ion-item>
+                <ion-input type="text" placeholder="Your name" [(ngModel)]="name" name="name" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="email" placeholder="Email" [(ngModel)]="email" name="email" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="password" placeholder="Password" [(ngModel)]="password" name="password" required></ion-input>
+            </ion-item>
+
+            <button ion-button block type="submit" [disabled]="!signupForm.form.valid">Register</button>
+        </form>
+        <button ion-button block round outline (click)="showForm('login')">Go to login page</button>
+    </div>
+    <div id="forgotpasswordDiv" *ngIf="activeForm ==='forgot'">
+        <h2>Forgot password Page</h2>
+        <form method="POST" (ngSubmit)="forgot(email)" #forgotForm="ngForm">
+            <ion-item>
+                <ion-input type="email" placeholder="Email" [(ngModel)]="email" name="email" required></ion-input>
+            </ion-item>
+
+            <button ion-button block type="submit" [disabled]="!forgotForm.form.valid">Get Code</button>
+        </form>
+         <ion-row>
+            <ion-col width-50>
+             <button ion-button block round outline (click)="showForm('login')">Go to login</button>
+            </ion-col>
+            <ion-col width-50>
+                 <button ion-button block round outline (click)="showForm('signup')">Create a new account</button>
+            </ion-col>
+        </ion-row>
+    </div>
+    <ion-label class="error" style="color:red" *ngFor="let error of errors">{{error}}</ion-label>
+</ion-content>
