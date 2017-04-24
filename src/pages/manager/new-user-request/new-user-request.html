@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+     <h4>Welcome, {{cUser.name}} </h4>
+    </ion-title>
+    <ion-buttons end>
+      <button (click)= "logout()" ion-button icon-only color="danger">
+        <ion-icon md="md-log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-list inset>
+    <ion-list-header>
+      Assign role to users
+    </ion-list-header>
+    <ion-item *ngFor="let item of users | async" (click)="userSelected(item.$key, item.name)">
+      {{item.name}}
+    </ion-item>
+
+  </ion-list>
+</ion-content>
