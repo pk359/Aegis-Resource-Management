@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
-import { UIDecider } from '../ui-decider/ui-decider'
-import {LoginPage} from '../login-page/login-page'
+import { LoginPage } from '../login-page/login-page'
 @Component({
   templateUrl: 'message-page.html',
 })
@@ -15,10 +14,9 @@ export class MessagePage {
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
     var ref = firebase.database().ref().child('users/' + firebase.auth().currentUser.uid).on('value', snap => {
       if (snap.val().role != 'none') {
-       
         let prompt = this.alertCtrl.create({
           title: 'Congratulations',
-          message: "You are " + snap.val().role + " now.",
+          message: "You are " + snap.val().role + " now. Please Login again.",
           buttons: [
             {
               text: 'Okay',
@@ -29,14 +27,14 @@ export class MessagePage {
           ]
         });
         prompt.present();
-        navCtrl.popToRoot()
+        this.logout();
       }
     });
   }
   logout() {
     firebase.auth().signOut().then((response) => {
       window.localStorage.removeItem('userdetails')
-       this.navCtrl.popToRoot()
+      this.navCtrl.setRoot(LoginPage)
     });
   }
 

@@ -58,9 +58,9 @@ export class NewUserRequest {
 
   logout() {
     this.users = null;
-    firebase.auth().signOut().then((response) => {
+    this.af.auth.logout().then((r) => {
       window.localStorage.removeItem('userdetails')
-      this.navCtrl.popToRoot();
+      this.navCtrl.push(LoginPage)
     });
   }
 

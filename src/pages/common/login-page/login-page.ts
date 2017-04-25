@@ -1,8 +1,13 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, LoadingController, NavParams } from 'ionic-angular';
 import { AngularFire, AngularFireAuth, AuthProviders, AuthMethods } from 'angularfire2'
 
+import { ManagerTabs } from '../../manager/manager-tabs/manager-tabs'
+import { ClientTabs } from '../../client/client-tabs/client-tabs'
+import { TradesPersonTabs } from '../../tradesperson/trades-person-tabs/trades-person-tabs'
+import { MessagePage } from '../message-page/message-page'
+import { UIDecider } from '../ui-decider/ui-decider'
 @Component({
   selector: 'page-login-page',
   templateUrl: 'login-page.html'
@@ -11,15 +16,27 @@ export class LoginPage {
 
   activeForm: string = 'login'
   errors: any = []
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire) {
-    
-  }
-  ionViewDidLoad() {
-     console.log('ionViewDidLoad LoginPage');
-     
+  constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, public af: AngularFire) {
+    firebase.database.enableLogging(true);
+    this.navCtrl.removeView(this.navCtrl.getPrevious());
   }
 
+
+  ionViewDidEnter() {
+    var views = this.navCtrl.getViews();
+    views.forEach((k) => {
+      console.log(k.component.name)
+    });
+  }
+
+
   login(email: string, password: string) {
+    let loading = this.loadingCtrl.create({
+      showBackdrop: false,
+      spinner: 'crescent',
+      content: 'Please wait, logging in...'
+    });
+    loading.present();
     this.errors = []
     this.af.auth.login({
       email, password
@@ -27,7 +44,17 @@ export class LoginPage {
         provider: AuthProviders.Password,
         method: AuthMethods.Password
       }).then((response) => {
-        this.navCtrl.pop();
+
+        //Create localstorage
+        firebase.database().ref('users/' + response.uid).once('value').then((snap) => {
+          window.localStorage.setItem('userdetails', JSON.stringify({
+            name: snap.val().name,
+            role: snap.val().role,
+            uid: response.uid,
+          }))
+          loading.dismissAll();
+          this.navCtrl.push(UIDecider)
+        });
       }).catch((error) => {
         var errorCode = error['code'];
         var errorMessage = error['message'];
@@ -48,24 +75,26 @@ export class LoginPage {
     if (password.length < 6) {
       this.errors.push('Password must have more than 5 chars.')
     }
-
     if (this.errors.length == 0) {
-
+      let loading = this.loadingCtrl.create({
+        showBackdrop: false,
+        spinner: 'crescent',
+        content: 'Creating your account, you may have to login again.'
+      });
+      loading.present();
       this.af.auth.createUser({
         email, password
       })
         .then((response) => {
-          firebase.database().ref('users/'+ response.uid).set({
+          firebase.database().ref('users/' + response.uid).set({
             name: name,
             email: email,
             role: 'none'
           }).then((response) => {
-            console.log(response);
-          }).catch((error) => {
-            console.log(error)
+            //Once both authentication and adding role = none is successful navigate to new page.
+            loading.dismissAll();
+            this.navCtrl.push(UIDecider)
           })
-          // console.log('signup success')
-          this.navCtrl.pop();
         }).catch((error) => {
           var errorMessage = error['message'];
           this.errors.push(errorMessage)
@@ -76,7 +105,6 @@ export class LoginPage {
 
   forgot(email: string) {
     this.errors = []
-
     //https://aegis-test-cc70c.firebaseio.com
     firebase.auth().sendPasswordResetEmail(email)
       .then((response) => {
@@ -104,4 +132,5 @@ export class LoginPage {
         break;
     }
   }
+
 }

@@ -1,11 +1,7 @@
-<ion-header>
-    <ion-navbar>
-        <ion-title text-center>Aegis</ion-title>
-    </ion-navbar>
-</ion-header>
+
 <ion-content padding>
     <div id="loginDiv" *ngIf="activeForm ==='login'">
-        <h2>Login Page</h2>
+        <ion-title text-center><h2>Login Page</h2></ion-title>
         <form method="POST" (ngSubmit)="login(email, password)" #loginForm="ngForm">
             <ion-item>
                 <ion-input type="email" placeholder="Email" [(ngModel)]="email" name="email" required></ion-input>

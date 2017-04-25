@@ -12,14 +12,13 @@ export class NewOrderPage {
   cUser: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire) {
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
-    console.log(this.cUser)
   }
 
 
   logout() {
     firebase.auth().signOut().then((response) => {
       window.localStorage.removeItem('userdetails')
-      this.navCtrl.push(LoginPage);
+      this.navCtrl.setRoot(LoginPage)
     });
   }
 

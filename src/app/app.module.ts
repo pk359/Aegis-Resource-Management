@@ -2,6 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+
 //Common side
 import { LoginPage } from '../pages/common/login-page/login-page'
 import { UIDecider } from '../pages/common/ui-decider/ui-decider'
@@ -35,8 +36,8 @@ var firebaseConfig = {
 
 @NgModule({
   declarations: [
-    MyApp,
-    LoginPage, UIDecider, MessagePage,
+    MyApp,UIDecider,
+    LoginPage, MessagePage,
     NewUserRequest, ManagerTabs,
     ClientTabs, NewOrderPage,
     TradesPersonTabs, TPJobs
@@ -49,7 +50,8 @@ var firebaseConfig = {
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp, LoginPage, UIDecider,MessagePage,
+    MyApp, UIDecider,
+    LoginPage,MessagePage,
     ManagerTabs, NewUserRequest,
     ClientTabs, NewOrderPage,
     TradesPersonTabs, TPJobs
