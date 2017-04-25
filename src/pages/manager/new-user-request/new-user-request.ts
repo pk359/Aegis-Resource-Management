@@ -57,10 +57,9 @@ export class NewUserRequest {
   }
 
   logout() {
-    this.users = null;
-    this.af.auth.logout().then((r) => {
+    this.af.auth.logout().then(() => {
       window.localStorage.removeItem('userdetails')
-      this.navCtrl.push(LoginPage)
+      this.navCtrl.push(LoginPage);
     });
   }
 

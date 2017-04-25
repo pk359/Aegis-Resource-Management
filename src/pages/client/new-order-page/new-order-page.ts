@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
-import firebase from 'firebase'
 import { LoginPage } from '../../common/login-page/login-page'
 
 @Component({
@@ -14,11 +13,10 @@ export class NewOrderPage {
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
   }
 
-
   logout() {
-    firebase.auth().signOut().then((response) => {
+    this.af.auth.logout().then(() => {
       window.localStorage.removeItem('userdetails')
-      this.navCtrl.setRoot(LoginPage)
+      this.navCtrl.push(LoginPage);
     });
   }
 

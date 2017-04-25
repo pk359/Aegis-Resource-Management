@@ -56,6 +56,7 @@ export class LoginPage {
           this.navCtrl.push(UIDecider)
         });
       }).catch((error) => {
+        loading.dismissAll()
         var errorCode = error['code'];
         var errorMessage = error['message'];
         if (errorCode === 'auth/wrong-password') {
@@ -92,6 +93,11 @@ export class LoginPage {
             role: 'none'
           }).then((response) => {
             //Once both authentication and adding role = none is successful navigate to new page.
+            window.localStorage.setItem('userdetails', JSON.stringify({
+              name: name,
+              role: email,
+              uid: 'none',
+            }))
             loading.dismissAll();
             this.navCtrl.push(UIDecider)
           })

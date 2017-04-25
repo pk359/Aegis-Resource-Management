@@ -29,14 +29,16 @@ export class UIDecider {
       if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)
       else if (cU.role == 'client') this.navCtrl.push(ClientTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)
-      else if (cU.role == 'none') this.navCtrl.push(MessagePage)
+      else if (cU.role == 'none') this.navCtrl.push(MessagePage,{
+        message: 'Please wait for administrator to assign you a role.'
+      })
     } else {
       this.navCtrl.push(LoginPage)
     }
   }
 
   logout() {
-    this.af.auth.logout().then(function () {
+    this.af.auth.logout().then(() => {
       window.localStorage.removeItem('userdetails')
       this.navCtrl.push(LoginPage);
     });
