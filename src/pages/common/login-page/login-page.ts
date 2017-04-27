@@ -51,6 +51,7 @@ export class LoginPage {
             name: snap.val().name,
             role: snap.val().role,
             uid: response.uid,
+            email: email
           }))
           loading.dismissAll();
           this.navCtrl.push(UIDecider)
@@ -95,8 +96,9 @@ export class LoginPage {
             //Once both authentication and adding role = none is successful navigate to new page.
             window.localStorage.setItem('userdetails', JSON.stringify({
               name: name,
-              role: email,
-              uid: 'none',
+              role: 'none',
+              uid: response.uid,
+              email: email
             }))
             loading.dismissAll();
             this.navCtrl.push(UIDecider)
