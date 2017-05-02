@@ -6,7 +6,6 @@ import firebase from 'firebase'
 import { LoginPage } from '../../common/login-page/login-page'
 
 @Component({
-  selector: 'page-new-user-request',
   templateUrl: 'new-user-request.html',
 })
 export class NewUserRequest {
@@ -57,10 +56,10 @@ export class NewUserRequest {
   }
 
   logout() {
+    this.users = null;
     this.af.auth.logout().then(() => {
       window.localStorage.removeItem('userdetails')
       this.navCtrl.push(LoginPage);
     });
   }
-
 }

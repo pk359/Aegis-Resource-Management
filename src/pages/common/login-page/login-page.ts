@@ -50,8 +50,8 @@ export class LoginPage {
           window.localStorage.setItem('userdetails', JSON.stringify({
             name: snap.val().name,
             role: snap.val().role,
-            uid: response.uid,
-            email: email
+            email: snap.val().email,
+            uid: response.uid
           }))
           loading.dismissAll();
           this.navCtrl.push(UIDecider)
@@ -88,21 +88,22 @@ export class LoginPage {
         email, password
       })
         .then((response) => {
+          //Register user in database now.
           firebase.database().ref('users/' + response.uid).set({
             name: name,
-            email: email,
-            role: 'none'
-          }).then((response) => {
-            //Once both authentication and adding role = none is successful navigate to new page.
-            window.localStorage.setItem('userdetails', JSON.stringify({
-              name: name,
-              role: 'none',
-              uid: response.uid,
-              email: email
-            }))
-            loading.dismissAll();
-            this.navCtrl.push(UIDecider)
+            role: 'none',
+            emai: email
           })
+          //Create a cookie 
+          window.localStorage.setItem('userdetails', JSON.stringify({
+            name: name,
+            role: 'none',
+            email: email,
+            uid: response.uid
+          }))
+          //Once both authentication and adding role = none is successful navigate to new page.
+          loading.dismissAll();
+          this.navCtrl.push(UIDecider)
         }).catch((error) => {
           var errorMessage = error['message'];
           this.errors.push(errorMessage)

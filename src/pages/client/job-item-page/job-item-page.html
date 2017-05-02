@@ -1,0 +1,9 @@
+<ion-header>
+</ion-header>
+<ion-content padding>
+    <ion-item *ngFor="let job of jobs;">
+        <ion-label>{{job}}</ion-label>
+        <ion-checkbox (click)="appendJob(job)"></ion-checkbox>
+    </ion-item>
+    <button ion-button block outline (click)="done()">Done</button>
+</ion-content>

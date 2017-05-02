@@ -2,18 +2,28 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
+import { Camera } from '@ionic-native/camera';
 
 //Common side
 import { LoginPage } from '../pages/common/login-page/login-page'
 import { UIDecider } from '../pages/common/ui-decider/ui-decider'
 import {MessagePage} from '../pages/common/message-page/message-page'
+import {JobDetailsPage} from '../pages/common/job-details-page/job-details-page'
+
 //Manager Side
 import { NewUserRequest } from '../pages/manager/new-user-request/new-user-request'
 import { ManagerTabs } from '../pages/manager/manager-tabs/manager-tabs'
+import {ManagerJobProgressPage} from '../pages/manager/job-progress-page/job-progress-page'
+import {ManagerCurrentJobsPage} from '../pages/manager/current-jobs-page/current-jobs-page'
 
 //Client Side
 import { ClientTabs } from '../pages/client/client-tabs/client-tabs'
 import { NewOrderPage } from '../pages/client/new-order-page/new-order-page'
+import {JobItemPage} from '../pages/client/job-item-page/job-item-page'
+import {ServiceRequestPage} from '../pages/client/service-request-page/service-request-page'
+import {ClientJobProgressPage} from '../pages/client/client-job-progress-page/client-job-progress-page'
+import {ClientCurrentJobsPage} from '../pages/client/client-current-jobs-page/client-current-jobs-page'
+
 
 //Tradesperson Side
 import { TradesPersonTabs } from '../pages/tradesperson/trades-person-tabs/trades-person-tabs';
@@ -26,20 +36,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AngularFireModule } from 'angularfire2';
 //Firebase setting
 var firebaseConfig = {
-  apiKey: "AIzaSyCGeqA919ywNYRz0ih7k6f0GLne55bb3Ek",
-  authDomain: "aegis-test-cc70c.firebaseapp.com",
-  databaseURL: "https://aegis-test-cc70c.firebaseio.com",
-  projectId: "aegis-test-cc70c",
-  storageBucket: "aegis-test-cc70c.appspot.com",
-  messagingSenderId: "371029388984"
+    apiKey: "AIzaSyByoy4jwSFBahLuxoUD1Y0zotrxGbxa81Q",
+    authDomain: "aegis-c197c.firebaseapp.com",
+    databaseURL: "https://aegis-c197c.firebaseio.com",
+    projectId: "aegis-c197c",
+    storageBucket: "aegis-c197c.appspot.com",
+    messagingSenderId: "922210177619"
 };
 
 @NgModule({
   declarations: [
     MyApp,UIDecider,
-    LoginPage, MessagePage,
-    NewUserRequest, ManagerTabs,
-    ClientTabs, NewOrderPage,
+    LoginPage, MessagePage, JobDetailsPage,
+    NewUserRequest, ManagerTabs,ManagerCurrentJobsPage,ManagerJobProgressPage,
+    ClientTabs, NewOrderPage,JobItemPage,ServiceRequestPage,ClientJobProgressPage,ClientCurrentJobsPage,
     TradesPersonTabs, TPJobs
   ],
   imports: [
@@ -51,14 +61,15 @@ var firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp, UIDecider,
-    LoginPage,MessagePage,
-    ManagerTabs, NewUserRequest,
-    ClientTabs, NewOrderPage,
+    LoginPage,MessagePage,JobDetailsPage,
+    ManagerTabs, NewUserRequest,ManagerCurrentJobsPage,ManagerJobProgressPage,
+    ClientTabs, NewOrderPage,JobItemPage,ServiceRequestPage,ClientJobProgressPage,ClientCurrentJobsPage,
     TradesPersonTabs, TPJobs
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    Camera,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
