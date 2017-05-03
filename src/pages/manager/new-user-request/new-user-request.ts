@@ -20,6 +20,12 @@ export class NewUserRequest {
       }
     })
   }
+  ionViewCanEnter(){
+
+  }
+  ionViewWillLeave(){
+    
+  }
 
   userSelected(key, name) {
     let alert = this.alertCtrl.create();

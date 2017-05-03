@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let cj of currentJobs | async" padding>
+  <ion-card *ngFor="let cj of currentJobs" padding>
     <p ion-text color="primary" text-center>{{cj.jobName}} request<br>{{cj.clientName}}<br>{{cj.placedOn}}</p>
     <ion-grid>
       <ion-row>

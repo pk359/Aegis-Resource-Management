@@ -13,22 +13,33 @@ import {ManagerJobProgressPage} from '../job-progress-page/job-progress-page'
 export class ManagerCurrentJobsPage {
 
   cUser: any
-  currentJobs: any = FirebaseListObservable
+  currentJobs: any = []
+  ref: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
-    console.log(this.cUser)
-    this.currentJobs = this.af.database.list('request/',
-      {
-        query: {
-          orderByChild: 'completed',
-          equalTo: false
-        }
-      })
     // console.log(this.currentJobs)
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ManagerCurrentJobsPage');
+  }
+
+  ionViewCanEnter(){
+
+    this.ref = firebase.database().ref('request').orderByChild('completed').equalTo(false);
+    this.ref.on('value', snap => {
+      this.currentJobs = []
+      var tempData = {}
+      Object.keys(snap.val()).forEach(key => {
+        tempData = snap.val()[key];
+        tempData['key'] = key;
+        this.currentJobs.push(tempData);
+      })
+      console.log(this.currentJobs)
+    })
+  }
+  ionViewCanLeave(){
+    this.ref = null;
   }
 
   setApprove(key) {
