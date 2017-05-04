@@ -3,8 +3,8 @@ import { NavController, NavParams, ToastController, AlertController } from 'ioni
 import { AngularFire, FirebaseListObservable } from 'angularfire2'
 import firebase from 'firebase'
 import { LoginPage } from '../../common/login-page/login-page'
-import { JobDetailsPage} from '../../common/job-details-page/job-details-page'
-import {ManagerJobProgressPage} from '../job-progress-page/job-progress-page'
+import { JobDetailsPage } from '../../common/job-details-page/job-details-page'
+import { ManagerJobProgressPage } from '../job-progress-page/job-progress-page'
 
 
 @Component({
@@ -24,21 +24,20 @@ export class ManagerCurrentJobsPage {
     console.log('ionViewDidLoad ManagerCurrentJobsPage');
   }
 
-  ionViewCanEnter(){
+  ionViewCanEnter() {
 
     this.ref = firebase.database().ref('request').orderByChild('completed').equalTo(false);
     this.ref.on('value', snap => {
       this.currentJobs = []
-      var tempData = {}
-      Object.keys(snap.val()).forEach(key => {
-        tempData = snap.val()[key];
-        tempData['key'] = key;
-        this.currentJobs.push(tempData);
-      })
+      if (snap.val()) {
+        Object.keys(snap.val()).forEach(key => {
+          this.currentJobs.push(snap.val()[key]);
+        })
+      }
       console.log(this.currentJobs)
     })
   }
-  ionViewCanLeave(){
+  ionViewCanLeave() {
     this.ref = null;
   }
 
@@ -67,7 +66,7 @@ export class ManagerCurrentJobsPage {
           type: 'checkbox',
           label: tp[key].name,
           //'{ "name":"John", "age":30, "city":"New York"}'
-          value: `{"tpId": "${key}", "tpName": "${tp[key].name}"}` ,
+          value: `{"tpId": "${key}", "tpName": "${tp[key].name}"}`,
           checked: false
         });
       })
@@ -77,8 +76,8 @@ export class ManagerCurrentJobsPage {
         handler: data => {
           console.log(data)
           var tpData = []
-          data.forEach(d=>{
-            tpData.push({tpId: JSON.parse(d).tpId, tpName: JSON.parse(d).tpName})
+          data.forEach(d => {
+            tpData.push({ tpId: JSON.parse(d).tpId, tpName: JSON.parse(d).tpName })
           })
           firebase.database().ref('request/' + key + '/progress/').update({
             tpAssigned: tpData
@@ -97,12 +96,12 @@ export class ManagerCurrentJobsPage {
   }
 
   showDetailsPage(key) {
-    this.navCtrl.push(JobDetailsPage,{
+    this.navCtrl.push(JobDetailsPage, {
       jobKey: key
     });
   }
   showProgresPage(key) {
-   this.navCtrl.push(ManagerJobProgressPage,{
+    this.navCtrl.push(ManagerJobProgressPage, {
       jobKey: key
     });
   }

@@ -22,13 +22,13 @@
         <ion-item text-center [ngStyle]="{'background': detail.aegisApproved? '#4dbdd6':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.aegisApproved" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.aegisApproved" item-left></ion-icon>
-          {{detail.aegisApproved? 'You approved the job request': 'Your approval required'}}
+          {{detail.aegisApproved? 'Aegis approved your job request': 'Aegis has not approved this job request yet.'}}
         </ion-item>
         <ion-item text-center [ngStyle]="{'background': detail.tpAssigned? '#4dbdd6':'#dadada'}" text-wrap>
           
           <ion-icon name="checkmark-circle" *ngIf="detail.tpAssigned" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.tpAssigned" item-left></ion-icon>
-          {{detail.tpAssigned ? 'You assigned job to:': 'No one has been assigned this job'}}
+          {{detail.tpAssigned ? 'Worker names are :': 'Waiting for Aegis to assign person for this job.'}}
           
           <span *ngFor="let tp of detail.tpAssigned">
             {{tp.tpName}}</span>
@@ -53,17 +53,17 @@
         <ion-item text-center [ngStyle]="{'background': detail.tpDone? '#4dbdd6':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.tpDone" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.tpDone" item-left></ion-icon>
-          {{detail.tpDone ? 'Worker marked it done': 'Not done yet'}}
+          {{detail.tpDone ? 'Worker marked it done': 'Worker has not marked it done yet'}}
         </ion-item>
         <ion-item text-center [ngStyle]="{'background': detail.clientApproved? '#4dbdd6':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.clientApproved" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.clientApproved" item-left></ion-icon>
-          {{detail.clientApproved ? 'Client has approved the job': 'Client has not approved yet.'}}
+          {{detail.clientApproved ? 'You marked the work as satisfied.': 'You need to mark the job as satisfied.'}}
         </ion-item>
         <ion-item text-center [ngStyle]="{'background': detail.invoiceSent? '#4dbdd6':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.invoiceSent" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.invoiceSent" item-left></ion-icon>
-          {{detail.invoiceSent ? 'You have sent the invoice': 'Invoice not sent yet.'}}
+          {{detail.invoiceSent ? 'Aegis sent you invoice.': 'Waiting for invoice from aegis.'}}
         </ion-item>
       </ion-list>
     </ion-card-content>

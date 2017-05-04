@@ -11,22 +11,10 @@ export class JobItemPage {
   constructor(public navParams: NavParams, public viewCtrl: ViewController) {
   }
 
-  ionViewDidEnter() {
-    var nData = this.navParams.data.jobs;
-    console.log(nData + 'from jobitem')
-    // this.selectedJobs = this.navParams.data.selectedJobs
-    if (nData instanceof Array) {
-      nData.forEach(val => {
-        this.jobs.push(val)
-      })
-    }
-    else if (nData instanceof Object) {
-      Object.keys(nData).forEach(k => {
-        nData[k].forEach(v => {
-          this.jobs.push(v)
-        })
-      })
-    }
+  ionViewCanEnter() {
+    this.navParams.data.jobs.forEach(j=>{
+      this.jobs.push(j)
+    })
   }
 
   appendJob(job) {
@@ -39,9 +27,6 @@ export class JobItemPage {
   }
   done() {
     this.viewCtrl.dismiss(this.selectedJobs)
-  }
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad JobItemPage');
   }
 
 }

@@ -23,7 +23,8 @@ export class UIDecider {
         message: 'Please wait for administrator to assign you a role.'
       })
     } else {
-      this.navCtrl.push(LoginPage)
+      this.navCtrl.resize();
+      this.navCtrl.push(LoginPage, {},caches.delete)
     }
   }
 

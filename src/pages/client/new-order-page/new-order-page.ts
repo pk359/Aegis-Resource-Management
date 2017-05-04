@@ -4,7 +4,7 @@ import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { JobItemPage } from '../job-item-page/job-item-page'
 import { Camera, CameraOptions } from '@ionic-native/camera'
-
+import { PhotoViewer } from '@ionic-native/photo-viewer';
 @Component({
   templateUrl: 'new-order-page.html',
 })
@@ -20,10 +20,16 @@ export class NewOrderPage {
   progress = 0
   error = ''
   cUser: any
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public modalCtrl: ModalController, public camera: Camera, public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController,
+    public navParams: NavParams, public af: AngularFire,
+    public modalCtrl: ModalController, public camera: Camera,
+    public loadingCtrl: LoadingController, public toastCtrl: ToastController,
+    public photoViewer: PhotoViewer) {
+
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
     this.snapped = [], this.jobs = []
     this.jobData = {
+      key: '',
       jobId: '',
       jobName: '',
       clientName: '',
@@ -49,22 +55,35 @@ export class NewOrderPage {
     }
   }
 
-  ionViewDidEnter() {
+  ionViewCanEnter() {
     this.serviceName = this.navParams.data.serviceName;
     firebase.database().ref('jobs/' + this.serviceName).once('value', snap => {
-      this.jobs = snap.val();
+      this.jobs = []
+      var fbJobs = snap.val();
+      if (fbJobs) {
+        if (fbJobs instanceof Array) {
+          fbJobs.forEach(val => {
+            this.jobs.push(val)
+          })
+        } else {
+          Object.keys(fbJobs).forEach(k => {
+            fbJobs[k].forEach(v => {
+              this.jobs.push(k + ' : ' + v)
+            })
+          })
+        }
+      }
     })
+
   }
   options: CameraOptions = {
-    quality: 100,
+    quality: 95,
     sourceType: this.camera.PictureSourceType.CAMERA,
     destinationType: this.camera.DestinationType.DATA_URL,
     encodingType: this.camera.EncodingType.JPEG,
     mediaType: this.camera.MediaType.PICTURE,
     saveToPhotoAlbum: true,
     correctOrientation: true,
-    targetHeight: 100,
-    targetWidth: 100,
     allowEdit: true
   }
 
@@ -141,7 +160,10 @@ export class NewOrderPage {
             this.jobData.clientUid = this.cUser.uid;
             this.jobData.placedOn = currentDate;
 
-            firebase.database().ref('request/').push(this.jobData).then(r => {
+
+            var reqRef = firebase.database().ref('request/').push()
+            this.jobData.key = reqRef.key;
+            reqRef.set(this.jobData).then(r => {
               loading.dismiss();
               this.toastCtrl.create({
                 message: 'Your order has been placed successfully.',
@@ -159,7 +181,9 @@ export class NewOrderPage {
     })
     console.log(this.jobData);
   }
-
+  showInFullScreen(imageUrl) {
+    this.photoViewer.show(imageUrl)
+  }
   getCurrentDate() {
     var date = new Date();
     var newDate = new Date(8 * 60 * 60000 + date.valueOf() + (date.getTimezoneOffset() * 60000));

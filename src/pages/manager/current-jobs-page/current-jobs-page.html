@@ -17,16 +17,16 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <button ion-button block [disabled]="cj.progress.aegisApproved" (click)="setApprove(cj.$key)">{{cj.progress.aegisApproved ? 'Approved': 'Approve'}}</button>
+          <button ion-button block [disabled]="cj.progress.aegisApproved" (click)="setApprove(cj.key)">{{cj.progress.aegisApproved ? 'Approved': 'Approve'}}</button>
         </ion-col>
         <ion-col>
-          <button ion-button block [disabled]="!cj.progress.aegisApproved || cj.progress.tpAssigned" (click)="assignTP(cj.$key)">{{cj.progress.tpAssigned ? 'Assigned': 'Assign'}}</button>
+          <button ion-button block [disabled]="!cj.progress.aegisApproved || cj.progress.tpAssigned" (click)="assignTP(cj.key)">{{cj.progress.tpAssigned ? 'Assigned': 'Assign'}}</button>
         </ion-col>
         <ion-col>
-          <button ion-button block (click)="showDetailsPage(cj.$key)">Details</button>
+          <button ion-button block (click)="showDetailsPage(cj.key)">Details</button>
         </ion-col>
         <ion-col *ngIf="cj.progress.tpAssigned">
-          <button ion-button block (click)="showProgresPage(cj.$key)">Progress</button>
+          <button ion-button block (click)="showProgresPage(cj.key)">Progress</button>
         </ion-col>
       </ion-row>
     </ion-grid>

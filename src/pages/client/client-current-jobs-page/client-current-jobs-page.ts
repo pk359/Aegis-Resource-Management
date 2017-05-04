@@ -4,7 +4,7 @@ import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { ClientJobProgressPage } from '../client-job-progress-page/client-job-progress-page'
 import { JobDetailsPage } from '../../common/job-details-page/job-details-page'
-import {LoginPage } from '../../common/login-page/login-page'
+import { LoginPage } from '../../common/login-page/login-page'
 
 @Component({
   templateUrl: 'client-current-jobs-page.html',
@@ -15,27 +15,30 @@ export class ClientCurrentJobsPage {
   currentJobs: any = []
   ref: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire) {
-    this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
+
     // console.log(this.currentJobs)
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClientCurrentJobsPage');
   }
   ionViewCanEnter() {
+    this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
+    if (!this.cUser) {
+      return false;
+    }
     console.log('current jobs can enter')
     this.ref = firebase.database().ref('request').orderByChild('clientUid').equalTo(this.cUser.uid);
     this.ref.on('value', snap => {
       this.currentJobs = []
-      var tempData = {}
-      Object.keys(snap.val()).forEach(key => {
-        tempData = snap.val()[key];
-        tempData['key'] = key;
-        this.currentJobs.push(tempData);
-      })
+      if (snap.val()) {
+        Object.keys(snap.val()).forEach(key => {
+          this.currentJobs.push(snap.val()[key]);
+        })
+      }
       console.log(this.currentJobs)
     })
   }
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     console.log('current jobs will leave')
     this.ref = null;
   }
@@ -53,7 +56,7 @@ export class ClientCurrentJobsPage {
   }
 
   logout() {
-    this.af.auth.logout().then(()=>{
+    this.af.auth.logout().then(() => {
       window.localStorage.removeItem('userdetails')
       this.navCtrl.push(LoginPage)
     })

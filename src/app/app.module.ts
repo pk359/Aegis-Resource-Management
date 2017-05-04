@@ -2,7 +2,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { Camera } from '@ionic-native/camera';
+
 
 //Common side
 import { LoginPage } from '../pages/common/login-page/login-page'
@@ -29,9 +29,11 @@ import {ClientCurrentJobsPage} from '../pages/client/client-current-jobs-page/cl
 import { TradesPersonTabs } from '../pages/tradesperson/trades-person-tabs/trades-person-tabs';
 import { TPJobs } from '../pages/tradesperson/tp-jobs/tp-jobs'
 
+//Native api request
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { PhotoViewer } from '@ionic-native/photo-viewer';
+import { Camera } from '@ionic-native/camera';
 
 import { AngularFireModule } from 'angularfire2';
 //Firebase setting
@@ -69,7 +71,7 @@ var firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    Camera,
+    Camera,PhotoViewer,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

@@ -8,26 +8,21 @@ import firebase from 'firebase'
 export class ManagerJobProgressPage {
 
   progress: any = []
-  ref:any
+  ref: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire) {
     console.log(navParams.data.jobKey)
   }
 
-  ionViewCanEnter(){
-    this.ref = firebase.database().ref('request/'+this.navParams.data.jobKey+'/progress');
+  ionViewCanEnter() {
+    this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
       this.progress = []
-      var tempData = {}
-      Object.keys(snap.val()).forEach(key => {
-        tempData = snap.val()[key];
-        tempData['key'] = key;
-        this.progress.push(tempData);
-      })
+      this.progress.push(snap.val())
       console.log(this.progress)
     })
   }
 
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     this.ref = null;
   }
 

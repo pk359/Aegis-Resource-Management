@@ -55,7 +55,7 @@
       <ion-grid>
         <ion-row>
           <ion-col *ngFor="let image of snapped">
-            <img src="data:image/jpeg;base64,{{image.image}}" />
+            <img (click)="showInFullScreen('data:image/jpeg;base64,'+image.image)" src="data:image/jpeg;base64,{{image.image}}" />
           </ion-col>
         </ion-row>
       </ion-grid>
