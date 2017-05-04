@@ -16,11 +16,16 @@ export class ClientJobProgressPage {
   ionViewCanEnter() {
     this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
-      console.log(snap.val())
       this.progress = []
-      if (snap.val()) {
-        this.progress.push(snap.val())
+      var tempD = snap.val()
+      if (tempD.tpAssigned) {
+        var tpObject = tempD.tpAssigned
+        tempD.tpAssigned = []
+        Object.keys(tpObject).forEach(k => {
+          tempD.tpAssigned.push(tpObject[k]);
+        })
       }
+      this.progress.push(tempD)
     })
   }
   ionViewWillLeave() {

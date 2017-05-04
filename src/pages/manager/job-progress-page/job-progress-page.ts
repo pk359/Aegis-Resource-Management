@@ -17,8 +17,15 @@ export class ManagerJobProgressPage {
     this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
       this.progress = []
-      this.progress.push(snap.val())
-      console.log(this.progress)
+      var tempD = snap.val()
+      if (tempD.tpAssigned) {
+        var tpObject = tempD.tpAssigned
+        tempD.tpAssigned = []
+        Object.keys(tpObject).forEach(k => {
+          tempD.tpAssigned.push(tpObject[k]);
+        })
+      }
+      this.progress.push(tempD)
     })
   }
 

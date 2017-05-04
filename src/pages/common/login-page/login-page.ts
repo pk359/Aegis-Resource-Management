@@ -3,10 +3,6 @@ import firebase from 'firebase';
 import { NavController, LoadingController, NavParams } from 'ionic-angular';
 import { AngularFire, AngularFireAuth, AuthProviders, AuthMethods } from 'angularfire2'
 
-import { ManagerTabs } from '../../manager/manager-tabs/manager-tabs'
-import { ClientTabs } from '../../client/client-tabs/client-tabs'
-import { TradesPersonTabs } from '../../tradesperson/trades-person-tabs/trades-person-tabs'
-import { MessagePage } from '../message-page/message-page'
 import { UIDecider } from '../ui-decider/ui-decider'
 @Component({
   selector: 'page-login-page',
@@ -21,14 +17,12 @@ export class LoginPage {
     this.navCtrl.removeView(this.navCtrl.getPrevious());
   }
 
-
   ionViewDidEnter() {
     var views = this.navCtrl.getViews();
     views.forEach((k) => {
       console.log(k.component.name)
     });
   }
-
 
   login(email: string, password: string) {
     let loading = this.loadingCtrl.create({

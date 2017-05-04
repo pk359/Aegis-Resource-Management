@@ -160,7 +160,6 @@ export class NewOrderPage {
             this.jobData.clientUid = this.cUser.uid;
             this.jobData.placedOn = currentDate;
 
-
             var reqRef = firebase.database().ref('request/').push()
             this.jobData.key = reqRef.key;
             reqRef.set(this.jobData).then(r => {

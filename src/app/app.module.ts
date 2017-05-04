@@ -27,7 +27,7 @@ import {ClientCurrentJobsPage} from '../pages/client/client-current-jobs-page/cl
 
 //Tradesperson Side
 import { TradesPersonTabs } from '../pages/tradesperson/trades-person-tabs/trades-person-tabs';
-import { TPJobs } from '../pages/tradesperson/tp-jobs/tp-jobs'
+import { TPCurrentJobsPage } from '../pages/tradesperson/tp-current-jobs-page/tp-current-jobs-page'
 
 //Native api request
 import { StatusBar } from '@ionic-native/status-bar';
@@ -52,7 +52,7 @@ var firebaseConfig = {
     LoginPage, MessagePage, JobDetailsPage,
     NewUserRequest, ManagerTabs,ManagerCurrentJobsPage,ManagerJobProgressPage,
     ClientTabs, NewOrderPage,JobItemPage,ServiceRequestPage,ClientJobProgressPage,ClientCurrentJobsPage,
-    TradesPersonTabs, TPJobs
+    TradesPersonTabs, TPCurrentJobsPage
   ],
   imports: [
     BrowserModule,
@@ -66,7 +66,7 @@ var firebaseConfig = {
     LoginPage,MessagePage,JobDetailsPage,
     ManagerTabs, NewUserRequest,ManagerCurrentJobsPage,ManagerJobProgressPage,
     ClientTabs, NewOrderPage,JobItemPage,ServiceRequestPage,ClientJobProgressPage,ClientCurrentJobsPage,
-    TradesPersonTabs, TPJobs
+    TradesPersonTabs, TPCurrentJobsPage
   ],
   providers: [
     StatusBar,

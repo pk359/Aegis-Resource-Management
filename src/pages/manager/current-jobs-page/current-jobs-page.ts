@@ -17,15 +17,6 @@ export class ManagerCurrentJobsPage {
   ref: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
-    // console.log(this.currentJobs)
-  }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ManagerCurrentJobsPage');
-  }
-
-  ionViewCanEnter() {
-
     this.ref = firebase.database().ref('request').orderByChild('completed').equalTo(false);
     this.ref.on('value', snap => {
       this.currentJobs = []
@@ -36,6 +27,14 @@ export class ManagerCurrentJobsPage {
       }
       console.log(this.currentJobs)
     })
+  }
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ManagerCurrentJobsPage');
+  }
+
+  ionViewCanEnter() {
+
   }
   ionViewCanLeave() {
     this.ref = null;
@@ -75,9 +74,9 @@ export class ManagerCurrentJobsPage {
         text: 'Okay',
         handler: data => {
           console.log(data)
-          var tpData = []
+          var tpData = {}
           data.forEach(d => {
-            tpData.push({ tpId: JSON.parse(d).tpId, tpName: JSON.parse(d).tpName })
+            tpData[`${JSON.parse(d).tpId}`] = { tpId: JSON.parse(d).tpId, tpName: JSON.parse(d).tpName }
           })
           firebase.database().ref('request/' + key + '/progress/').update({
             tpAssigned: tpData
