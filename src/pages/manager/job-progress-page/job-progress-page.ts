@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import {InvoicePage} from '../invoice-page/invoice-page'
 @Component({
   templateUrl: 'job-progress-page.html',
 })
@@ -10,7 +11,7 @@ export class ManagerJobProgressPage {
 
   progress: any = []
   ref: any
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public photoViewer: PhotoViewer) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
     console.log(navParams.data.jobKey)
   }
 
@@ -30,7 +31,11 @@ export class ManagerJobProgressPage {
     })
   }
 
-  showImageInFullScreen(url){
+  sendInvoice() {
+   this.navCtrl.push(InvoicePage, {jobs: this.navParams.data.jobs})
+  }
+
+  showImageInFullScreen(url) {
     this.photoViewer.show(url)
   }
 

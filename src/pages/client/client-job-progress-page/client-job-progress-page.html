@@ -82,7 +82,7 @@
       <ion-icon name="close" *ngIf="!detail.tpDone" item-left></ion-icon>
       {{detail.tpDone ? 'Worker marked it done': 'Worker has not marked it done yet'}}
     </ion-item>
-    <ion-item text-center [ngStyle]="{'background': detail.clientApproved? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+    <ion-item (click)="setClientApproved()" text-center [ngStyle]="{'background': detail.clientApproved? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
       <ion-icon name="checkmark-circle" *ngIf="detail.clientApproved" item-left></ion-icon>
       <ion-icon name="close" *ngIf="!detail.clientApproved" item-left></ion-icon>
       {{detail.clientApproved ? 'You marked the work as satisfied.': 'You need to mark the job as satisfied.'}}

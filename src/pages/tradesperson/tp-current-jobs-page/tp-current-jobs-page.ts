@@ -36,7 +36,7 @@ export class TPCurrentJobsPage {
       }
     })
   }
-  ionViewCanLeave(){
+  ionViewCanLeave() {
     this.ref = null;
   }
 

@@ -77,11 +77,6 @@ export class ManagerCurrentJobsPage {
           firebase.database().ref('request/' + key + '/progress/').update({
             tpAssigned: tpData
           }).then(() => {
-            // data.forEach(d=>{
-            //   firebase.database().ref('tradesperson/'+d+'/'+key).set({
-            //     completed: false
-            //   })
-            // })
             this.showToast('Workers have been assigned successfully.');
           })
         }
@@ -96,8 +91,16 @@ export class ManagerCurrentJobsPage {
     });
   }
   showProgresPage(key) {
+    var jobs = []
+    this.currentJobs.forEach(job=>{
+      if(job.key == key){
+        jobs = job.jobs;
+      }
+    })
+
     this.navCtrl.push(ManagerJobProgressPage, {
-      jobKey: key
+      jobKey: key,
+      jobs: jobs
     });
   }
 

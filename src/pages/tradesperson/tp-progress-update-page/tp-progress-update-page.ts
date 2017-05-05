@@ -47,11 +47,20 @@ export class TPProgressUpdatePage {
       if (!snap.val().clientApproved) {
         this.progress.push(snap.val())
       }
+      if(this.progress.length == 0){
+        var alert = this.alertCtrl.create({
+          title: 'No Jobs',
+          message: 'No jobs for you yet',
+          buttons: ['okay']
+        })
+        alert.present();
+      }
     })
   }
   ionViewCanLeave() {
     this.ref = null;
   }
+
   markCheckedInTP() {
     if (!this.progress[0].checkedIn) {
       let alert = this.alertCtrl.create({
@@ -83,10 +92,7 @@ export class TPProgressUpdatePage {
   }
 
   markJobDoneTP() {
-
     if (this.progress[0].photosBefore && this.progress[0].photosAfter && this.progress[0].checkedIn) {
-
-
       var alert = this.alertCtrl.create({
         title: 'Please confirm',
         message: 'Have you done all the jobs in the request listing?',

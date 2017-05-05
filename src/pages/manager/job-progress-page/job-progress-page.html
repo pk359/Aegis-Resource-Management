@@ -6,13 +6,18 @@
 
 </ion-header>
 <style>
-  #checkedInItem {
-    border-radius: 100%;
-  }
-  
   ion-item {
     margin-top: 8px;
     border-radius: 50%
+  }
+  
+  .alert-md.alert-top {
+    padding-top: 0;
+  }
+  
+  .alert-wrapper {
+    min-width: 100%;
+    min-height: 100%;
   }
 </style>
 <ion-content padding>
@@ -74,7 +79,7 @@
         </ion-grid>
       </ion-card-content>
     </ion-card>
-    
+
     <ion-item text-center [ngStyle]="{'background': detail.tpDone? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
       <ion-icon name="checkmark-circle" *ngIf="detail.tpDone" item-left></ion-icon>
       <ion-icon name="close" *ngIf="!detail.tpDone" item-left></ion-icon>
@@ -85,10 +90,11 @@
       <ion-icon name="close" *ngIf="!detail.clientApproved" item-left></ion-icon>
       {{detail.clientApproved ? 'Client has approved the job': 'Client has not approved yet.'}}
     </ion-item>
-    <ion-item text-center [ngStyle]="{'background': detail.invoiceSent? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+    <ion-item (click)="sendInvoice()" text-center [ngStyle]="{'background': detail.invoiceSent? 'rgb(121, 214, 77)':'#dadada'}"
+      text-wrap>
       <ion-icon name="checkmark-circle" *ngIf="detail.invoiceSent" item-left></ion-icon>
       <ion-icon name="close" *ngIf="!detail.invoiceSent" item-left></ion-icon>
-      {{detail.invoiceSent ? 'You have sent the invoice': 'Invoice not sent yet.'}}
+      {{detail.invoiceSent ? 'You have sent the invoice': 'Please send invoice once all steps are done.'}}
     </ion-item>
   </div>
 
