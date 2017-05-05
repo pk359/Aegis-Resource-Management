@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
+
 //Common side
 import { LoginPage } from '../pages/common/login-page/login-page'
 import { UIDecider } from '../pages/common/ui-decider/ui-decider'
@@ -35,6 +36,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import { Camera } from '@ionic-native/camera';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import { AngularFireModule } from 'angularfire2';
 //Firebase setting
@@ -72,7 +74,7 @@ var firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    Camera,PhotoViewer,
+    Camera,PhotoViewer,EmailComposer,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

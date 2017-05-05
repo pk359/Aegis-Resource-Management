@@ -32,7 +32,7 @@ export class ManagerJobProgressPage {
   }
 
   sendInvoice() {
-   this.navCtrl.push(InvoicePage, {jobs: this.navParams.data.jobs})
+   this.navCtrl.push(InvoicePage, {jobs: this.navParams.data.jobs, jobTitle: this.navParams.data.jobTitle})
   }
 
   showImageInFullScreen(url) {

@@ -92,15 +92,18 @@ export class ManagerCurrentJobsPage {
   }
   showProgresPage(key) {
     var jobs = []
+    var jobTitle = ''
     this.currentJobs.forEach(job=>{
       if(job.key == key){
         jobs = job.jobs;
+        jobTitle  = job.jobName + ' placed on: ' + job.placedOn; 
       }
     })
 
     this.navCtrl.push(ManagerJobProgressPage, {
       jobKey: key,
-      jobs: jobs
+      jobs: jobs,
+      jobTitle: jobTitle
     });
   }
 
