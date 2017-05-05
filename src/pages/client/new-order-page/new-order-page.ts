@@ -84,6 +84,8 @@ export class NewOrderPage {
     mediaType: this.camera.MediaType.PICTURE,
     saveToPhotoAlbum: true,
     correctOrientation: true,
+    targetHeight: 700,
+    targetWidth: 700,
     allowEdit: true
   }
 

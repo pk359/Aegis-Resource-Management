@@ -32,6 +32,8 @@ export class TPProgressUpdatePage {
     mediaType: this.camera.MediaType.PICTURE,
     saveToPhotoAlbum: true,
     correctOrientation: true,
+    targetHeight: 700,
+    targetWidth: 700,
     allowEdit: true
   }
 
@@ -47,7 +49,7 @@ export class TPProgressUpdatePage {
       if (!snap.val().clientApproved) {
         this.progress.push(snap.val())
       }
-      if(this.progress.length == 0){
+      if (this.progress.length == 0) {
         var alert = this.alertCtrl.create({
           title: 'No Jobs',
           message: 'No jobs for you yet',
@@ -117,11 +119,11 @@ export class TPProgressUpdatePage {
         ]
       });
       alert.present();
-    }else{
+    } else {
       var alert = this.alertCtrl.create({
         title: 'Confirm?',
         message: 'Please complete previous tasks first',
-        buttons:['Okay']
+        buttons: ['Okay']
       })
       alert.present();
     }

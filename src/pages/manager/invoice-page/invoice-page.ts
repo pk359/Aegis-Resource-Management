@@ -25,21 +25,45 @@ export class InvoicePage {
     this.calculateTotalPrice();
 
     if (!isNaN(this.cost)) {
-      var body = `<div style="background: #82cbff; border: 1px solid black">`;
-      Object.keys(this.priceObject).forEach(k => {
-        body += `${k} : $ ${parseInt(this.priceObject[k])} <br>`
-      })
-      body += `</div>---------------------------<br>
+      if (this.cost == 0) {
+        this.alertCtrl.create({
+          title: 'Do you want to continue?',
+          message: 'Are you sure you want to send a bill of $ 0 ?',
+          buttons: [{
+            text: 'No',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              this.sendEmail();
+            }
+          }]
+        }).present();
+      } else {
+        this.sendEmail();
+      }
+    }
+  }
+
+  sendEmail() {
+    var body = `<div style="background: #82cbff; border: 1px solid black">`;
+    Object.keys(this.priceObject).forEach(k => {
+      body += `${k} : $ ${parseInt(this.priceObject[k])} <br>`
+    })
+    body += `</div>---------------------------<br>
                Total Cost: $ ${this.cost}<br>
                ----------------------------`
-      let email = {
-        to: 'arni9495@gmail.com',
-        subject: 'Invoice for order ' + this.navParams.data.jobTitle,
-        body: body,
-        isHtml: true
-      }
-      this.emailComposer.open(email);
+    let email = {
+      to: 'arni9495@gmail.com',
+      subject: 'Invoice for order ' + this.navParams.data.jobTitle,
+      body: body,
+      isHtml: true
     }
+    this.emailComposer.open(email);
   }
 
   calculateTotalPrice() {
