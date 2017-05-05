@@ -53,60 +53,72 @@ export class TPProgressUpdatePage {
     this.ref = null;
   }
   markCheckedInTP() {
+    if (!this.progress[0].checkedIn) {
+      let alert = this.alertCtrl.create({
+        title: 'Please confirm',
+        message: 'Have you checked in already?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
+                checkedIn: true
+              }).then(() => {
+                this.showToast('Your status is updated to checked in.');
+              })
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
 
-    let alert = this.alertCtrl.create({
-      title: 'Please confirm',
-      message: 'Have you checked in already?',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Yes',
-          handler: () => {
-            firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
-              checkedIn: true
-            }).then(() => {
-              this.showToast('Your status is updated to checked in.');
-            })
-          }
-        }
-      ]
-    });
-    alert.present();
   }
 
   markJobDoneTP() {
 
-    var alert = this.alertCtrl.create({
-      title: 'Please confirm',
-      message: 'Have you done all the jobs in the request listing?',
-      buttons: [
-        {
-          text: 'No',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Yes',
-          handler: () => {
-            firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
-              tpDone: true
-            }).then(() => {
-              this.showToast('Job is marked done now. Wait for client to approve work.');
-            })
-          }
-        }
-      ]
-    });
-    alert.present();
+    if (this.progress[0].photosBefore && this.progress[0].photosAfter && this.progress[0].checkedIn) {
 
+
+      var alert = this.alertCtrl.create({
+        title: 'Please confirm',
+        message: 'Have you done all the jobs in the request listing?',
+        buttons: [
+          {
+            text: 'No',
+            role: 'cancel',
+            handler: () => {
+              console.log('Cancel clicked');
+            }
+          },
+          {
+            text: 'Yes',
+            handler: () => {
+              firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
+                tpDone: true
+              }).then(() => {
+                this.showToast('Job is marked done now. Wait for client to approve work.');
+              })
+            }
+          }
+        ]
+      });
+      alert.present();
+    }else{
+      var alert = this.alertCtrl.create({
+        title: 'Confirm?',
+        message: 'Please complete previous tasks first',
+        buttons:['Okay']
+      })
+      alert.present();
+    }
   }
 
   snap(before) {
@@ -128,13 +140,17 @@ export class TPProgressUpdatePage {
       this.snapped = this.snappedBefore;
       this.snappedBefore = []
 
-      photos = this.progress.photosBefore;
+      if (this.progress[0].photosBefore) {
+        photos = this.progress[0].photosBefore;
+      }
       url = 'request/' + this.navParams.data.jobKey + '/progress/photosBefore'
       this.savePictureToFire(photos, url)
     } else if (!before && this.snappedAfter.length > 0) {
       this.snapped = this.snappedAfter;
       this.snappedAfter = []
-      photos = this.progress.photosAfter;
+      if (this.progress[0].photosAfter) {
+        photos = this.progress[0].photosAfter;
+      }
       url = 'request/' + this.navParams.data.jobKey + '/progress/photosAfter'
       this.savePictureToFire(photos, url)
     } else {
