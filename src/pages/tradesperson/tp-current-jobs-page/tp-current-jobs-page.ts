@@ -4,7 +4,7 @@ import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { LoginPage } from '../../common/login-page/login-page'
 import { JobDetailsPage } from '../../common/job-details-page/job-details-page'
-import {TPProgressUpdatePage} from '../tp-progress-update-page/tp-progress-update-page'
+import { TPProgressUpdatePage } from '../tp-progress-update-page/tp-progress-update-page'
 
 @Component({
   templateUrl: 'tp-current-jobs-page.html',
@@ -22,17 +22,22 @@ export class TPCurrentJobsPage {
       return false;
     }
     console.log('tp current jobs can enter')
-    this.ref = firebase.database().ref('request/').orderByChild('progress/tpAssigned/' + this.cUser.uid);
+    this.ref = firebase.database().ref('request');
     this.ref.on('value', snap => {
-      console.log(snap.val())
       this.currentJobs = []
       if (snap.val()) {
         Object.keys(snap.val()).forEach(key => {
-          this.currentJobs.push(snap.val()[key]);
+          if (snap.val()[key].progress.tpAssigned) {
+            if (this.cUser.uid in snap.val()[key].progress.tpAssigned) {
+              this.currentJobs.push(snap.val()[key]);
+            }
+          }
         })
       }
-      console.log(this.currentJobs)
     })
+  }
+  ionViewCanLeave(){
+    this.ref = null;
   }
 
   showDetailsPage(key) {
@@ -41,10 +46,9 @@ export class TPCurrentJobsPage {
       jobKey: key
     });
   }
-  updateProgressPage(key){
+  updateProgressPage(key) {
     this.navCtrl.push(TPProgressUpdatePage, {
       jobKey: key,
-      
     })
   }
 

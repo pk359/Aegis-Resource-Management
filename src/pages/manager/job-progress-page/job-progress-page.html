@@ -16,57 +16,80 @@
   }
 </style>
 <ion-content padding>
-  <ion-card *ngFor="let detail of progress" padding>
-    <ion-card-content>
-      <ion-list>
-        <ion-item text-center [ngStyle]="{'background': detail.aegisApproved? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          <ion-icon name="checkmark-circle" *ngIf="detail.aegisApproved" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.aegisApproved" item-left></ion-icon>
-          {{detail.aegisApproved? 'You approved the job request': 'Your approval required'}}
-        </ion-item>
-        <ion-item text-center [ngStyle]="{'background': detail.tpAssigned? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          
-          <ion-icon name="checkmark-circle" *ngIf="detail.tpAssigned" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.tpAssigned" item-left></ion-icon>
-          {{detail.tpAssigned ? 'You assigned job to:': 'No one has been assigned this job'}}
-          
-          <span *ngFor="let tp of detail.tpAssigned">
-            {{tp.tpName}}</span>
+  <div *ngFor="let detail of progress" padding>
+    <ion-item text-center [ngStyle]="{'background': detail.aegisApproved? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+      <ion-icon name="checkmark-circle" *ngIf="detail.aegisApproved" item-left></ion-icon>
+      <ion-icon name="close" *ngIf="!detail.aegisApproved" item-left></ion-icon>
+      {{detail.aegisApproved? 'You approved the job request': 'Your approval required'}}
+    </ion-item>
+    <ion-item text-center [ngStyle]="{'background': detail.tpAssigned? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
 
-        </ion-item>
-        <ion-item text-center [ngStyle]="{'background': detail.checkedIn? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          <ion-icon name="checkmark-circle" *ngIf="detail.checkedIn" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.checkedIn" item-left></ion-icon>
-          {{detail.checkedIn ? 'Workers have reached the place': 'Waiting for workers to reach the site'}}
-        </ion-item>
+      <ion-icon name="checkmark-circle" *ngIf="detail.tpAssigned" item-left></ion-icon>
+      <ion-icon name="close" *ngIf="!detail.tpAssigned" item-left></ion-icon>
+      {{detail.tpAssigned ? 'You assigned job to:': 'No one has been assigned this job'}}
+
+      <span *ngFor="let tp of detail.tpAssigned">
+            {{tp.tpName}}</span>
+    </ion-item>
+    <ion-item text-center [ngStyle]="{'background': detail.checkedIn? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+      <ion-icon name="checkmark-circle" *ngIf="detail.checkedIn" item-left></ion-icon>
+      <ion-icon name="close" *ngIf="!detail.checkedIn" item-left></ion-icon>
+      {{detail.checkedIn ? 'Workers have reached the place': 'Waiting for workers to reach the site'}}
+    </ion-item>
+
+    <ion-card>
+      <ion-card-header>
         <ion-item text-center [ngStyle]="{'background': detail.photosBefore? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.photosBefore" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.photosBefore" item-left></ion-icon>
-
-          {{detail.photosBefore ? 'Photos before service': 'Waiting for photos before service'}}
+          {{detail.photosBefore ? 'Click on these photos to see in full screen.': 'No photos yet.'}}
         </ion-item>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let imageUrl of detail.photosBefore">
+              <img (click)="showImageInFullScreen(imageUrl)" src="{{imageUrl}}" />
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
         <ion-item text-center [ngStyle]="{'background': detail.photosAfter? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.photosAfter" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.photosAfter" item-left></ion-icon>
-          {{detail.photosAfter ? 'Photos after service': 'Waiting for photos after service'}}
+          {{detail.photosAfter ? 'Click on these photos to see in full screen.': 'No photos yet.'}}
         </ion-item>
-        <ion-item text-center [ngStyle]="{'background': detail.tpDone? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          <ion-icon name="checkmark-circle" *ngIf="detail.tpDone" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.tpDone" item-left></ion-icon>
-          {{detail.tpDone ? 'Worker marked it done': 'Not done yet'}}
-        </ion-item>
-        <ion-item text-center [ngStyle]="{'background': detail.clientApproved? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          <ion-icon name="checkmark-circle" *ngIf="detail.clientApproved" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.clientApproved" item-left></ion-icon>
-          {{detail.clientApproved ? 'Client has approved the job': 'Client has not approved yet.'}}
-        </ion-item>
-        <ion-item text-center [ngStyle]="{'background': detail.invoiceSent? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          <ion-icon name="checkmark-circle" *ngIf="detail.invoiceSent" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.invoiceSent" item-left></ion-icon>
-          {{detail.invoiceSent ? 'You have sent the invoice': 'Invoice not sent yet.'}}
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col *ngFor="let imageUrl of detail.photosAfter">
+              <img (click)="showImageInFullScreen(imageUrl)" src="{{imageUrl}}" />
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    
+    <ion-item text-center [ngStyle]="{'background': detail.tpDone? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+      <ion-icon name="checkmark-circle" *ngIf="detail.tpDone" item-left></ion-icon>
+      <ion-icon name="close" *ngIf="!detail.tpDone" item-left></ion-icon>
+      {{detail.tpDone ? 'Worker marked it done': 'Not done yet'}}
+    </ion-item>
+    <ion-item text-center [ngStyle]="{'background': detail.clientApproved? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+      <ion-icon name="checkmark-circle" *ngIf="detail.clientApproved" item-left></ion-icon>
+      <ion-icon name="close" *ngIf="!detail.clientApproved" item-left></ion-icon>
+      {{detail.clientApproved ? 'Client has approved the job': 'Client has not approved yet.'}}
+    </ion-item>
+    <ion-item text-center [ngStyle]="{'background': detail.invoiceSent? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+      <ion-icon name="checkmark-circle" *ngIf="detail.invoiceSent" item-left></ion-icon>
+      <ion-icon name="close" *ngIf="!detail.invoiceSent" item-left></ion-icon>
+      {{detail.invoiceSent ? 'You have sent the invoice': 'Invoice not sent yet.'}}
+    </ion-item>
+  </div>
 
 </ion-content>

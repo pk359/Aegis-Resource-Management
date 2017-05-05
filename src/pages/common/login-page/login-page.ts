@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
 import { NavController, LoadingController, NavParams } from 'ionic-angular';
-import { AngularFire, AngularFireAuth, AuthProviders, AuthMethods } from 'angularfire2'
+import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2'
 
 import { UIDecider } from '../ui-decider/ui-decider'
 @Component({

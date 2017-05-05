@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { AngularFire, FirebaseListObservable } from 'angularfire2'
+import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { LoginPage } from '../../common/login-page/login-page'
 import { JobDetailsPage } from '../../common/job-details-page/job-details-page'
@@ -31,10 +31,6 @@ export class ManagerCurrentJobsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ManagerCurrentJobsPage');
-  }
-
-  ionViewCanEnter() {
-
   }
   ionViewCanLeave() {
     this.ref = null;

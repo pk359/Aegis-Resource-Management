@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { Camera, CameraOptions } from '@ionic-native/camera'
@@ -13,10 +13,14 @@ export class TPProgressUpdatePage {
   cUser: any
   ref: any
   progress: any = []
-
-  snapped: any
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire,public camera: Camera,
-    public loadingCtrl: LoadingController, public toastCtrl: ToastController) {
+  snapped: any = []
+  snappedBefore: any
+  snappedAfter: any
+  error: any = ''
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public camera: Camera,
+    public loadingCtrl: LoadingController, public toastCtrl: ToastController, public alertCtrl: AlertController, public photoViewer: PhotoViewer) {
+    this.snappedBefore = []
+    this.snappedAfter = []
     this.snapped = []
   }
 
@@ -39,29 +43,172 @@ export class TPProgressUpdatePage {
     console.log('tp current jobs can enter')
     this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
-      console.log(snap.val())
       this.progress = []
-      this.progress.push(snap.val())
-      console.log(this.progress)
+      if (!snap.val().clientApproved) {
+        this.progress.push(snap.val())
+      }
     })
   }
+  ionViewCanLeave() {
+    this.ref = null;
+  }
+  markCheckedInTP() {
 
-  snap() {
+    let alert = this.alertCtrl.create({
+      title: 'Please confirm',
+      message: 'Have you checked in already?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
+              checkedIn: true
+            }).then(() => {
+              this.showToast('Your status is updated to checked in.');
+            })
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  markJobDoneTP() {
+
+    var alert = this.alertCtrl.create({
+      title: 'Please confirm',
+      message: 'Have you done all the jobs in the request listing?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: () => {
+            firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
+              tpDone: true
+            }).then(() => {
+              this.showToast('Job is marked done now. Wait for client to approve work.');
+            })
+          }
+        }
+      ]
+    });
+    alert.present();
+
+  }
+
+  snap(before) {
     this.camera.getPicture(this.options).then(data => {
-      this.snapped.push({ image: data, time: this.getCurrentDate() });
+      if (before) {
+        this.snappedBefore.push({ image: data, time: this.getCurrentDate() });
+      } else if (!before) {
+        this.snappedAfter.push({ image: data, time: this.getCurrentDate() });
+      }
     }, (err) => {
       console.log(err)
     });
   }
 
-  savePicturesBeforeService() {
-    
+  savePictures(before) {
+    var url = ''
+    var photos = []
+    if (before && this.snappedBefore.length > 0) {
+      this.snapped = this.snappedBefore;
+      this.snappedBefore = []
+
+      photos = this.progress.photosBefore;
+      url = 'request/' + this.navParams.data.jobKey + '/progress/photosBefore'
+      this.savePictureToFire(photos, url)
+    } else if (!before && this.snappedAfter.length > 0) {
+      this.snapped = this.snappedAfter;
+      this.snappedAfter = []
+      photos = this.progress.photosAfter;
+      url = 'request/' + this.navParams.data.jobKey + '/progress/photosAfter'
+      this.savePictureToFire(photos, url)
+    } else {
+      let alert = this.alertCtrl.create({
+        title: 'No photos to save',
+        subTitle: 'Please add some photos and then hit save',
+        buttons: ['Okay']
+      });
+      alert.present();
+    }
   }
-   getCurrentDate() {
+
+  savePictureToFire(photos, url) {
+    var count = 0;
+    let loading = this.loadingCtrl.create({
+      showBackdrop: false,
+      spinner: 'crescent',
+      content: 'Sending request to aegis, please wait...'
+    });
+    loading.present();
+
+    var ref = firebase.storage().ref();
+    this.snapped.forEach((item, i) => {
+      var task = ref.child('images/tp/' + this.cUser.name + '/' + item.time + '.jpg').putString(item.image, 'base64');
+      // Listen for state changes, errors, and completion of the upload.
+      task.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        (snapshot) => {
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              loading.setContent('Waiting for internet... ')
+              break;
+          }
+        }, function (error) {
+          console.log(error)
+        }
+        , () => {
+          // Upload completed successfully, now we can get the download URL
+          photos.push(task.snapshot.downloadURL);
+          if (++count == this.snapped.length) {
+            var reqRef = firebase.database().ref(url);
+            reqRef.set(photos).then(r => {
+              loading.dismiss();
+              this.toastCtrl.create({
+                message: 'Photos are saved now.',
+                duration: 3000,
+                position: 'bottom',
+                dismissOnPageChange: false
+              }).present();
+            }).then(() => {
+              this.snapped = []
+            }).catch(r => {
+              console.log(r);
+            })
+          }
+        });
+    })
+  }
+
+  showImageInFullScreen(url) {
+    this.photoViewer.show(url)
+  }
+  getCurrentDate() {
     var date = new Date();
     var newDate = new Date(8 * 60 * 60000 + date.valueOf() + (date.getTimezoneOffset() * 60000));
     var ampm = newDate.getHours() < 12 ? ' AM' : ' PM';
     var strDate = newDate + '';
     return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
+  }
+  showToast(message) {
+    this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom',
+      dismissOnPageChange: false
+    }).present();
   }
 }

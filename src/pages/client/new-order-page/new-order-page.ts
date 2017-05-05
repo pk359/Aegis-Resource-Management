@@ -131,7 +131,7 @@ export class NewOrderPage {
     });
     loading.present();
     var ref = firebase.storage().ref();
-    var uploadedSize = 0;
+    
     this.snapped.forEach((item, i) => {
       var task = ref.child('images/' + this.cUser.name + '/' + item.time + '.jpg').putString(item.image, 'base64');
       // Listen for state changes, errors, and completion of the upload.
@@ -148,8 +148,6 @@ export class NewOrderPage {
         , () => {
           // Upload completed successfully, now we can get the download URL
           this.jobData.photosByClient.push(task.snapshot.downloadURL);
-          uploadedSize += task.snapshot.totalBytes
-          console.log("i = " + i + ' photo length = ' + (this.snapped.length - 1))
           if (++count == this.snapped.length) {
 
             var currentDate = this.getCurrentDate();
