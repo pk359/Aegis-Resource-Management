@@ -42,14 +42,12 @@
       {{detail.checkedIn ? 'Workers have reached the place': 'Waiting for workers to reach the site'}}
     </ion-item>
 
+    <ion-item text-center [ngStyle]="{'background': detail.photosBefore? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+      <ion-icon name="checkmark-circle" *ngIf="detail.photosBefore" item-left></ion-icon>
+      <ion-icon name="close" *ngIf="!detail.photosBefore" item-left></ion-icon>
+      {{detail.photosBefore ? 'Photos before service.': 'Photos Before service will appear here.'}}
+    </ion-item>
     <ion-card>
-      <ion-card-header>
-        <ion-item text-center [ngStyle]="{'background': detail.photosBefore? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          <ion-icon name="checkmark-circle" *ngIf="detail.photosBefore" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.photosBefore" item-left></ion-icon>
-          {{detail.photosBefore ? 'Click on these photos to see in full screen.': 'No photos yet.'}}
-        </ion-item>
-      </ion-card-header>
       <ion-card-content>
         <ion-grid>
           <ion-row>
@@ -61,14 +59,12 @@
       </ion-card-content>
     </ion-card>
 
+    <ion-item text-center [ngStyle]="{'background': detail.photosAfter? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+      <ion-icon name="checkmark-circle" *ngIf="detail.photosAfter" item-left></ion-icon>
+      <ion-icon name="close" *ngIf="!detail.photosAfter" item-left></ion-icon>
+      {{detail.photosAfter ? 'Photos after service': 'Photos after service will appear here.'}}
+    </ion-item>
     <ion-card>
-      <ion-card-header>
-        <ion-item text-center [ngStyle]="{'background': detail.photosAfter? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          <ion-icon name="checkmark-circle" *ngIf="detail.photosAfter" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.photosAfter" item-left></ion-icon>
-          {{detail.photosAfter ? 'Click on these photos to see in full screen.': 'No photos yet.'}}
-        </ion-item>
-      </ion-card-header>
       <ion-card-content>
         <ion-grid>
           <ion-row>
