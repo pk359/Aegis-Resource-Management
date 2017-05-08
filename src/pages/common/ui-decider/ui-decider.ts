@@ -13,7 +13,7 @@ import { AngularFire } from 'angularfire2'
 export class UIDecider {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire) {
-    this.af.auth.subscribe;
+    // this.af.auth.subscribe;
     var cU = JSON.parse(window.localStorage.getItem('userdetails'))
     if (cU) {
       if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)

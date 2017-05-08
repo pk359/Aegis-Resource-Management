@@ -46,7 +46,7 @@ export class TPProgressUpdatePage {
     this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
       this.progress = []
-      if (!snap.val().clientApproved) {
+      if (!snap.val().clientApproved.status) {
         this.progress.push(snap.val())
       }
       if (this.progress.length == 0) {
@@ -64,7 +64,7 @@ export class TPProgressUpdatePage {
   }
 
   markCheckedInTP() {
-    if (!this.progress[0].checkedIn) {
+    if (!this.progress[0].checkedIn.status) {
       let alert = this.alertCtrl.create({
         title: 'Please confirm',
         message: 'Have you checked in already?',
@@ -80,7 +80,7 @@ export class TPProgressUpdatePage {
             text: 'Yes',
             handler: () => {
               firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
-                checkedIn: true
+                checkedIn: {status: true, timestamp: this.getCurrentDate()}
               }).then(() => {
                 this.showToast('Your status is updated to checked in.');
               })
@@ -94,7 +94,7 @@ export class TPProgressUpdatePage {
   }
 
   markJobDoneTP() {
-    if (this.progress[0].photosBefore && this.progress[0].photosAfter && this.progress[0].checkedIn) {
+    if (this.progress[0].photosBefore.status && this.progress[0].photosAfter.status && this.progress[0].checkedIn.status) {
       var alert = this.alertCtrl.create({
         title: 'Please confirm',
         message: 'Have you done all the jobs in the request listing?',
@@ -110,7 +110,7 @@ export class TPProgressUpdatePage {
             text: 'Yes',
             handler: () => {
               firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
-                tpDone: true
+                tpDone: {status: true, timestamp: this.getCurrentDate()}
               }).then(() => {
                 this.showToast('Job is marked done now. Wait for client to approve work.');
               })
@@ -148,16 +148,16 @@ export class TPProgressUpdatePage {
       this.snapped = this.snappedBefore;
       this.snappedBefore = []
 
-      if (this.progress[0].photosBefore) {
-        photos = this.progress[0].photosBefore;
+      if (this.progress[0].photosBefore.status) {
+        photos = this.progress[0].photosBefore.photos;
       }
       url = 'request/' + this.navParams.data.jobKey + '/progress/photosBefore'
       this.savePictureToFire(photos, url)
     } else if (!before && this.snappedAfter.length > 0) {
       this.snapped = this.snappedAfter;
       this.snappedAfter = []
-      if (this.progress[0].photosAfter) {
-        photos = this.progress[0].photosAfter;
+      if (this.progress[0].photosAfter.status) {
+        photos = this.progress[0].photosAfter.photos;
       }
       url = 'request/' + this.navParams.data.jobKey + '/progress/photosAfter'
       this.savePictureToFire(photos, url)
@@ -199,7 +199,7 @@ export class TPProgressUpdatePage {
           photos.push(task.snapshot.downloadURL);
           if (++count == this.snapped.length) {
             var reqRef = firebase.database().ref(url);
-            reqRef.set(photos).then(r => {
+            reqRef.set({status: true, photos: photos, timestamp: this.getCurrentDate()}).then(r => {
               loading.dismiss();
               this.toastCtrl.create({
                 message: 'Photos are saved now.',

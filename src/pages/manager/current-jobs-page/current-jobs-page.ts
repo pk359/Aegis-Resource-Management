@@ -38,7 +38,7 @@ export class ManagerCurrentJobsPage {
 
   setApprove(key) {
     firebase.database().ref('request/' + key + '/progress/').update({
-      aegisApproved: true
+      aegisApproved: {status: true, timestamp: this.getCurrentTime()}
     }).then(() => {
       this.showToast('Job is approved, please assign a tradesperson now');
     })
@@ -75,7 +75,7 @@ export class ManagerCurrentJobsPage {
             tpData[`${JSON.parse(d).tpId}`] = { tpId: JSON.parse(d).tpId, tpName: JSON.parse(d).tpName }
           })
           firebase.database().ref('request/' + key + '/progress/').update({
-            tpAssigned: tpData
+            tpAssigned: {status: true, workers: tpData, timestamp: this.getCurrentTime()}
           }).then(() => {
             this.showToast('Workers have been assigned successfully.');
           })
@@ -96,14 +96,14 @@ export class ManagerCurrentJobsPage {
     this.currentJobs.forEach(job=>{
       if(job.key == key){
         jobs = job.jobs;
-        jobTitle  = job.jobName + ' placed on: ' + job.placedOn; 
+        jobTitle  = 'Room No: ' + job.room + ' placed on: ' + job.placedOn; 
       }
     })
 
     this.navCtrl.push(ManagerJobProgressPage, {
       jobKey: key,
       jobs: jobs,
-      jobTitle: jobTitle
+      jobTitle: jobTitle 
     });
   }
 
@@ -115,6 +115,14 @@ export class ManagerCurrentJobsPage {
       showCloseButton: true,
       dismissOnPageChange: false
     }).present();
+  }
+
+  getCurrentTime() {
+    var date = new Date();
+    var newDate = new Date(8 * 60 * 60000 + date.valueOf() + (date.getTimezoneOffset() * 60000));
+    var ampm = newDate.getHours() < 12 ? ' AM' : ' PM';
+    var strDate = newDate + '';
+    return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
   }
   logout() {
     this.currentJobs = null;

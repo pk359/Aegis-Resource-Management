@@ -7,29 +7,19 @@
 <ion-content padding>
   <ion-card *ngFor="let detail of jobDetails">
     <ion-card-header>
-      {{detail.jobName}} Works
+      Room: {{detail.room}} -- Placed at: {{detail.placedOn}}
     </ion-card-header>
     <ion-card-content>
-      <ul>
-        <li *ngFor="let job of detail.jobs">
-          {{job}}
-        </li>
-      </ul>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-label>Room: {{detail.room}}</ion-label>
-          </ion-col>
-          <ion-col>
-            <ion-label>Floor: {{detail.floor}}</ion-label>
-          </ion-col>
-          <ion-col>
-            <ion-label>Building: {{detail.building}}</ion-label>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-item>
+        <ul>
+          <li *ngFor="let job of detail.jobs">
+            {{job}}
+          </li>
+        </ul>
+      </ion-item>
+      <p ion-text>Details: {{detail.description}}</p>
       <ion-item *ngFor="let image of detail.photosByClient">
-         <img [src]="image" (click)="showInFullScreen(image)" />
+        <img [src]="image" (click)="showInFullScreen(image)" />
       </ion-item>
     </ion-card-content>
   </ion-card>

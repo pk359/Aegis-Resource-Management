@@ -22,7 +22,6 @@ export class NewUserRequest {
     //   console.log(snap.val())
     //   this.users.push(snap.val())
     // })
-
     this.users = this.af.database.list('users/', {
       query: {
         orderByChild: 'role',

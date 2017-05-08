@@ -20,8 +20,6 @@ import {InvoicePage} from '../pages/manager/invoice-page/invoice-page'
 //Client Side
 import { ClientTabs } from '../pages/client/client-tabs/client-tabs'
 import { NewOrderPage } from '../pages/client/new-order-page/new-order-page'
-import {JobItemPage} from '../pages/client/job-item-page/job-item-page'
-import {ServiceRequestPage} from '../pages/client/service-request-page/service-request-page'
 import {ClientJobProgressPage} from '../pages/client/client-job-progress-page/client-job-progress-page'
 import {ClientCurrentJobsPage} from '../pages/client/client-current-jobs-page/client-current-jobs-page'
 
@@ -54,7 +52,7 @@ var firebaseConfig = {
     MyApp,UIDecider,
     LoginPage, MessagePage, JobDetailsPage,
     NewUserRequest, ManagerTabs,ManagerCurrentJobsPage,ManagerJobProgressPage,InvoicePage,
-    ClientTabs, NewOrderPage,JobItemPage,ServiceRequestPage,ClientJobProgressPage,ClientCurrentJobsPage,
+    ClientTabs, NewOrderPage,ClientJobProgressPage,ClientCurrentJobsPage,
     TradesPersonTabs, TPCurrentJobsPage,TPProgressUpdatePage
   ],
   imports: [
@@ -68,7 +66,7 @@ var firebaseConfig = {
     MyApp, UIDecider,
     LoginPage,MessagePage,JobDetailsPage,
     ManagerTabs, NewUserRequest,ManagerCurrentJobsPage,ManagerJobProgressPage,InvoicePage,
-    ClientTabs, NewOrderPage,JobItemPage,ServiceRequestPage,ClientJobProgressPage,ClientCurrentJobsPage,
+    ClientTabs, NewOrderPage,ClientJobProgressPage,ClientCurrentJobsPage,
     TradesPersonTabs, TPCurrentJobsPage,TPProgressUpdatePage
   ],
   providers: [

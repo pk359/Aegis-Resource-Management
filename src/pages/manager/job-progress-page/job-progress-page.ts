@@ -18,13 +18,15 @@ export class ManagerJobProgressPage {
   ionViewCanEnter() {
     this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
+      console.log(snap.val())
       this.progress = []
       var tempD = snap.val()
-      if (tempD.tpAssigned) {
-        var tpObject = tempD.tpAssigned
-        tempD.tpAssigned = []
+      //firebase returns object, but ngfor can only accept arrays so we create an array here.
+      if (tempD.tpAssigned.status) {
+        var tpObject = tempD.tpAssigned.workers
+        tempD.tpAssigned.workers = []
         Object.keys(tpObject).forEach(k => {
-          tempD.tpAssigned.push(tpObject[k]);
+          tempD.tpAssigned.workers.push(tpObject[k]);
         })
       }
       this.progress.push(tempD)

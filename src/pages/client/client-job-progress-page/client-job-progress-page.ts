@@ -17,23 +17,25 @@ export class ClientJobProgressPage {
   ionViewCanEnter() {
     this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
+      console.log(snap.val())
       this.progress = []
       var tempD = snap.val()
-      if (tempD.tpAssigned) {
-        var tpObject = tempD.tpAssigned
-        tempD.tpAssigned = []
+      //firebase returns object, but ngfor can only accept arrays so we create an array here.
+      if (tempD.tpAssigned.status) {
+        var tpObject = tempD.tpAssigned.workers
+        tempD.tpAssigned.workers = []
         Object.keys(tpObject).forEach(k => {
-          tempD.tpAssigned.push(tpObject[k]);
+          tempD.tpAssigned.workers.push(tpObject[k]);
         })
       }
       this.progress.push(tempD)
     })
   }
-  showImageInFullScreen(imageUrl){
+  showImageInFullScreen(imageUrl) {
     this.photoViewer.show(imageUrl)
   }
 
-  setClientApproved(){
+  setClientApproved() {
     if (this.progress[0].tpDone) {
       var alert = this.alertCtrl.create({
         title: 'Please confirm',
@@ -50,21 +52,29 @@ export class ClientJobProgressPage {
             text: 'Yes',
             handler: () => {
               firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
-                clientApproved: true
+                clientApproved: { status: true, timestamp: this.getCurrentTime() }
               })
             }
           }
         ]
       });
       alert.present();
-    }else{
+    } else {
       var alert = this.alertCtrl.create({
         title: 'Wait, ',
         message: 'Let worker finish job first.',
-        buttons:['Okay']
+        buttons: ['Okay']
       })
       alert.present();
     }
+  }
+
+  getCurrentTime() {
+    var date = new Date();
+    var newDate = new Date(8 * 60 * 60000 + date.valueOf() + (date.getTimezoneOffset() * 60000));
+    var ampm = newDate.getHours() < 12 ? ' AM' : ' PM';
+    var strDate = newDate + '';
+    return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
   }
   ionViewWillLeave() {
     this.ref = null;

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
-import { JobItemPage } from '../job-item-page/job-item-page'
 import { Camera, CameraOptions } from '@ionic-native/camera'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import {ClientCurrentJobsPage} from '../client-current-jobs-page/client-current-jobs-page'
 @Component({
   templateUrl: 'new-order-page.html',
 })
@@ -16,7 +16,7 @@ export class NewOrderPage {
   firebaseJobObject: any = {}
   servicePictures: any = []
   serviceName = ''
-  color = ''
+  color = 'rgba(0, 0, 0, 0.18)'
   progress = 0
   error = ''
   cUser: any
@@ -24,57 +24,32 @@ export class NewOrderPage {
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController, public camera: Camera,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public photoViewer: PhotoViewer) {
+    public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
 
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
     this.snapped = [], this.jobs = []
     this.jobData = {
       key: '',
-      jobId: '',
-      jobName: '',
       clientName: '',
       clientUid: '',
       jobs: [],
+      description: '',
       room: '',
-      floor: '',
-      building: '',
       placedOn: '',
       completed: false,
-      zip: 12345,
       photosByClient: [],
       progress: {
-        aegisApproved: false,
-        tpAssigned: [],
-        checkedIn: false,
-        photosBefore: [],
-        photosAfter: [],
-        tpDone: false,
-        clientApproved: false,
-        invoiceSent: false
+        aegisApproved: {status: false},
+        tpAssigned:{status: false, workers: []},
+        checkedIn:  {status: false},
+        photosBefore: {status: false, photos: []},
+        photosAfter: {status: false, photos: []},
+        tpDone: {status: false},
+        clientApproved: {status: false},
+        invoiceSent: {status: false},
+        followUp: [{author: '', message: ''}]
       }
     }
-  }
-
-  ionViewCanEnter() {
-    this.serviceName = this.navParams.data.serviceName;
-    firebase.database().ref('jobs/' + this.serviceName).once('value', snap => {
-      this.jobs = []
-      var fbJobs = snap.val();
-      if (fbJobs) {
-        if (fbJobs instanceof Array) {
-          fbJobs.forEach(val => {
-            this.jobs.push(val)
-          })
-        } else {
-          Object.keys(fbJobs).forEach(k => {
-            fbJobs[k].forEach(v => {
-              this.jobs.push(k + ' : ' + v)
-            })
-          })
-        }
-      }
-    })
-
   }
   options: CameraOptions = {
     quality: 95,
@@ -90,17 +65,35 @@ export class NewOrderPage {
   }
 
   showJobs() {
-    let jobItemModal = this.modalCtrl.create(JobItemPage, {
-      jobs: this.jobs,
-    }, {
-        enableBackdropDismiss: false
-      });
-    jobItemModal.onDidDismiss(data => {
-      this.jobData.jobs = data;
-      this.color = data.length > 0 ? 'rgba(0, 0, 0, 0.18)' : '';
-    });
-    jobItemModal.present();
+    var alert = this.alertCtrl.create({
+      title: 'All services...',
+      message: 'Select atleast one service',
+      enableBackdropDismiss: false,
+      buttons: [{
+        text: 'Done',
+        handler: data => {
+          this.jobData.jobs = data;
+          this.color = data.length > 0 ? 'rgb(35, 187, 166)' : '';
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      }
+      ]
+    })
+    var serviceOffered = ['Painting', 'Marble Polishing', 'Spray Varnishing', 'Resurfacing', 'Grouting',]
+    serviceOffered.forEach(s => {
+      alert.addInput({
+        type: 'checkbox',
+        label: s,
+        value: s,
+        // checked
+      })
+    })
+    alert.present();
   }
+
 
   snap(job) {
     this.camera.getPicture(this.options).then(data => {
@@ -133,7 +126,7 @@ export class NewOrderPage {
     });
     loading.present();
     var ref = firebase.storage().ref();
-    
+
     this.snapped.forEach((item, i) => {
       var task = ref.child('images/' + this.cUser.name + '/' + item.time + '.jpg').putString(item.image, 'base64');
       // Listen for state changes, errors, and completion of the upload.
@@ -153,9 +146,6 @@ export class NewOrderPage {
           if (++count == this.snapped.length) {
 
             var currentDate = this.getCurrentDate();
-
-            this.jobData.jobId = this.serviceName + currentDate;
-            this.jobData.jobName = this.serviceName;
             this.jobData.clientName = this.cUser.name;
             this.jobData.clientUid = this.cUser.uid;
             this.jobData.placedOn = currentDate;
@@ -171,7 +161,10 @@ export class NewOrderPage {
                 showCloseButton: true,
                 dismissOnPageChange: false
               }).present();
-              this.navCtrl.pop();
+              this.jobData.room = ''
+              this.jobData.jobs = []
+              this.snapped = []
+              this.jobData.description = ''
             }).catch(r => {
               console.log(r);
             })

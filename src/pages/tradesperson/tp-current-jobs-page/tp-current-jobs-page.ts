@@ -27,8 +27,8 @@ export class TPCurrentJobsPage {
       this.currentJobs = []
       if (snap.val()) {
         Object.keys(snap.val()).forEach(key => {
-          if (snap.val()[key].progress.tpAssigned) {
-            if (this.cUser.uid in snap.val()[key].progress.tpAssigned) {
+          if (snap.val()[key].progress.tpAssigned.status) {
+            if (this.cUser.uid in snap.val()[key].progress.tpAssigned.workers) {
               this.currentJobs.push(snap.val()[key]);
             }
           }

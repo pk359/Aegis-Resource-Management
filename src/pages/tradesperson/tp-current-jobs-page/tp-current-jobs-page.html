@@ -13,7 +13,7 @@
 
 <ion-content padding>
   <ion-card *ngFor="let cj of currentJobs" padding>
-    <p ion-text color="primary" text-center>{{cj.jobName}} request<br>placed at {{cj.placedOn}}</p>
+    <p ion-text color="primary" text-center>{{cj.clientName}} placed an order at <br>{{cj.placedOn}}</p>
     <ion-grid>
       <ion-row>
         <ion-col>
