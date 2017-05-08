@@ -9,7 +9,7 @@ import { LoginPage } from '../pages/common/login-page/login-page'
 import { UIDecider } from '../pages/common/ui-decider/ui-decider'
 import {MessagePage} from '../pages/common/message-page/message-page'
 import {JobDetailsPage} from '../pages/common/job-details-page/job-details-page'
-
+import {FollowUpPage} from '../pages/common/follow-up-page/follow-up-page'
 //Manager Side
 import { NewUserRequest } from '../pages/manager/new-user-request/new-user-request'
 import { ManagerTabs } from '../pages/manager/manager-tabs/manager-tabs'
@@ -50,7 +50,7 @@ var firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,UIDecider,
-    LoginPage, MessagePage, JobDetailsPage,
+    LoginPage, MessagePage, JobDetailsPage,FollowUpPage,
     NewUserRequest, ManagerTabs,ManagerCurrentJobsPage,ManagerJobProgressPage,InvoicePage,
     ClientTabs, NewOrderPage,ClientJobProgressPage,ClientCurrentJobsPage,
     TradesPersonTabs, TPCurrentJobsPage,TPProgressUpdatePage
@@ -64,7 +64,7 @@ var firebaseConfig = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp, UIDecider,
-    LoginPage,MessagePage,JobDetailsPage,
+    LoginPage,MessagePage,JobDetailsPage,FollowUpPage,
     ManagerTabs, NewUserRequest,ManagerCurrentJobsPage,ManagerJobProgressPage,InvoicePage,
     ClientTabs, NewOrderPage,ClientJobProgressPage,ClientCurrentJobsPage,
     TradesPersonTabs, TPCurrentJobsPage,TPProgressUpdatePage

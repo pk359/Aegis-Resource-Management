@@ -10,59 +10,54 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
+<style>
+  ion-item {
+    margin-top: 6px;
+  }
 
+</style>
 <ion-content padding>
-  <div [ngStyle]="{'background': color}">
+  <div style="background: rgba(99, 111, 240, 0.2)">
     <h2 ion-text>Order form</h2>
-    <ion-card padding>
-      <ion-card-content>
-        <ion-item>
-          <ion-label>Room: </ion-label>
-          <ion-input type="text" [(ngModel)]="jobData.room"></ion-input>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-    <ion-card padding>
-      <ion-card-content>
-        <ion-item (click)='showJobs()'>
-          Select Services
-          <ion-icon name="arrow-dropright" item-right></ion-icon>
-        </ion-item>
-        <ion-item>
-          <ul>
-            <li *ngFor="let sJ of jobData.jobs">
-              {{sJ}}
-            </li>
-          </ul>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
+    <ion-item>
+      <ion-label stacked>Enter Room No.: </ion-label>
+      <ion-input type="text" [(ngModel)]="jobData.room"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>
+        Please add some description
+      </ion-label>
+      <ion-input [(ngModel)]="jobData.description"></ion-input>
+    </ion-item>
+    <ion-item (click)='showJobs()'>
+      <ion-label>
+        Select Services
+      </ion-label>
+      <ion-icon name="arrow-dropdown" item-right></ion-icon>
+      <br>
+      <p ion-text>
+        Selected services are:
+      </p>
+      <ul>
+        <li *ngFor="let sJ of jobData.jobs">
+          {{sJ}}
+        </li>
+      </ul>
+    </ion-item>
 
-    <ion-card padding>
-      <ion-card-content>
-        <ion-grid>
-          <ion-row>
-            <ion-col *ngFor="let image of snapped">
-              <img src="data:image/jpeg;base64,{{image.image}}" />
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <button ion-button block outline (click)="snap(job)">
-        <ion-icon name="camera"></ion-icon>
-      </button>
-          </ion-row>
-        </ion-grid>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-card padding>
-      <ion-card-content>
-        <ion-item>
-          <textarea placeholder="Add some description" style="width:100%" row="5" [(ngModel)]="jobData.description"></textarea>
-        </ion-item>
-      </ion-card-content>
-    </ion-card>
-    <h4 text-center style="color:red">{{error}}</h4>
-    <button ion-button block (click)="placeRequest()">Submit Request</button>
+    <ion-grid style="border: .5px solid green">
+      <ion-row>
+        <ion-col *ngFor="let image of snapped">
+          <img src="data:image/jpeg;base64,{{image.image}}" />
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <button ion-button color="light" (click)="snap(job)">
+          <ion-icon name="camera"> Add Pictures</ion-icon>
+         </button>
+      </ion-row>
+    </ion-grid>
   </div>
+  <h4 text-center style="color:red">{{error}}</h4>
+  <button ion-button block (click)="placeRequest()">Submit Request</button>
 </ion-content>

@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+import {FollowUpPage} from '../../common/follow-up-page/follow-up-page'
 @Component({
   templateUrl: 'client-job-progress-page.html',
 })
@@ -11,7 +12,6 @@ export class ClientJobProgressPage {
   progress: any = []
   ref: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
-    console.log(navParams.data.jobKey)
   }
 
   ionViewCanEnter() {
@@ -36,7 +36,7 @@ export class ClientJobProgressPage {
   }
 
   setClientApproved() {
-    if (this.progress[0].tpDone) {
+    if (this.progress[0].tpDone.status) {
       var alert = this.alertCtrl.create({
         title: 'Please confirm',
         message: 'Have you done all the jobs in the request listing?',
@@ -45,7 +45,9 @@ export class ClientJobProgressPage {
             text: 'No',
             role: 'cancel',
             handler: () => {
-              console.log('Cancel clicked');
+              firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
+                clientApproved: { status: false, timestamp: this.getCurrentTime() }
+              })
             }
           },
           {
@@ -69,6 +71,13 @@ export class ClientJobProgressPage {
     }
   }
 
+  followup() {
+    //Follow up meessge here
+    this.navCtrl.push(FollowUpPage,{
+      jobKey: this.navParams.data.jobKey
+    })
+  }
+
   getCurrentTime() {
     var date = new Date();
     var newDate = new Date(8 * 60 * 60000 + date.valueOf() + (date.getTimezoneOffset() * 60000));
@@ -82,5 +91,4 @@ export class ClientJobProgressPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClientJobProgressPage');
   }
-
 }

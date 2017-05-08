@@ -4,6 +4,7 @@ import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 import {InvoicePage} from '../invoice-page/invoice-page'
+import {FollowUpPage} from '../../common/follow-up-page/follow-up-page'
 @Component({
   templateUrl: 'job-progress-page.html',
 })

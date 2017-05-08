@@ -2,6 +2,12 @@
 
   <ion-navbar>
     <ion-title>Progress</ion-title>
+
+    <ion-buttons end>
+      <button ion-button outline (click)="followup()" end>
+     <ion-icon name="text"></ion-icon>
+    </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <style>
@@ -9,11 +15,12 @@
     margin-top: 8px;
     border-radius: 5px
   }
-  
+
   span {
     color: darkred;
     background: yellow;
   }
+
 </style>
 <ion-content padding>
   <div *ngFor="let detail of progress" padding>
@@ -99,25 +106,24 @@
         <ion-item text-center [ngStyle]="{'background': detail.tpDone.status? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.tpDone.status" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.tpDone.status" item-left></ion-icon>
-           {{detail.tpDone.status ? 'Worker marked it done': 'Worker has not marked it done yet'}} <br>
+          {{detail.tpDone.status ? 'Worker marked it done': 'Worker has not marked it done yet'}} <br>
           <span>Time: {{detail.tpDone.status? detail.tpDone.timestamp : ''}}</span>
         </ion-item>
       </ion-card-content>
     </ion-card>
-    <ion-card>
+    <ion-card (click)="setClientApproved()">
       <ion-card-content>
         <ion-item text-center [ngStyle]="{'background': detail.clientApproved.status? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.clientApproved.status" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.clientApproved.status" item-left></ion-icon>
-          {{detail.clientApproved.status ? 'You marked the work as satisfied.': 'You need to mark the job as satisfied.'}}<br>
+          {{detail.clientApproved.status ? 'You marked the work as satisfied.' : 'You need to mark job as done after completion.'}}<br>
           <span>Time: {{detail.clientApproved.status? detail.clientApproved.timestamp : ''}}</span>
         </ion-item>
       </ion-card-content>
     </ion-card>
     <ion-card>
       <ion-card-content>
-        <ion-item (click)="sendInvoice()" text-center [ngStyle]="{'background': detail.invoiceSent.status? 'rgb(121, 214, 77)':'#dadada'}"
-          text-wrap>
+        <ion-item text-center [ngStyle]="{'background': detail.invoiceSent.status? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
           <ion-icon name="checkmark-circle" *ngIf="detail.invoiceSent.status" item-left></ion-icon>
           <ion-icon name="close" *ngIf="!detail.invoiceSent.status" item-left></ion-icon>
           {{detail.invoiceSent.status ? 'Aegis sent you invoice.': 'Waiting for invoice from aegis.'}}<br>

@@ -4,7 +4,7 @@ import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { Camera, CameraOptions } from '@ionic-native/camera'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-
+import {FollowUpPage} from '../../common/follow-up-page/follow-up-page'
 @Component({
   templateUrl: 'tp-progress-update-page.html',
 })
@@ -103,7 +103,9 @@ export class TPProgressUpdatePage {
             text: 'No',
             role: 'cancel',
             handler: () => {
-              console.log('Cancel clicked');
+              firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
+                tpDone: {status: false, timestamp: this.getCurrentDate()}
+              })
             }
           },
           {
