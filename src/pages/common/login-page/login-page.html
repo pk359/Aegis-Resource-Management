@@ -1,7 +1,8 @@
-
 <ion-content padding>
     <div id="loginDiv" *ngIf="activeForm ==='login'">
-        <ion-title text-center><h2>Login Page</h2></ion-title>
+        <ion-title text-center>
+            <h2>Login Page</h2>
+        </ion-title>
         <form method="POST" (ngSubmit)="login(email, password)" #loginForm="ngForm">
             <ion-item>
                 <ion-input type="email" placeholder="Email" [(ngModel)]="email" name="email" required></ion-input>
@@ -39,21 +40,22 @@
     </div>
     <div id="forgotpasswordDiv" *ngIf="activeForm ==='forgot'">
         <h2>Forgot password Page</h2>
-        <form method="POST"  (ngSubmit)="forgot(email)" #forgotForm="ngForm">
+        <form method="POST" (ngSubmit)="forgot(email)" #forgotForm="ngForm">
             <ion-item>
                 <ion-input type="email" placeholder="Email" [(ngModel)]="email" name="email" required></ion-input>
             </ion-item>
 
             <button ion-button block type="submit" [disabled]="!forgotForm.form.valid">Get Code</button>
         </form>
-         <ion-row>
+        <ion-row>
             <ion-col width-50>
-             <button ion-button block round outline (click)="showForm('login')">Go to login</button>
+                <button ion-button block round outline (click)="showForm('login')">Go to login</button>
             </ion-col>
             <ion-col width-50>
-                 <button ion-button block round outline (click)="showForm('signup')">Create a new account</button>
+                <button ion-button block round outline (click)="showForm('signup')">Create a new account</button>
             </ion-col>
         </ion-row>
     </div>
+    <button ion-button (click)="loginAsDexter()"> LOGIN THE COOL WAY (Login As Dexter) </button>
     <ion-label class="error" style="color:red" *ngFor="let error of errors">{{error}}</ion-label>
 </ion-content>

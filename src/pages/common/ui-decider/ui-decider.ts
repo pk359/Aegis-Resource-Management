@@ -1,3 +1,4 @@
+import { SuperUserTabs } from './../../superUser/superUser-tabs/superUser-tabs';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { LoginPage } from '../login-page/login-page';
@@ -19,12 +20,13 @@ export class UIDecider {
       if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)
       else if (cU.role == 'client') this.navCtrl.push(ClientTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)
+      else if (cU.role == 'superUser') this.navCtrl.push(SuperUserTabs)
       else if (cU.role == 'none') this.navCtrl.push(MessagePage, {
         message: 'Please wait for administrator to assign you a role.'
       })
     } else {
       this.navCtrl.resize();
-      this.navCtrl.push(LoginPage, {},caches.delete)
+      this.navCtrl.push(LoginPage, {}, caches.delete)
     }
   }
 
