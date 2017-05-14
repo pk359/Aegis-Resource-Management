@@ -1,7 +1,7 @@
 export class Job {
     key: string = '';
-    clientName: string = '';
-    clientUid: string = '';
+    jobCreatorName: string = '';
+    jobCreatorUid: string = '';
     serviceList = [];
     description: string = '';
     room: string = '';

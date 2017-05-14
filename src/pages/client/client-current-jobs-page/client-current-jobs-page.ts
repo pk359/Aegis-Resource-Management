@@ -27,7 +27,7 @@ export class ClientCurrentJobsPage {
       return false;
     }
     console.log('current jobs can enter')
-    this.ref = firebase.database().ref('request').orderByChild('clientUid').equalTo(this.cUser.uid);
+    this.ref = firebase.database().ref('requests').orderByChild('clientUid').equalTo(this.cUser.uid);
     this.ref.on('value', snap => {
       this.currentJobs = []
       if (snap.val()) {

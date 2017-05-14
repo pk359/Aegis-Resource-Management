@@ -110,57 +110,39 @@ export class NewOrderPage {
   }
 
   saveRequestToFirebase() {
-    var count = 0;
     let loading = this.loadingCtrl.create({
       showBackdrop: false,
       spinner: 'crescent',
       content: 'Sending request to aegis, please wait...'
     });
     loading.present();
-    var ref = firebase.storage().ref();
+    this.photoHelper.uplaod(() => {
+      // Upload completed successfully, now we can get the download URL
+      this.photoHelper.photos.forEach(photo => {
+        this.jobData.photosByClient.push(photo.URL);
+      })
+      var currentDate = this.getCurrentDate();
+      this.jobData.jobCreatorName = this.cUser.name;
+      this.jobData.jobCreatorUid = this.cUser.uid;
+      this.jobData.placedOn = currentDate;
 
-    this.photoHelper.photos.forEach((item, i) => {
-      var task = ref.child('images/' + this.cUser.name + '/' + item.time + '.jpg').putString(item.image, 'base64');
-      // Listen for state changes, errors, and completion of the upload.
-      task.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        (snapshot) => {
-          switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED: // or 'paused'
-              loading.setContent('Waiting for internet... ')
-              break;
-          }
-        }, function (error) {
-          console.log(error)
-        }
-        , () => {
-          // Upload completed successfully, now we can get the download URL
-          this.jobData.photosByClient.push(task.snapshot.downloadURL);
-          if (++count == this.photoHelper.photos.length) {
+      var reqRef = firebase.database().ref('requests/').push()
+      this.jobData.key = reqRef.key;
+      reqRef.set(this.jobData).then(r => {
+        loading.dismiss();
+        this.toastCtrl.create({
+          message: 'Your order has been placed successfully.',
+          duration: 4000,
+          position: 'button',
+          showCloseButton: true,
+          dismissOnPageChange: false
+        }).present();
+        this.jobData = new Job();
+      }).catch(r => {
+        console.log(r);
+      })
 
-            var currentDate = this.getCurrentDate();
-            this.jobData.clientName = this.cUser.name;
-            this.jobData.clientUid = this.cUser.uid;
-            this.jobData.placedOn = currentDate;
 
-            var reqRef = firebase.database().ref('request/').push()
-            this.jobData.key = reqRef.key;
-            reqRef.set(this.jobData).then(r => {
-              loading.dismiss();
-              this.toastCtrl.create({
-                message: 'Your order has been placed successfully.',
-                duration: 4000,
-                position: 'middle',
-                showCloseButton: true,
-                dismissOnPageChange: false
-              }).present();
-              this.jobData.room = ''
-              this.jobData.serviceList = []
-              this.jobData.description = ''
-            }).catch(r => {
-              console.log(r);
-            })
-          }
-        });
     })
     console.log(this.jobData);
   }

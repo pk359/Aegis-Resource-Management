@@ -22,7 +22,7 @@ export class TPCurrentJobsPage {
       return false;
     }
     console.log('tp current jobs can enter')
-    this.ref = firebase.database().ref('request');
+    this.ref = firebase.database().ref('requests');
     this.ref.on('value', snap => {
       this.currentJobs = []
       if (snap.val()) {

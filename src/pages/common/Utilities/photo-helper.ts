@@ -1,9 +1,9 @@
 import { CameraOptions } from '@ionic-native/camera';
-
+import firebase from 'firebase'
 class Photo {
     image
     name: string = ''
-    URL:string
+    URL: string
     constructor(image, name) {
         this.image = image
         this.name = name;
@@ -16,6 +16,7 @@ export class PhotoHelper {
     camera;
     options: CameraOptions = {};
     constructor(userName, camera) {
+
         this.camera = camera
         this.userName = userName;
         this.options = {
@@ -34,16 +35,17 @@ export class PhotoHelper {
 
     uplaod(callback) {
         var count = 0;
-        for (var i = 0; i <= this.photos.length; i++) {
-            var photo: Photo = this.photos[i];
-            firebase.storage().ref('images/' + this.userName + '/' + photo.name).putString(photo.image, 'base64').then( snapshot => {
+        this.photos.forEach(photo => {
+            firebase.storage().ref('images/' + this.userName + '/' + photo.name).putString(photo.image, 'base64').then(snapshot => {
                 photo.URL = snapshot.downloadURL
                 count += 1
                 if (count == this.photos.length) {
                     callback()
                 }
+            }).catch(e => {
+                console.log("error while trying to upload photo!: " + e)
             })
-        }
+        })
     }
 
 
