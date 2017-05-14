@@ -14,50 +14,48 @@
   ion-item {
     margin-top: 6px;
   }
-
 </style>
 <ion-content padding>
-  <div style="background: rgba(99, 111, 240, 0.2)">
-    <h2 ion-text>Order form</h2>
-    <ion-item>
-      <ion-label stacked>Enter Room No.: </ion-label>
-      <ion-input type="text" [(ngModel)]="jobData.room"></ion-input>
+  <h2 ion-text>Order form</h2>
+  <ion-item>
+    <ion-label stacked>Building: </ion-label>
+    <ion-input type="text" [(ngModel)]="jobData.building"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Room No: </ion-label>
+    <ion-input type="text" [(ngModel)]="jobData.room"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>
+      Description:
+    </ion-label>
+    <ion-input [(ngModel)]="jobData.description"></ion-input>
+  </ion-item>
+  <ion-item (click)='showJobs()'>
+    <ion-label>
+      Select Services
+    </ion-label>
+    <ion-icon name="arrow-dropdown" item-right></ion-icon>
+    <br>
+    <p ion-text>
+      Selected services are:
+    </p>
+  </ion-item>
+  <ion-list>
+    <ion-item (click)="onClickService(name)" *ngFor="let name of jobData.serviceList">
+      {{name}}
     </ion-item>
-    <ion-item>
-      <ion-label stacked>
-        Please add some description
-      </ion-label>
-      <ion-input [(ngModel)]="jobData.description"></ion-input>
-    </ion-item>
-    <ion-item (click)='showJobs()'>
-      <ion-label>
-        Select Services
-      </ion-label>
-      <ion-icon name="arrow-dropdown" item-right></ion-icon>
-      <br>
-      <p ion-text>
-        Selected services are:
-      </p>
-      <ul>
-        <li *ngFor="let sJ of jobData.jobs">
-          {{sJ}}
-        </li>
-      </ul>
-    </ion-item>
-
-    <ion-grid style="border: .5px solid green">
-      <ion-row>
-        <ion-col *ngFor="let image of snapped">
-          <img src="data:image/jpeg;base64,{{image.image}}" />
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <button ion-button color="light" (click)="snap(job)">
+  </ion-list>
+  <ion-row>
+    <ion-card *ngFor="let photo of this.photoHelper.photos">
+      <img src="data:image/jpeg;base64,{{photo.image}}" />
+    </ion-card>
+  </ion-row>
+  <ion-row>
+    <button ion-button (click)="snap()">
           <ion-icon name="camera"> Add Pictures</ion-icon>
          </button>
-      </ion-row>
-    </ion-grid>
-  </div>
+  </ion-row>
   <h4 text-center style="color:red">{{error}}</h4>
   <button ion-button block (click)="placeRequest()">Submit Request</button>
 </ion-content>

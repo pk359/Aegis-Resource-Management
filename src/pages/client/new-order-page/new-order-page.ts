@@ -1,18 +1,16 @@
+import { PhotoHelper } from './../../common/Utilities/photo-helper';
+import { Job } from './../../common/Model/Job';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { Camera, CameraOptions } from '@ionic-native/camera'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-import {ClientCurrentJobsPage} from '../client-current-jobs-page/client-current-jobs-page'
+import { ClientCurrentJobsPage } from '../client-current-jobs-page/client-current-jobs-page'
 @Component({
   templateUrl: 'new-order-page.html',
 })
 export class NewOrderPage {
-
-  snapped: any
-  jobs: any
-  jobData: any
   firebaseJobObject: any = {}
   servicePictures: any = []
   serviceName = ''
@@ -20,6 +18,9 @@ export class NewOrderPage {
   progress = 0
   error = ''
   cUser: any
+  jobData: Job = new Job();
+  services = []
+  photoHelper: PhotoHelper
   constructor(public navCtrl: NavController,
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController, public camera: Camera,
@@ -27,41 +28,16 @@ export class NewOrderPage {
     public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
 
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
-    this.snapped = [], this.jobs = []
-    this.jobData = {
-      key: '',
-      clientName: '',
-      clientUid: '',
-      jobs: [],
-      description: '',
-      room: '',
-      placedOn: '',
-      completed: false,
-      photosByClient: [],
-      progress: {
-        aegisApproved: {status: false},
-        tpAssigned:{status: false, workers: []},
-        checkedIn:  {status: false},
-        photosBefore: {status: false, photos: []},
-        photosAfter: {status: false, photos: []},
-        tpDone: {status: false},
-        clientApproved: {status: false},
-        invoiceSent: {status: false},
-        followUp: [{author: '', message: ''}]
+    firebase.database().ref('services/').on('value', data => {
+      this.services = []
+      if (data.val()) {
+        Object.keys(data.val()).forEach(key => {
+          this.services.push(data.val()[key]);
+        })
       }
-    }
-  }
-  options: CameraOptions = {
-    quality: 95,
-    sourceType: this.camera.PictureSourceType.CAMERA,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE,
-    saveToPhotoAlbum: true,
-    correctOrientation: true,
-    targetHeight: 700,
-    targetWidth: 700,
-    allowEdit: true
+      console.log(data)
+    })
+    this.photoHelper = new PhotoHelper(this.cUser.name, this.camera)
   }
 
   showJobs() {
@@ -71,9 +47,11 @@ export class NewOrderPage {
       enableBackdropDismiss: false,
       buttons: [{
         text: 'Done',
-        handler: data => {
-          this.jobData.jobs = data;
-          this.color = data.length > 0 ? 'rgb(35, 187, 166)' : '';
+        handler: name => {
+          name.forEach(element => {
+            this.jobData.serviceList.push(element);
+
+          });
         }
       },
       {
@@ -82,39 +60,53 @@ export class NewOrderPage {
       }
       ]
     })
-    var serviceOffered = ['Painting', 'Marble Polishing', 'Spray Varnishing', 'Resurfacing', 'Grouting',]
-    serviceOffered.forEach(s => {
+    this.services.forEach(service => {
       alert.addInput({
         type: 'checkbox',
-        label: s,
-        value: s,
+        label: service.name,
+        value: service.name,
         // checked
       })
     })
     alert.present();
   }
 
-
-  snap(job) {
-    this.camera.getPicture(this.options).then(data => {
-      this.snapped.push({ image: data, time: this.getCurrentDate() });
-    }, (err) => {
-      console.log(err)
-    });
+  snap() {
+    this.photoHelper.snap()
   }
 
   placeRequest() {
     this.error = '';
+    var noPhoto = false;
     if (this.jobData.room === '' ||
-      this.jobData.floor === '' ||
       this.jobData.building === '') {
       this.error = 'All fileds are necessary';
-    } else if (this.jobData.jobs.length == 0) {
+    } else if (this.jobData.serviceList.length == 0) {
       this.error = 'Please select atleast one job.'
-    } else if (this.snapped.length == 0) {
-      this.error = 'Please add atleast one photo';
+    } else if (this.photoHelper.photos.length == 0) {
+      noPhoto = true
     }
-    if (this.error == '') this.saveRequestToFirebase();
+
+    if (this.error == '') {
+      if (noPhoto) {
+        this.alertCtrl.create({
+          title: 'No Photo',
+          message: 'You did not attach any photo, are you sure you want to place an order without photo?',
+          buttons: [
+            {
+              text: 'YES',
+              handler: () => {
+                this.saveRequestToFirebase();
+              }
+            }, {
+              text: 'NO'
+            }
+          ]
+        }).present()
+      } else {
+        this.saveRequestToFirebase();
+      }
+    }
   }
 
   saveRequestToFirebase() {
@@ -127,7 +119,7 @@ export class NewOrderPage {
     loading.present();
     var ref = firebase.storage().ref();
 
-    this.snapped.forEach((item, i) => {
+    this.photoHelper.photos.forEach((item, i) => {
       var task = ref.child('images/' + this.cUser.name + '/' + item.time + '.jpg').putString(item.image, 'base64');
       // Listen for state changes, errors, and completion of the upload.
       task.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
@@ -143,7 +135,7 @@ export class NewOrderPage {
         , () => {
           // Upload completed successfully, now we can get the download URL
           this.jobData.photosByClient.push(task.snapshot.downloadURL);
-          if (++count == this.snapped.length) {
+          if (++count == this.photoHelper.photos.length) {
 
             var currentDate = this.getCurrentDate();
             this.jobData.clientName = this.cUser.name;
@@ -162,8 +154,7 @@ export class NewOrderPage {
                 dismissOnPageChange: false
               }).present();
               this.jobData.room = ''
-              this.jobData.jobs = []
-              this.snapped = []
+              this.jobData.serviceList = []
               this.jobData.description = ''
             }).catch(r => {
               console.log(r);
@@ -182,6 +173,31 @@ export class NewOrderPage {
     var ampm = newDate.getHours() < 12 ? ' AM' : ' PM';
     var strDate = newDate + '';
     return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
+  }
+
+  onClickService(name: string) {
+    this.alertCtrl.create({
+      title: 'You Sure?',
+      message: 'Are you sure you want to delete ' + name + ' from selected services?',
+      buttons: [
+        {
+          text: 'YES',
+          handler: () => {
+            const index = this.jobData.serviceList.indexOf(name);
+            if (index !== -1) {
+              this.jobData.serviceList.splice(index, 1);
+            }
+          }
+        },
+        {
+          text: 'NO'
+        }
+      ]
+    }).present()
+
+  }
+  remove(array, element) {
+
   }
 }
 

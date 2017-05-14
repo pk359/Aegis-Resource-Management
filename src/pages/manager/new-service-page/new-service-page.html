@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <h4>Welcome, {{cUser.name}} </h4>
+    </ion-title>
+    <ion-buttons end>
+      <button (click)="logout()" ion-button icon-only color="danger">
+        <ion-icon md="md-log-out"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<style>
+  ion-item {
+    margin-top: 6px;
+  }
+</style>
+<ion-content padding>
+  <h2 ion-text> New Service</h2>
+  <ion-item>
+    <ion-label stacked> Service Name: </ion-label>
+    <ion-input type="text" [(ngModel)]="serviceName"></ion-input>
+  </ion-item>
+  <h4 text-center style="color:red">{{error}}</h4>
+  <button ion-button block (click)="save()">Save</button>
+</ion-content>

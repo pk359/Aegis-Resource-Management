@@ -1,3 +1,4 @@
+import { ServiceListPage } from './../../manager/service-list-page/service-list-page';
 import { ClientCurrentJobsPage } from './../../client/client-current-jobs-page/client-current-jobs-page';
 import { NewOrderPage } from './../../client/new-order-page/new-order-page';
 import { TPCurrentJobsPage } from './../../tradesperson/tp-current-jobs-page/tp-current-jobs-page';
@@ -14,6 +15,7 @@ export class SuperUserTabs {
     TPCurrentJobTab = TPCurrentJobsPage
     newOrderTab = NewOrderPage
     clientCurrentJobsTab = ClientCurrentJobsPage
+    serviceListPage = ServiceListPage;
     constructor() {
 
     }

@@ -1,3 +1,4 @@
+import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -16,6 +17,7 @@ import { ManagerTabs } from '../pages/manager/manager-tabs/manager-tabs'
 import { ManagerJobProgressPage } from '../pages/manager/job-progress-page/job-progress-page'
 import { ManagerCurrentJobsPage } from '../pages/manager/current-jobs-page/current-jobs-page'
 import { InvoicePage } from '../pages/manager/invoice-page/invoice-page'
+import { NewServicePage } from './../pages/manager/new-service-page/new-service-page';
 
 //Client Side
 import { ClientTabs } from '../pages/client/client-tabs/client-tabs'
@@ -63,7 +65,8 @@ var firebaseConfig = {
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
     NewUserRequest, ManagerTabs, ManagerCurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage, ClientCurrentJobsPage,
-    TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs
+    TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
+    ServiceListPage
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ var firebaseConfig = {
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
     ManagerTabs, NewUserRequest, ManagerCurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage, ClientCurrentJobsPage,
-    TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs
+    TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
+    ServiceListPage
   ],
   providers: [
     StatusBar,

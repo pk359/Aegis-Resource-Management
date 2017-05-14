@@ -1,10 +1,11 @@
-class Job {
+export class Job {
     key: string = '';
     clientName: string = '';
     clientUid: string = '';
-    jobs = [];
+    serviceList = [];
     description: string = '';
     room: string = '';
+    building: string = '';
     placedOn: string = '';
     completed: boolean = false;
     photosByClient = [];
