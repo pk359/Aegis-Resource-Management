@@ -14,3 +14,80 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.chatBubble{
+
+  img.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 10px;
+  }
+
+  img.profile-pic.left {
+    left: 10px;
+  }
+
+  img.profile-pic.right {
+    right: 10px;
+  }
+
+  .message {
+    font-size: medium;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
+  .message-detail {
+    white-space: nowrap;
+    font-size: 14px;
+  }
+
+  .chat-bubble {
+    border-radius: 5px;
+    display: inline-block;
+    padding: 10px 18px;
+    position: relative;
+    margin: 10px;
+    max-width: 80%;
+  }
+
+  .chat-bubble:before {
+    content: "\00a0";
+    display: block;
+    height: 16px;
+    width: 9px;
+    position: absolute;
+    bottom: -7.5px;
+  }
+
+  .chat-bubble.left {
+    background-color: #7cdaea;
+    float: left;
+    margin-left: 45px;
+  }
+
+  .chat-bubble.left:before {
+    background-color: #7cdaea;
+    left: 10px;
+    -webkit-transform: rotate(70deg) skew(5deg);
+  }
+
+  .chat-bubble.right {
+    background-color: #7cdaea;
+    color: #000;
+    float: right;
+    margin-right: 45px;
+  }
+
+  .chat-bubble.right:before {
+    background-color: #7cdaea;
+    right: 10px;
+    -webkit-transform: rotate(118deg) skew(-5deg);
+  }
+
+  .chat-bubble.right a.autolinker {
+    color: #000;
+    font-weight: bold;
+  }
+}

@@ -3,7 +3,7 @@ import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-import {FollowUpPage} from '../../common/follow-up-page/follow-up-page'
+import { FollowUpPage } from '../../common/follow-up-page/follow-up-page'
 @Component({
   templateUrl: 'client-job-progress-page.html',
 })
@@ -15,7 +15,7 @@ export class ClientJobProgressPage {
   }
 
   ionViewCanEnter() {
-    this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
+    this.ref = firebase.database().ref('requests/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
       console.log(snap.val())
       this.progress = []
@@ -73,7 +73,7 @@ export class ClientJobProgressPage {
 
   followup() {
     //Follow up meessge here
-    this.navCtrl.push(FollowUpPage,{
+    this.navCtrl.push(FollowUpPage, {
       jobKey: this.navParams.data.jobKey
     })
   }

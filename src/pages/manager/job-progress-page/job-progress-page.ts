@@ -3,8 +3,8 @@ import { NavController, NavParams, AlertController, ModalController } from 'ioni
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-import {InvoicePage} from '../invoice-page/invoice-page'
-import {FollowUpPage} from '../../common/follow-up-page/follow-up-page'
+import { InvoicePage } from '../invoice-page/invoice-page'
+import { FollowUpPage } from '../../common/follow-up-page/follow-up-page'
 @Component({
   templateUrl: 'job-progress-page.html',
 })
@@ -17,7 +17,7 @@ export class ManagerJobProgressPage {
   }
 
   ionViewCanEnter() {
-    this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
+    this.ref = firebase.database().ref('requests/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
       console.log(snap.val())
       this.progress = []
@@ -35,7 +35,7 @@ export class ManagerJobProgressPage {
   }
 
   sendInvoice() {
-   this.navCtrl.push(InvoicePage, {jobs: this.navParams.data.jobs, jobTitle: this.navParams.data.jobTitle})
+    this.navCtrl.push(InvoicePage, { jobs: this.navParams.data.jobs, jobTitle: this.navParams.data.jobTitle })
   }
 
   showImageInFullScreen(url) {

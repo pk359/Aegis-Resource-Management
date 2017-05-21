@@ -1,3 +1,4 @@
+import { Job } from './../../common/Model/Job';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
@@ -13,16 +14,17 @@ import { ManagerJobProgressPage } from '../job-progress-page/job-progress-page'
 export class ManagerCurrentJobsPage {
 
   cUser: any
-  currentJobs: any = []
+  currentJobs: Job[] = []
   ref: any
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
-    this.ref = firebase.database().ref('request').orderByChild('completed').equalTo(false);
-    this.ref.on('value', snap => {
+    firebase.database().ref('requests').on('value', snap => {
       this.currentJobs = []
       if (snap.val()) {
         Object.keys(snap.val()).forEach(key => {
-          this.currentJobs.push(snap.val()[key]);
+          var job: Job = new Job();
+          Object.assign(job, snap.val()[key])
+          this.currentJobs.push(job);
         })
       }
       console.log(this.currentJobs)
@@ -38,7 +40,7 @@ export class ManagerCurrentJobsPage {
 
   setApprove(key) {
     firebase.database().ref('request/' + key + '/progress/').update({
-      aegisApproved: {status: true, timestamp: this.getCurrentTime()}
+      aegisApproved: { status: true, timestamp: this.getCurrentTime() }
     }).then(() => {
       this.showToast('Job is approved, please assign a tradesperson now');
     })
@@ -75,7 +77,7 @@ export class ManagerCurrentJobsPage {
             tpData[`${JSON.parse(d).tpId}`] = { tpId: JSON.parse(d).tpId, tpName: JSON.parse(d).tpName }
           })
           firebase.database().ref('request/' + key + '/progress/').update({
-            tpAssigned: {status: true, workers: tpData, timestamp: this.getCurrentTime()}
+            tpAssigned: { status: true, workers: tpData, timestamp: this.getCurrentTime() }
           }).then(() => {
             this.showToast('Workers have been assigned successfully.');
           })
@@ -91,19 +93,11 @@ export class ManagerCurrentJobsPage {
     });
   }
   showProgresPage(key) {
-    var jobs = []
     var jobTitle = ''
-    this.currentJobs.forEach(job=>{
-      if(job.key == key){
-        jobs = job.jobs;
-        jobTitle  = 'Room No: ' + job.room + ' placed on: ' + job.placedOn; 
-      }
-    })
 
     this.navCtrl.push(ManagerJobProgressPage, {
       jobKey: key,
-      jobs: jobs,
-      jobTitle: jobTitle 
+      jobTitle: jobTitle
     });
   }
 
@@ -130,6 +124,9 @@ export class ManagerCurrentJobsPage {
       window.localStorage.removeItem('userdetails')
       this.navCtrl.push(LoginPage);
     });
+  }
+  showProgress(job) {
+
   }
 
 }

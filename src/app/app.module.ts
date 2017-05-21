@@ -11,6 +11,8 @@ import { UIDecider } from '../pages/common/ui-decider/ui-decider'
 import { MessagePage } from '../pages/common/message-page/message-page'
 import { JobDetailsPage } from '../pages/common/job-details-page/job-details-page'
 import { FollowUpPage } from '../pages/common/follow-up-page/follow-up-page'
+import { MessageBoardPage } from './../pages/common/message-board-page/message-board-page';
+
 //Manager Side
 import { NewUserRequest } from '../pages/manager/new-user-request/new-user-request'
 import { ManagerTabs } from '../pages/manager/manager-tabs/manager-tabs'
@@ -66,7 +68,7 @@ var firebaseConfig = {
     NewUserRequest, ManagerTabs, ManagerCurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage, ClientCurrentJobsPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
-    ServiceListPage
+    ServiceListPage, MessageBoardPage
   ],
   imports: [
     BrowserModule,
@@ -81,7 +83,7 @@ var firebaseConfig = {
     ManagerTabs, NewUserRequest, ManagerCurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage, ClientCurrentJobsPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
-    ServiceListPage
+    ServiceListPage, MessageBoardPage
   ],
   providers: [
     StatusBar,

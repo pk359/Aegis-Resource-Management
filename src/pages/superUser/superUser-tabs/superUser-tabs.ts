@@ -1,3 +1,4 @@
+import { ManagerJobProgressPage } from './../../manager/job-progress-page/job-progress-page';
 import { ServiceListPage } from './../../manager/service-list-page/service-list-page';
 import { ClientCurrentJobsPage } from './../../client/client-current-jobs-page/client-current-jobs-page';
 import { NewOrderPage } from './../../client/new-order-page/new-order-page';

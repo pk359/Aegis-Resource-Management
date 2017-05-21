@@ -136,7 +136,6 @@ export class LoginPage {
     }
   }
   loginAsDexter() {
-    console.log("??")
     this.login("Dexter@gmail.com", "123456");
   }
 }

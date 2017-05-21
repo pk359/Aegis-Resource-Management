@@ -113,7 +113,7 @@ export class NewOrderPage {
     let loading = this.loadingCtrl.create({
       showBackdrop: false,
       spinner: 'crescent',
-      content: 'Sending request to aegis, please wait...'
+      content: 'Submiting Request, please wait...'
     });
     loading.present();
     this.photoHelper.uplaod(() => {
@@ -141,10 +141,7 @@ export class NewOrderPage {
       }).catch(r => {
         console.log(r);
       })
-
-
     })
-    console.log(this.jobData);
   }
   showInFullScreen(imageUrl) {
     this.photoViewer.show(imageUrl)
