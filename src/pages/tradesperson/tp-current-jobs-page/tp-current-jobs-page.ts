@@ -1,3 +1,4 @@
+import { Job } from './../../common/Model/Job';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
@@ -21,15 +22,16 @@ export class TPCurrentJobsPage {
     if (!this.cUser) {
       return false;
     }
-    console.log('tp current jobs can enter')
     this.ref = firebase.database().ref('requests');
     this.ref.on('value', snap => {
       this.currentJobs = []
       if (snap.val()) {
         Object.keys(snap.val()).forEach(key => {
-          if (snap.val()[key].progress.tpAssigned.status) {
-            if (this.cUser.uid in snap.val()[key].progress.tpAssigned.workers) {
-              this.currentJobs.push(snap.val()[key]);
+          var job: Job = new Job()
+          Object.assign(job, snap.val()[key])
+          if (job.isTradespersonAssigned()) {
+            if (this.cUser.role == 'superUser' || this.cUser.uid in job.getTradesPersonAssigned()) {
+              this.currentJobs.push(job);
             }
           }
         })

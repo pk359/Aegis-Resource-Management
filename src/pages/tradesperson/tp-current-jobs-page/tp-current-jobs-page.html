@@ -13,15 +13,15 @@
 
 <ion-content padding>
   <ion-card *ngFor="let cj of currentJobs" padding>
-    <p ion-text color="primary" text-center>{{cj.clientName}} placed an order at <br>{{cj.placedOn}}</p>
+    <p ion-text color="primary" text-center>{{cj.jobCreatorName}} placed an order at <br>{{cj.placedOn}}</p>
     <ion-grid>
       <ion-row>
         <ion-col>
           <button ion-button block (click)="showDetailsPage(cj.key)">Details</button>
         </ion-col>
-        <ion-col>
+        <!--<ion-col>
           <button ion-button block (click)="updateProgressPage(cj.key)">Update Progress</button>
-        </ion-col>
+        </ion-col>-->
       </ion-row>
     </ion-grid>
   </ion-card>

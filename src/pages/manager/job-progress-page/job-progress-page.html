@@ -10,7 +10,7 @@
     margin-top: 8px;
     border-radius: 5px
   }
-  
+
   span {
     color: darkred;
     background: yellow;
@@ -20,12 +20,12 @@
   <div *ngFor="let detail of progress" padding>
     <ion-card>
       <ion-card-content>
-        <ion-item text-center text-wrap [ngStyle]="{'background': detail.aegisApproved.status? 'rgb(121, 214, 77)':'#dadada'}">
-          <ion-icon name="checkmark-circle" *ngIf="detail.aegisApproved.status" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.aegisApproved.status" item-left></ion-icon>
-          {{detail.aegisApproved.status? 'You approved the job request': 'Your approval required'}}<br>
+        <ion-item text-center text-wrap [ngStyle]="{'background': job.isTradespersonAssigned()? 'rgb(121, 214, 77)':'#dadada'}">
+          <ion-icon name="checkmark-circle" *ngIf="job.isTradespersonAssigned()" item-left></ion-icon>
+          <ion-icon name="close" *ngIf="!detail.isTradespersonAssigned()" item-left></ion-icon>
+          {{detail.isTradespersonAssigned()? 'You approved the job request': 'Your approval required'}}<br>
           <span>
-         Time: {{detail.aegisApproved.status? detail.aegisApproved.timestamp : ''}}
+         Time: {{detail.isTradespersonAssigned()? detail.aegisApproved.timestamp : ''}}
          </span>
         </ion-item>
 
@@ -33,16 +33,16 @@
     </ion-card>
     <ion-card>
       <ion-card-content>
-        <ion-item text-center [ngStyle]="{'background': detail.tpAssigned.status? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
-          <ion-icon name="checkmark-circle" *ngIf="detail.tpAssigned.status" item-left></ion-icon>
-          <ion-icon name="close" *ngIf="!detail.tpAssigned.status" item-left></ion-icon>
-          {{detail.tpAssigned.status? 'You assigned job to:': 'No one has been assigned this job'}}
+        <ion-item text-center [ngStyle]="{'background': job.isTradespersonAssigned()? 'rgb(121, 214, 77)':'#dadada'}" text-wrap>
+          <ion-icon name="checkmark-circle" *ngIf="job.isTradespersonAssigned()" item-left></ion-icon>
+          <ion-icon name="close" *ngIf="!job.isTradespersonAssigned()" item-left></ion-icon>
+          {{job.isTradespersonAssigned()? 'You assigned job to:': 'No one has been assigned this job'}}
           <ol>
-            <li *ngFor="let tp of detail.tpAssigned.workers">
-              {{tp.tpName}}
+            <li *ngFor="let tp of job.getTradesPersonAssigned()">
+              {{tp.name}}
             </li>
           </ol>
-          <span>Time: {{detail.tpAssigned.status? detail.tpAssigned.timestamp : ''}}</span>
+          <span>Time: {{job.getTradesPersonAssigned()? job.tradespersonAssignedTime : ''}}</span>
         </ion-item>
 
       </ion-card-content>

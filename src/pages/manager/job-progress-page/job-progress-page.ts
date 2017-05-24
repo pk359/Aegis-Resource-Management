@@ -1,3 +1,4 @@
+import { Job } from './../../common/Model/Job';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ModalController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
@@ -9,9 +10,8 @@ import { FollowUpPage } from '../../common/follow-up-page/follow-up-page'
   templateUrl: 'job-progress-page.html',
 })
 export class ManagerJobProgressPage {
-
-  progress: any = []
   ref: any
+  job: Job
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
     console.log(navParams.data.jobKey)
   }
@@ -19,18 +19,9 @@ export class ManagerJobProgressPage {
   ionViewCanEnter() {
     this.ref = firebase.database().ref('requests/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
-      console.log(snap.val())
-      this.progress = []
-      var tempD = snap.val()
-      //firebase returns object, but ngfor can only accept arrays so we create an array here.
-      if (tempD.tpAssigned.status) {
-        var tpObject = tempD.tpAssigned.workers
-        tempD.tpAssigned.workers = []
-        Object.keys(tpObject).forEach(k => {
-          tempD.tpAssigned.workers.push(tpObject[k]);
-        })
-      }
-      this.progress.push(tempD)
+      var job: Job = new Job()
+      Object.assign(job, snap.val());
+      this.job = job
     })
   }
 

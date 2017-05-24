@@ -121,10 +121,9 @@ export class NewOrderPage {
       this.photoHelper.photos.forEach(photo => {
         this.jobData.photosByClient.push(photo.URL);
       })
-      var currentDate = this.getCurrentDate();
       this.jobData.jobCreatorName = this.cUser.name;
       this.jobData.jobCreatorUid = this.cUser.uid;
-      this.jobData.placedOn = currentDate;
+      this.jobData.setJobCreationTime(new Date());
 
       var reqRef = firebase.database().ref('requests/').push()
       this.jobData.key = reqRef.key;

@@ -4,7 +4,7 @@ import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { Camera, CameraOptions } from '@ionic-native/camera'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-import {FollowUpPage} from '../../common/follow-up-page/follow-up-page'
+import { FollowUpPage } from '../../common/follow-up-page/follow-up-page'
 @Component({
   templateUrl: 'tp-progress-update-page.html',
 })
@@ -43,7 +43,7 @@ export class TPProgressUpdatePage {
       return false;
     }
     console.log('tp current jobs can enter')
-    this.ref = firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress');
+    this.ref = firebase.database().ref('requests/' + this.navParams.data.jobKey + '/progress');
     this.ref.on('value', snap => {
       this.progress = []
       if (!snap.val().clientApproved.status) {
@@ -80,7 +80,7 @@ export class TPProgressUpdatePage {
             text: 'Yes',
             handler: () => {
               firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
-                checkedIn: {status: true, timestamp: this.getCurrentDate()}
+                checkedIn: { status: true, timestamp: this.getCurrentDate() }
               }).then(() => {
                 this.showToast('Your status is updated to checked in.');
               })
@@ -104,7 +104,7 @@ export class TPProgressUpdatePage {
             role: 'cancel',
             handler: () => {
               firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
-                tpDone: {status: false, timestamp: this.getCurrentDate()}
+                tpDone: { status: false, timestamp: this.getCurrentDate() }
               })
             }
           },
@@ -112,7 +112,7 @@ export class TPProgressUpdatePage {
             text: 'Yes',
             handler: () => {
               firebase.database().ref('request/' + this.navParams.data.jobKey + '/progress/').update({
-                tpDone: {status: true, timestamp: this.getCurrentDate()}
+                tpDone: { status: true, timestamp: this.getCurrentDate() }
               }).then(() => {
                 this.showToast('Job is marked done now. Wait for client to approve work.');
               })
@@ -201,7 +201,7 @@ export class TPProgressUpdatePage {
           photos.push(task.snapshot.downloadURL);
           if (++count == this.snapped.length) {
             var reqRef = firebase.database().ref(url);
-            reqRef.set({status: true, photos: photos, timestamp: this.getCurrentDate()}).then(r => {
+            reqRef.set({ status: true, photos: photos, timestamp: this.getCurrentDate() }).then(r => {
               loading.dismiss();
               this.toastCtrl.create({
                 message: 'Photos are saved now.',
