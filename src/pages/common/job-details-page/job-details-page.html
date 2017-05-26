@@ -43,11 +43,7 @@
 
     <!--IF CHECKEDIN-->
     <div *ngIf="job.isCheckedIn()">
-<<<<<<< HEAD
       <ion-title> check in photo</ion-title>
-=======
-      <ion-title>Checkin photo</ion-title>
->>>>>>> origin/master
       <ion-card *ngFor="let url of job.checkInPhotos">
         <img [src]="url" />
       </ion-card>
@@ -62,11 +58,7 @@
       </div>
       <!--IF COMPLETED-->
       <div *ngIf="job.isCompleted()">
-<<<<<<< HEAD
         <ion-title> check in photo</ion-title>
-=======
-        <ion-title> Checkin photo</ion-title>
->>>>>>> origin/master
         <ion-card *ngFor="let url of job.completionPhotos">
           <img [src]="url" />
         </ion-card>
@@ -80,8 +72,4 @@
       </div>
     </div>
   </div>
-<<<<<<< HEAD
-=======
-  <button ion-button block (click)="onClickGoToMessageBoardButton()">Message Board</button>
->>>>>>> origin/master
 </ion-content>
