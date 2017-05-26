@@ -1,4 +1,5 @@
 <ion-header>
+
   <ion-title>
     <h4>Message Board ID {{job.key}}</h4>
   </ion-title>
@@ -7,33 +8,31 @@
   <ion-grid>
     <ion-row class="chatBubble" *ngFor="let message of job.messageBoard.messages" end>
       <img class="profile-pic right" src="jj">
-      <div class="chat-bubble right">
-        <div class="message">{{message.text}}</div>
-        <img src="{{message.imageUrl}}" *ngIf="message.imageUrl != ''">
-        <div class="message-detail">
-          <span style="font-weight:bold;"> {{message.sender}} </span>,
-          <span>time~~</span>
+      <ion-item item-right>
+        <div class="chat-bubble right">
+          <div class="message">{{message.text}}</div>
+          <img src="{{message.imageUrl}}" *ngIf="message.imageUrl != ''">
+          <div class="message-detail">
+            <span style="font-weight:bold;"> {{message.sender}} </span>,
+            <span>time~~</span>
+          </div>
         </div>
-      </div>
+      </ion-item>
     </ion-row>
-
   </ion-grid>
-
-
-  <ion-footer>
-    <ion-toolbar>
-      <ion-input type="text" [(ngModel)]="currentMessage"></ion-input>
-      <ion-buttons end>
-        <button *ngIf="currentMessage != ''" ion-button icon-right color="royal" (click)="takePicture()">
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-input type="text" [(ngModel)]="currentMessage"></ion-input>
+    <ion-buttons end>
+      <button *ngIf="currentMessage != ''" ion-button icon-right color="royal" (click)="takePicture()">
         <ion-icon name="camera"></ion-icon>
       </button>
-        <button ion-button icon-right color="royal" (click)="postMessage()">
+      <button ion-button icon-right color="royal" (click)="postMessage()">
         Send
         <ion-icon name="send"></ion-icon>
       </button>
 
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-footer>
-
-</ion-content>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
