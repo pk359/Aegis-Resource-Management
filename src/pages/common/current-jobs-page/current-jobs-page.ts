@@ -1,3 +1,6 @@
+import { ManagerJobProgressPage } from './../../manager/job-progress-page/job-progress-page';
+import { UserHelper } from './../../common/Utilities/user-helper';
+import { User } from './../../common/Model/User';
 import { Job } from './../../common/Model/Job';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
@@ -5,29 +8,28 @@ import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { LoginPage } from '../../common/login-page/login-page'
 import { JobDetailsPage } from '../../common/job-details-page/job-details-page'
-import { ManagerJobProgressPage } from '../job-progress-page/job-progress-page'
 
 
 @Component({
   templateUrl: 'current-jobs-page.html',
 })
-export class ManagerCurrentJobsPage {
-
-  cUser: any
+export class CurrentJobsPage {
   currentJobs: Job[] = []
   ref: any
+  cUser: User
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public toastCtrl: ToastController, public alertCtrl: AlertController) {
-    this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
+    this.cUser = UserHelper.getCurrentUser()
     firebase.database().ref('requests').on('value', snap => {
       this.currentJobs = []
       if (snap.val()) {
         Object.keys(snap.val()).forEach(key => {
           var job: Job = new Job();
           Object.assign(job, snap.val()[key])
-          this.currentJobs.push(job);
+          if (this.cUser.hasAccessToJob(job)) {
+            this.currentJobs.push(job)
+          }
         })
       }
-      console.log(this.currentJobs)
     })
   }
 

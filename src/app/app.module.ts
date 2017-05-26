@@ -1,3 +1,4 @@
+import { CurrentJobsPage } from './../pages/common/current-jobs-page/current-jobs-page';
 import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +18,6 @@ import { MessageBoardPage } from './../pages/common/message-board-page/message-b
 import { NewUserRequest } from '../pages/manager/new-user-request/new-user-request'
 import { ManagerTabs } from '../pages/manager/manager-tabs/manager-tabs'
 import { ManagerJobProgressPage } from '../pages/manager/job-progress-page/job-progress-page'
-import { ManagerCurrentJobsPage } from '../pages/manager/current-jobs-page/current-jobs-page'
 import { InvoicePage } from '../pages/manager/invoice-page/invoice-page'
 import { NewServicePage } from './../pages/manager/new-service-page/new-service-page';
 
@@ -25,7 +25,6 @@ import { NewServicePage } from './../pages/manager/new-service-page/new-service-
 import { ClientTabs } from '../pages/client/client-tabs/client-tabs'
 import { NewOrderPage } from '../pages/client/new-order-page/new-order-page'
 import { ClientJobProgressPage } from '../pages/client/client-job-progress-page/client-job-progress-page'
-import { ClientCurrentJobsPage } from '../pages/client/client-current-jobs-page/client-current-jobs-page'
 
 //SuperUser Side
 import { SuperUserTabs } from './../pages/superUser/superUser-tabs/superUser-tabs';
@@ -65,8 +64,8 @@ var firebaseConfig = {
   declarations: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    NewUserRequest, ManagerTabs, ManagerCurrentJobsPage, ManagerJobProgressPage, InvoicePage,
-    ClientTabs, NewOrderPage, ClientJobProgressPage, ClientCurrentJobsPage,
+    NewUserRequest, ManagerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
+    ClientTabs, NewOrderPage, ClientJobProgressPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage
   ],
@@ -80,8 +79,8 @@ var firebaseConfig = {
   entryComponents: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    ManagerTabs, NewUserRequest, ManagerCurrentJobsPage, ManagerJobProgressPage, InvoicePage,
-    ClientTabs, NewOrderPage, ClientJobProgressPage, ClientCurrentJobsPage,
+    ManagerTabs, NewUserRequest, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
+    ClientTabs, NewOrderPage, ClientJobProgressPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage
   ],

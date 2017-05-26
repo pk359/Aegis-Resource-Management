@@ -12,16 +12,16 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let cj of currentJobs" padding>
-    <p ion-text color="primary" text-center>{{cj.jobName}} request<br>placed at {{cj.placedOn}}</p>
+  <ion-card *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
+    <p ion-text color="primary" text-center>{{cj.clientName}} placed an order at <br>{{cj.getCreationTime()}}</p>
     <ion-grid>
       <ion-row>
         <ion-col>
           <button ion-button block (click)="showDetailsPage(cj.key)">Details</button>
         </ion-col>
-        <ion-col>
+        <!--<ion-col *ngIf="cj.isTradespersonAssigned()">
           <button ion-button block (click)="showProgresPage(cj.key)">Progress</button>
-        </ion-col>
+        </ion-col>-->
       </ion-row>
     </ion-grid>
   </ion-card>

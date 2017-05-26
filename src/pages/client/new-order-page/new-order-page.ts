@@ -1,3 +1,6 @@
+import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
+import { UserHelper } from './../../common/Utilities/user-helper';
+import { User } from './../../common/Model/User';
 import { PhotoHelper } from './../../common/Utilities/photo-helper';
 import { Job } from './../../common/Model/Job';
 import { Component } from '@angular/core';
@@ -6,7 +9,6 @@ import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { Camera, CameraOptions } from '@ionic-native/camera'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
-import { ClientCurrentJobsPage } from '../client-current-jobs-page/client-current-jobs-page'
 @Component({
   templateUrl: 'new-order-page.html',
 })
@@ -17,7 +19,7 @@ export class NewOrderPage {
   color = 'rgba(0, 0, 0, 0.18)'
   progress = 0
   error = ''
-  cUser: any
+  cUser: User
   jobData: Job = new Job();
   services = []
   photoHelper: PhotoHelper
@@ -27,7 +29,7 @@ export class NewOrderPage {
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
     public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
 
-    this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
+    this.cUser = UserHelper.getCurrentUser()
     firebase.database().ref('services/').on('value', data => {
       this.services = []
       if (data.val()) {
@@ -123,8 +125,7 @@ export class NewOrderPage {
       })
       this.jobData.jobCreatorName = this.cUser.name;
       this.jobData.jobCreatorUid = this.cUser.uid;
-      this.jobData.setJobCreationTime(new Date());
-
+      this.jobData.setCreationTime(new Date());
       var reqRef = firebase.database().ref('requests/').push()
       this.jobData.key = reqRef.key;
       reqRef.set(this.jobData).then(r => {
@@ -137,6 +138,7 @@ export class NewOrderPage {
           dismissOnPageChange: false
         }).present();
         this.jobData = new Job();
+        this.photoHelper = new PhotoHelper(this.cUser.name, this.camera)
       }).catch(r => {
         console.log(r);
       })
@@ -145,14 +147,6 @@ export class NewOrderPage {
   showInFullScreen(imageUrl) {
     this.photoViewer.show(imageUrl)
   }
-  getCurrentDate() {
-    var date = new Date();
-    var newDate = new Date(8 * 60 * 60000 + date.valueOf() + (date.getTimezoneOffset() * 60000));
-    var ampm = newDate.getHours() < 12 ? ' AM' : ' PM';
-    var strDate = newDate + '';
-    return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
-  }
-
   onClickService(name: string) {
     this.alertCtrl.create({
       title: 'You Sure?',

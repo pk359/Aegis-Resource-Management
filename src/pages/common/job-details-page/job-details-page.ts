@@ -111,7 +111,8 @@ export class JobDetailsPage {
         this.toastCtrl.create({
           message: "You have checked in",
           duration: 2
-        })
+        }).present()
+        this.photoHelper.photos = []
       })
     })
   }
@@ -139,5 +140,15 @@ export class JobDetailsPage {
   }
   onClickGoToMessageBoardButton() {
     this.navCtrl.push(MessageBoardPage, this.job);
+  }
+  onClickApproveCompletion() {
+    this.job.approveCompletion(this.currentUser);
+    var alert = this.alertCtrl.create({
+      title: "Approving..",
+    })
+    alert.present()
+    firebase.database().ref('requests/' + this.job.key).update(this.job).then(a => {
+      alert.dismiss()
+    })
   }
 }

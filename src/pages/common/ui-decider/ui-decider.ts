@@ -1,3 +1,4 @@
+import { UserHelper } from './../Utilities/user-helper';
 import { SuperUserTabs } from './../../superUser/superUser-tabs/superUser-tabs';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -15,8 +16,8 @@ export class UIDecider {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire) {
     // this.af.auth.subscribe;
-    var cU = JSON.parse(window.localStorage.getItem('userdetails'))
-    if (cU) {
+    var cU = UserHelper.getCurrentUser()
+    if (cU && cU.uid != undefined) {
       if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)
       else if (cU.role == 'client') this.navCtrl.push(ClientTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)

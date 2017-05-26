@@ -1,3 +1,5 @@
+import { UserHelper } from './../Utilities/user-helper';
+import { User } from './../Model/User';
 import { Component } from '@angular/core';
 import firebase from 'firebase';
 import { NavController, LoadingController, NavParams } from 'ionic-angular';
@@ -41,12 +43,9 @@ export class LoginPage {
 
         //Create localstorage
         firebase.database().ref('users/' + response.uid).once('value').then((snap) => {
-          window.localStorage.setItem('userdetails', JSON.stringify({
-            name: snap.val().name,
-            role: snap.val().role,
-            email: snap.val().email,
-            uid: response.uid
-          }))
+          var user: User = new User();
+          Object.assign(user, snap.val());
+          this.setCurrentUser(user);
           loading.dismissAll();
           this.navCtrl.push(UIDecider)
         });
@@ -83,18 +82,14 @@ export class LoginPage {
       })
         .then((response) => {
           //Register user in database now.
-          firebase.database().ref('users/' + response.uid).set({
-            name: name,
-            role: 'none',
-            emai: email
-          })
+          var user: User = new User();
+          user.name = name;
+          user.role = 'none'
+          user.email = email;
+          user.uid = response.uid;
+          firebase.database().ref('users/' + response.uid).set(user)
           //Create a cookie 
-          window.localStorage.setItem('userdetails', JSON.stringify({
-            name: name,
-            role: 'none',
-            email: email,
-            uid: response.uid
-          }))
+          this.setCurrentUser(user)
           //Once both authentication and adding role = none is successful navigate to new page.
           loading.dismissAll();
           this.navCtrl.push(UIDecider)
@@ -103,9 +98,11 @@ export class LoginPage {
           this.errors.push(errorMessage)
         });
     }
-
   }
 
+  setCurrentUser(user: User) {
+    UserHelper.setCurrentUser(user);
+  }
   forgot(email: string) {
     this.errors = []
     //https://aegis-test-cc70c.firebaseio.com

@@ -34,7 +34,7 @@ export class PhotoHelper {
             callback();
         } else {
             this.photos.forEach(photo => {
-                console.log("uploading " + photo)
+                console.log("uploading " + photo + "  userName: " + this.userName)
                 firebase.storage().ref('images/' + this.userName + '/' + photo.name).putString(photo.image, 'base64').then(snapshot => {
                     photo.URL = snapshot.downloadURL
                     count += 1

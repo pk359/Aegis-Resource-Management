@@ -1,3 +1,5 @@
+import { User } from './../Model/User';
+import { UserHelper } from './../Utilities/user-helper';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
@@ -13,10 +15,13 @@ export class MessagePage {
   ref: any;
   constructor(public af: AngularFire, public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams) {
     this.message = navParams.get('message')
-    this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
-    this.ref = firebase.database().ref('users/'+this.cUser.uid).on('value', snap => {
-      if (snap.val().role != 'none') {
-        this.redirectToUIDecider(snap.val().role);
+    this.cUser = UserHelper.getCurrentUser()
+    this.ref = firebase.database().ref('users/' + this.cUser.uid).on('value', snap => {
+      var user: User = new User();
+      Object.assign(user, snap.val())
+      UserHelper.setCurrentUser(user)
+      if (user.role != 'none') {
+        this.redirectToUIDecider(user.role);
       }
     });
     // window.localStorage.removeItem('userdetails');
@@ -24,11 +29,6 @@ export class MessagePage {
   }
   redirectToUIDecider(role) {
     this.ref = null;
-    window.localStorage.removeItem('userdetails');
-    window.localStorage.setItem('userdetails', JSON.stringify({
-      name: this.cUser.name,
-      role: role,
-    }))
     let prompt = this.alertCtrl.create({
       title: 'Congratulations',
       message: "You are " + role + " now.",

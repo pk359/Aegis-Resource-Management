@@ -17,18 +17,18 @@ export class Job {
     private checkInTime = ''
     completionPhotos = []
     private completionTime = ''
-    completionApproval: User = undefined;
+    completionApproval: User = null;
     private completionApprovalTime = ''
     private messageBoard = new MessageBoard()
-    public getJobCreattionTime() {
+    public getCreationTime() {
         if (this.jobCreationTime != '') {
             return new Date(this.jobCreationTime)
         } else {
             return undefined
         }
     }
-    public setJobCreationTime(time: Date) {
-        this.jobCreationTime = time.toDateString();
+    public setCreationTime(time: Date) {
+        this.jobCreationTime = time.toJSON()
     }
     assignTradesperson(tp: User) {
         this.tradespersonList.push(tp)
