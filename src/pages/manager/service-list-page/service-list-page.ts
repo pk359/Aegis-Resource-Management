@@ -38,11 +38,11 @@ export class ServiceListPage {
   }
   onClickService(service: Service) {
     let alert = this.alertCtrl.create({
-      title: 'Reallyy?',
-      subTitle: 'You sure want to delete this service?',
+      title: 'Delete ' + service.name,
+      subTitle: 'Are you sure?',
       buttons: [
         {
-          text: 'Yup',
+          text: 'Yes',
           role: 'yes',
           handler: () => {
             firebase.database().ref('services/').orderByChild('name').equalTo("" + service.name).ref.remove(a => {
