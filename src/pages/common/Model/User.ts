@@ -1,10 +1,11 @@
 import { Job } from './Job';
+import firebase from 'firebase'
 export class User {
     name: string
     uid: string
     email: string
     role: string
-
+    token: string
     public hasAccessToJob(job: Job) {
         if (this.role == 'superUser' || this.role == 'manager') {
             return true;
@@ -23,5 +24,9 @@ export class User {
             }
         }
         return false;
+    }
+    public updateToken(token: string) {
+        this.token = token
+        firebase.database().ref("users/" + this.uid).update(this)
     }
 }

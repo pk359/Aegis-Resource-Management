@@ -26,30 +26,19 @@ export class PhotoHelper {
         }
     }
 
-    uplaod(callback) {
-        var count = 0;
-        console.log("preparing to upload " + this.photos.length + " images")
-        if (this.photos.length == 0) {
-            console.log("there is no photo attached, calling callback")
-            callback();
-        } else {
-            this.photos.forEach(photo => {
-                console.log("uploading " + photo + "  userName: " + this.userName)
-                firebase.storage().ref('images/' + this.userName + '/' + photo.name).putString(photo.image, 'base64').then(snapshot => {
-                    photo.URL = snapshot.downloadURL
-                    count += 1
-                    if (count == this.photos.length) {
-                        console.log("last photo uploaded, calling callback")
-                        callback()
-                    } else {
-                        console.log("a photo was uploaded.")
-                    }
-                }).catch(e => {
-                    console.log("error while trying to upload photo!: " + e)
-                })
+    uplaod() {
+        let photoPromises = []
+        this.photos.forEach(photo => {
+            let p = firebase.storage().ref('images/' + this.userName + '/' + photo.name).putString(photo.image, 'base64');
+            p.then(snapshot => {
+                photo.URL = snapshot.downloadURL
             })
-        }
+            photoPromises.push(p)
+        })
+        return Promise.all(photoPromises)
+
     }
+
 
 
     snap() {

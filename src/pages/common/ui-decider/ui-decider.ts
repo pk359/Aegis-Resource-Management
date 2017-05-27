@@ -1,3 +1,6 @@
+import { JobDetailsPage } from './../job-details-page/job-details-page';
+import { User } from './../Model/User';
+import { FCM } from '@ionic-native/fcm';
 import { UserHelper } from './../Utilities/user-helper';
 import { SuperUserTabs } from './../../superUser/superUser-tabs/superUser-tabs';
 import { Component } from '@angular/core';
@@ -13,10 +16,16 @@ import { AngularFire } from 'angularfire2'
   templateUrl: 'ui-decider.html',
 })
 export class UIDecider {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire) {
+  currentUser: User;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public fcm: FCM) {
     // this.af.auth.subscribe;
     var cU = UserHelper.getCurrentUser()
+    this.currentUser = cU;
+    try {
+      this.doNotificationStuff();
+    } catch (e) {
+      console.error(e)
+    }
     if (cU && cU.uid != undefined) {
       if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)
       else if (cU.role == 'client') this.navCtrl.push(ClientTabs)
@@ -30,7 +39,39 @@ export class UIDecider {
       this.navCtrl.push(LoginPage, {}, caches.delete)
     }
   }
+  doNotificationStuff() {
+    this.fcm.onNotification().subscribe(data => {
+      if (data.wasTapped) {
+        console.log("Received in background");
+        let jobKey = data.key;
+        let page = data.page;
+        if (page == 'messageboard') {
 
+        } else if (page == 'detail') {
+          this.navCtrl.push(JobDetailsPage, {
+            key: jobKey
+          })
+        }
+      } else {
+        console.log("Received in foreground");
+      };
+    })
+
+    this.fcm.onTokenRefresh().subscribe(token => {
+
+      this.currentUser.updateToken(token)
+    })
+    this.fcm.getToken().then(token => {
+      this.currentUser.updateToken(token)
+    })
+    let topics = ['manager', 'client', 'tradesperson']
+    topics.forEach(topic => {
+      if (topic != this.currentUser.role) {
+        this.fcm.unsubscribeFromTopic(topic)
+      }
+    })
+    this.fcm.subscribeToTopic(this.currentUser.role);
+  }
   ionViewDidLoad() {
     console.log('uidecided loaded')
   }

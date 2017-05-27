@@ -118,7 +118,7 @@ export class NewOrderPage {
       content: 'Submiting Request, please wait...'
     });
     loading.present();
-    this.photoHelper.uplaod(() => {
+    this.photoHelper.uplaod().then(() => {
       // Upload completed successfully, now we can get the download URL
       this.photoHelper.photos.forEach(photo => {
         this.jobData.photosByClient.push(photo.URL);

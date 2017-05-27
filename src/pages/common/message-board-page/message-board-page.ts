@@ -1,3 +1,5 @@
+import { UserHelper } from './../Utilities/user-helper';
+import { User } from './../Model/User';
 import { Camera } from '@ionic-native/camera';
 import { PhotoHelper } from './../Utilities/photo-helper';
 import { TimeHelper } from './../Utilities/time-helper';
@@ -11,38 +13,50 @@ import firebase from 'firebase'
   templateUrl: 'message-board-page.html',
 })
 export class MessageBoardPage {
-  cUser: any;
+  cUser: User;
   ref: any;
-  job: Job;
   currentMessage: string = ""
   photoHelper: PhotoHelper
+  messages: Message[] = []
+  jobKey: string
   constructor(public af: AngularFire, public alertCtrl: AlertController, public navCtrl: NavController,
     public navParams: NavParams, public toastCtrl: ToastController, public camera: Camera) {
-    this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
-    this.job = navParams.data;
-
+    this.cUser = UserHelper.getCurrentUser()
+    this.jobKey = navParams.data.key;
+    firebase.database().ref("requests/" + this.jobKey + "/messageBoard/messages/").on('value', snap => {
+      console.log(snap.val())
+      if (snap.exists()) {
+        this.messages = []
+        Object.keys(snap.val()).forEach(m => {
+          let msg = new Message();
+          Object.assign(msg, m)
+          this.messages.push(msg)
+        })
+      }
+    })
     this.photoHelper = new PhotoHelper(this.cUser.name, this.camera);
-    firebase.database().ref("requests/" + this.job.key + "")
   }
 
   postMessage() {
-    var m = new Message(this.currentMessage, this.cUser.name);
-    m.time = new TimeHelper().getCurrentTime();
-    this.job.getMessageBoard().addMessage(m);
+    var m = new Message();
+    m.sender = this.cUser.name;
+    m.text = this.currentMessage
+    this.currentMessage = ''
+    m.setTime(new Date())
+    let promisses = []
     if (this.photoHelper.photos.length > 0) {
-      this.photoHelper.uplaod(() => {
-        m.imageUrl = this.photoHelper.photos[0].URL;
-        firebase.database().ref('requests/' + this.job.key + '/messageBoard').update(this.job.getMessageBoard()).then(() => {
+      promisses.push(new Promise((resolve, reject) => {
+        this.photoHelper.uplaod().then(() => {
+          m.imageUrl = this.photoHelper.photos[0].URL;
         })
-      })
-    } else {
-      firebase.database().ref('requests/' + this.job.key + '/messageBoard').update(this.job.getMessageBoard()).then(() => {
-      })
+      }))
     }
+    promisses.push(firebase.database().ref('requests/' + this.jobKey + '/messageBoard/messages/').push(m))
+    Promise.all(promisses).catch(e => {
+      console.error(e)
+    })
   }
   takePicture() {
-    var m = new Message(this.currentMessage, this.cUser.name);
-    m.time = new TimeHelper().getCurrentTime();
     this.photoHelper.photos = []
     this.photoHelper.snap();
   }

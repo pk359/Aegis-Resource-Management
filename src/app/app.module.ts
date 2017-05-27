@@ -1,3 +1,4 @@
+import { FCM } from '@ionic-native/fcm';
 import { CurrentJobsPage } from './../pages/common/current-jobs-page/current-jobs-page';
 import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -87,7 +88,7 @@ var firebaseConfig = {
   providers: [
     StatusBar,
     SplashScreen,
-    Camera, PhotoViewer, EmailComposer,
+    Camera, PhotoViewer, EmailComposer, FCM,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

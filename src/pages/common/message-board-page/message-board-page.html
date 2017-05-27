@@ -1,12 +1,12 @@
 <ion-header>
 
   <ion-title>
-    <h4>Message Board ID {{job.key}}</h4>
+    <h4>Message Board ID {{jobKey}}</h4>
   </ion-title>
 </ion-header>
 <ion-content>
   <ion-grid>
-    <ion-row class="chatBubble" *ngFor="let message of job.messageBoard.messages" end>
+    <ion-row class="chatBubble" *ngFor="let message of messages" end>
       <img class="profile-pic right" src="jj">
       <ion-item item-right>
         <div class="chat-bubble right">

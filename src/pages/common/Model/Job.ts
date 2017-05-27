@@ -32,6 +32,7 @@ export class Job {
     }
     assignTradesperson(tp: User) {
         this.tradespersonList.push(tp)
+        this.setTradespersonAssignmentTime(new Date())
     }
     public isTradespersonAssigned() {
         return this.tradespersonList.length > 0;
@@ -90,6 +91,7 @@ export class Job {
 
     approveCompletion(user: User) {
         this.completionApproval = user;
+        this.setCompletionApprovalTime(new Date())
     }
     isCompletionApproved() {
         return this.completionApproval != undefined

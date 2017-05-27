@@ -24,7 +24,7 @@ export class JobDetailsPage {
     public toastCtrl: ToastController, public alertCtrl: AlertController, public camera: Camera) {
 
     this.currentUser = JSON.parse(window.localStorage.getItem('userdetails'))
-    firebase.database().ref('requests/' + this.navParams.data.jobKey).once('value', snap => {
+    firebase.database().ref('requests/' + this.navParams.data.jobKey).on('value', snap => {
       this.job = new Job();
       Object.assign(this.job, snap.val())
       console.log(this.job)
@@ -101,11 +101,12 @@ export class JobDetailsPage {
       message: "Please wait.."
     })
     alert.present()
-    this.photoHelper.uplaod(() => {
+    this.photoHelper.uplaod().then(() => {
       this.photoHelper.photos.forEach(photo => {
         var p: Photo = photo;
         this.job.checkInPhotos.push(p.URL);
       });
+      this.job.setCheckInTime(new Date())
       firebase.database().ref("requests/" + this.job.key).update(this.job).then(() => {
         alert.dismiss()
         this.toastCtrl.create({
@@ -124,11 +125,12 @@ export class JobDetailsPage {
       title: "Uploading, please wait..",
     })
     alert.present()
-    this.photoHelper.uplaod(() => {
+    this.photoHelper.uplaod().then(() => {
       this.photoHelper.photos.forEach(photo => {
         var p: Photo = photo;
         this.job.completionPhotos.push(p.URL);
       });
+      this.job.setCompletionTime(new Date())
       firebase.database().ref("requests/" + this.job.key).update(this.job).then(() => {
         alert.dismiss()
         this.toastCtrl.create({
@@ -139,7 +141,9 @@ export class JobDetailsPage {
     })
   }
   onClickGoToMessageBoardButton() {
-    this.navCtrl.push(MessageBoardPage, this.job);
+    this.navCtrl.push(MessageBoardPage, {
+      key: this.job.key
+    });
   }
   onClickApproveCompletion() {
     this.job.approveCompletion(this.currentUser);

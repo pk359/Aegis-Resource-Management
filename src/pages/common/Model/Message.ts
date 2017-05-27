@@ -1,10 +1,14 @@
 export class Message {
     text: string
     sender: string
-    time: string
+    private time: string = ''
     imageUrl: string = ''
-    constructor(text: string, sender: string) {
-        this.sender = sender;
-        this.text = text;
+    constructor() {
+    }
+    public setTime(time: Date) {
+        this.time = time.toJSON()
+    }
+    public getTime() {
+        return new Date(this.time)
     }
 }
