@@ -16,41 +16,53 @@
       </li>
     </ul>
   </ion-item>
-  <p ion-text>Description: {{job.description}}</p>
-  <button ion-button block (click)="onClickGoToMessageBoardButton()"> go to message board</button>
-  <ion-item *ngFor="let image of job.photosByClient">
+  <ion-card>
+  <ion-title>Description:</ion-title>
+   <ion-card-content>{{job.description}}</ion-card-content>
+   <ion-item *ngFor="let image of job.photosByClient">
     <img [src]="image" (click)="showInFullScreen(image)" />
   </ion-item>
+  </ion-card>
+  <button ion-button block (click)="onClickGoToMessageBoardButton()"> go to message board</button>
   <!--IF HAVENT ASSIGN TRADESPERSON-->
   <div *ngIf="!job.isTradespersonAssigned() && (userRole=='superUser' || userRole=='manager')">
     <button ion-button block (click)="assignTradesperson(job)"> Assign Tradesperson</button>
   </div>
   <!--IF ASSIGNED-->
+  <hr>
   <div *ngIf="job.isTradespersonAssigned()">
-    <h2>Tradesperson</h2>
-    <ion-list *ngFor="let user of job.tradespersonList">
-      {{user.name}}
-    </ion-list>
+    <ion-card>
+      <ion-title>Tradesperson Assigned</ion-title>
+      <ion-card-content>
+        <ul>
+          <li *ngFor="let user of job.tradespersonList">
+          {{user.name}}
+          </li>
+        </ul>
+      </ion-card-content>
+    </ion-card>
 
     <!--IF NO CHECKIN-->
     <div *ngIf="!job.isCheckedIn() && (userRole=='superUser' || userRole=='tradesperson')">
-      <button ion-button block (click)="takeCheckinPhoto()">Checkin photo </button>
+      <button ion-button block (click)="takeCheckinPhoto()">Check-in photo </button>
       <ion-card *ngFor="let photo of photoHelper.photos">
         <img src="data:image/jpeg;base64,{{photo.image}}" />
       </ion-card>
-      <button ion-button block (click)="checkin()" [disabled]="photoHelper.photos.length <= 0">Checkin</button>
+      <button ion-button block (click)="checkin()" [disabled]="photoHelper.photos.length <= 0">Check-in</button>
     </div>
 
     <!--IF CHECKEDIN-->
     <div *ngIf="job.isCheckedIn()">
-      <ion-title> check in photo</ion-title>
+      <ion-card>
+      <ion-title>Check-in photo</ion-title>
       <ion-card *ngFor="let url of job.checkInPhotos">
         <img [src]="url" />
+      </ion-card>
       </ion-card>
 
       <!--IF HAVENT COMPLETE-->
       <div *ngIf="!job.isCompleted()  && (userRole=='superUser' || userRole=='tradesperson')">
-        <button ion-button block (click)="takeCompletionPhoto()">Completion photo </button>
+        <button ion-button block (click)="takeCompletionPhoto()">Completion photo</button>
         <ion-card *ngFor="let photo of photoHelper.photos">
           <img src="data:image/jpeg;base64,{{photo.image}}" />
         </ion-card>
@@ -58,12 +70,14 @@
       </div>
       <!--IF COMPLETED-->
       <div *ngIf="job.isCompleted()">
-        <ion-title> check in photo</ion-title>
+        <ion-card>
+        <ion-title>Completion photo</ion-title>
         <ion-card *ngFor="let url of job.completionPhotos">
           <img [src]="url" />
         </ion-card>
-        <ion-title *ngIf='!job.isCompletionApproved()'> Completion has not been approved</ion-title>
-        <ion-title *ngIf='job.isCompletionApproved()'> Completion has been approved</ion-title>
+        </ion-card>
+        <ion-title style="text-align:center" *ngIf='!job.isCompletionApproved()'><strong><font size="4">Completion has not been approved</font></strong></ion-title>
+        <ion-title style="text-align:center" *ngIf='job.isCompletionApproved()'><strong><font size="4">Completion Approved</font></strong></ion-title>
 
         <div *ngIf="!job.isCompletionApproved() && (userRole=='superUser' || userRole=='client') ">
           <button ion-button block (click)=onClickApproveCompletion()>Approve Completion</button>
