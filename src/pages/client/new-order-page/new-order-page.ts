@@ -45,7 +45,7 @@ export class NewOrderPage {
   showJobs() {
     var alert = this.alertCtrl.create({
       title: 'All services...',
-      message: 'Select atleast one service',
+      message: 'Select at least one service',
       enableBackdropDismiss: false,
       buttons: [{
         text: 'Done',
@@ -82,9 +82,9 @@ export class NewOrderPage {
     var noPhoto = false;
     if (this.jobData.room === '' ||
       this.jobData.building === '') {
-      this.error = 'All fileds are necessary';
+      this.error = 'All fields are necessary';
     } else if (this.jobData.serviceList.length == 0) {
-      this.error = 'Please select atleast one job.'
+      this.error = 'Please select at least one service.'
     } else if (this.photoHelper.photos.length == 0) {
       noPhoto = true
     }
@@ -92,8 +92,8 @@ export class NewOrderPage {
     if (this.error == '') {
       if (noPhoto) {
         this.alertCtrl.create({
-          title: 'No Photo',
-          message: 'You did not attach any photo, are you sure you want to place an order without photo?',
+          title: 'No Photo Attached',
+          message: 'Place an order without photo?',
           buttons: [
             {
               text: 'YES',
@@ -149,7 +149,7 @@ export class NewOrderPage {
   }
   onClickService(name: string) {
     this.alertCtrl.create({
-      title: 'You Sure?',
+      title: 'Remove Service',
       message: 'Are you sure you want to delete ' + name + ' from selected services?',
       buttons: [
         {

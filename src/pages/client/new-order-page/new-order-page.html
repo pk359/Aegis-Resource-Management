@@ -37,15 +37,16 @@
     </ion-label>
     <ion-icon name="arrow-dropdown" item-right></ion-icon>
     <br>
-    <p ion-text>
-      Selected services are:
-    </p>
+
   </ion-item>
-  <ion-list>
+  <ion-card>
+    <ion-card-header>
+      Selected Service are:
+    </ion-card-header>
     <ion-item (click)="onClickService(name)" *ngFor="let name of jobData.serviceList">
       {{name}}
     </ion-item>
-  </ion-list>
+  </ion-card>
   <ion-row>
     <ion-card *ngFor="let photo of this.photoHelper.photos">
       <img src="data:image/jpeg;base64,{{photo.image}}" />
