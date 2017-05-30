@@ -1,26 +1,39 @@
 <ion-header>
-
-  <ion-title>
-    <h4>Message Board ID {{jobKey}}</h4>
-  </ion-title>
+  <ion-navbar>
+    <ion-title>
+      <h4>Message Board ID {{jobKey}}</h4>
+    </ion-title>
+  </ion-navbar>
 </ion-header>
-<ion-content>
+<ion-content #content>
   <ion-grid>
     <ion-row class="chatBubble" *ngFor="let message of messages" end>
-      <img class="profile-pic right" src="jj">
-      <ion-item item-right>
+      <ion-item item-right *ngIf="message.sender == cUser.name">
         <div class="chat-bubble right">
           <div class="message">{{message.text}}</div>
           <img src="{{message.imageUrl}}" *ngIf="message.imageUrl != ''">
           <div class="message-detail">
             <span style="font-weight:bold;"> {{message.sender}} </span>,
-            <span>time~~</span>
+            <span>{{message.getTime()}}</span>
+          </div>
+        </div>
+      </ion-item>
+      <ion-item item-left *ngIf="message.sender != cUser.name">
+        <div class="chat-bubble left">
+          <div class="message">{{message.text}}</div>
+          <img src="{{message.imageUrl}}" *ngIf="message.imageUrl != ''">
+          <div class="message-detail">
+            <span style="font-weight:bold;"> {{message.sender}} </span>,
+            <span>{{message.getTime()}}</span>
           </div>
         </div>
       </ion-item>
     </ion-row>
   </ion-grid>
 </ion-content>
+
+
+
 <ion-footer>
   <ion-toolbar>
     <ion-input type="text" [(ngModel)]="currentMessage"></ion-input>

@@ -44,11 +44,11 @@
   }
 
   .chat-bubble {
-    border-radius: 5px;
+    border-radius: 3px;
     display: inline-block;
     padding: 10px 18px;
     position: relative;
-    margin: 10px;
+    margin: 5px;
     max-width: 80%;
   }
 
@@ -64,7 +64,7 @@
   .chat-bubble.left {
     background-color: #7cdaea;
     float: left;
-    margin-left: 45px;
+    margin-left: 0px;
   }
 
   .chat-bubble.left:before {
@@ -77,7 +77,7 @@
     background-color: #7cdaea;
     color: #000;
     float: right;
-    margin-right: 45px;
+    margin-right: 0px;
   }
 
   .chat-bubble.right:before {

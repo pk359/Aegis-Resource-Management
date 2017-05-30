@@ -9,6 +9,6 @@ export class Message {
         this.time = time.toJSON()
     }
     public getTime() {
-        return new Date(this.time)
+        return new Date(this.time).toLocaleDateString()
     }
 }

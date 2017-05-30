@@ -46,7 +46,7 @@ const sendToUsers = function sendToUsers(uids, title, data, body) {
             promisses.push(sentToDevice(token, title, data, body = body))
         })
     })
-    console.log('sending to ' + uids.length + 'users');
+    console.log('sending to ' + uids.length + ' user');
     return Promise.all(promisses);
 }
 const getTradespersonUids = function getTradespersonUids(job) {
@@ -111,8 +111,16 @@ exports.messageboard = functions.database.ref('/requests/{requestID}/messageBoar
     admin.database().ref('/requests/' + requestKey).once('value').then(result => {
         const job = result.val()
         promisses.push(sendToTopic('manager', sender + ' has posted on messageboard', data, body = text))
-        promisses.push(sendToTradespersons(job, sender + ' has posted on messageboard', data, body = text));
-        promisses.push(sendToClient(job, sender + ' has posted on messageboard', data, body = text))
+        uids = []
+        job.tradespersonList.forEach(user => {
+            if (user.name != sender) {
+                uids.push(user.uid)
+            }
+        })
+        promisses.push(sendToUsers(uids, sender + ' has posted on messageboard', data, body = text));
+        if (job.jobCreatorName != sender) {
+            promisses.push(sendToClient(job, sender + ' has posted on messageboard', data, body = text))
+        }
     })
     return Promise.all(promisses)
 })
