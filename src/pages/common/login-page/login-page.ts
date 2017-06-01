@@ -15,7 +15,7 @@ export class LoginPage {
   activeForm: string = 'login'
   errors: any = []
   constructor(public navCtrl: NavController, public loadingCtrl: LoadingController, public navParams: NavParams, public af: AngularFire) {
-    firebase.database.enableLogging(true);
+    // firebase.database.enableLogging(true);
     this.navCtrl.removeView(this.navCtrl.getPrevious());
   }
 
