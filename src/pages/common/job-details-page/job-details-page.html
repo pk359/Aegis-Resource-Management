@@ -1,7 +1,18 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Job Details</ion-title>
+    <ion-toolbar>
+
+      <ion-title>
+        Job Details
+      </ion-title>
+
+      <ion-buttons end>
+        <button ion-button round (click)="onClickGoToMessageBoardButton()" color="royal">Follow up
+      </button>
+      </ion-buttons>
+    </ion-toolbar>
   </ion-navbar>
+
 </ion-header>
 
 <ion-content padding>
@@ -17,13 +28,16 @@
     </ul>
   </ion-item>
   <ion-card>
-  <ion-title>Description:</ion-title>
-   <ion-card-content>{{job.description}}</ion-card-content>
-   <ion-item *ngFor="let image of job.photosByClient">
-    <img [src]="image" (click)="showInFullScreen(image)" />
-  </ion-item>
+
+    <ion-title>Description:</ion-title>
+    <ion-card-content>{{job.description}}</ion-card-content>
+    <ion-row>
+      <ion-col *ngFor="let image of job.photosByClient">
+        <img [src]="image" (click)="showInFullScreen(image)" />
+      </ion-col>
+    </ion-row>
   </ion-card>
-  <button ion-button block (click)="onClickGoToMessageBoardButton()"> go to message board</button>
+
   <!--IF HAVENT ASSIGN TRADESPERSON-->
   <div *ngIf="!job.isTradespersonAssigned() && (userRole=='superUser' || userRole=='manager')">
     <button ion-button block (click)="assignTradesperson(job)"> Assign Tradesperson</button>
@@ -36,7 +50,7 @@
       <ion-card-content>
         <ul>
           <li *ngFor="let user of job.tradespersonList">
-          {{user.name}}
+            {{user.name}}
           </li>
         </ul>
       </ion-card-content>
@@ -54,10 +68,10 @@
     <!--IF CHECKEDIN-->
     <div *ngIf="job.isCheckedIn()">
       <ion-card>
-      <ion-title>Check-in photo</ion-title>
-      <ion-card *ngFor="let url of job.checkInPhotos">
-        <img [src]="url" />
-      </ion-card>
+        <ion-title>Check-in photo</ion-title>
+        <ion-card *ngFor="let url of job.checkInPhotos">
+          <img [src]="url" />
+        </ion-card>
       </ion-card>
 
       <!--IF HAVENT COMPLETE-->
@@ -71,10 +85,10 @@
       <!--IF COMPLETED-->
       <div *ngIf="job.isCompleted()">
         <ion-card>
-        <ion-title>Completion photo</ion-title>
-        <ion-card *ngFor="let url of job.completionPhotos">
-          <img [src]="url" />
-        </ion-card>
+          <ion-title>Completion photo</ion-title>
+          <ion-card *ngFor="let url of job.completionPhotos">
+            <img [src]="url" />
+          </ion-card>
         </ion-card>
         <ion-title style="text-align:center" *ngIf='!job.isCompletionApproved()'><strong><font size="4">Completion has not been approved</font></strong></ion-title>
         <ion-title style="text-align:center" *ngIf='job.isCompletionApproved()'><strong><font size="4">Completion Approved</font></strong></ion-title>

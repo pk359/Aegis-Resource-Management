@@ -16,11 +16,35 @@
   }
 </style>
 <ion-content padding>
-  <h2 ion-text> New Service</h2>
-  <ion-item>
-    <ion-label stacked> Service Name: </ion-label>
-    <ion-input type="text" [(ngModel)]="serviceName"></ion-input>
-  </ion-item>
-  <h4 text-center style="color:red">{{error}}</h4>
-  <button ion-button block (click)="save()">Save</button>
+
+  <ion-card>
+    <ion-card-header>
+      New Category Form
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input placeholder="Enter a category name"></ion-input>
+      <button ion-button block outline>Add Category</button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      New Service Form
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Select category</ion-label>
+          <ion-select [(ngModel)]="category">
+            <ion-option *ngFor="let c of categories; let i of index" [value]="i">{{c}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Name of service</ion-label>
+          <ion-input [(ngModel)]="serviceName"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button block (click)="save()">Save</button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

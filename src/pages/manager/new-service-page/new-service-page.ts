@@ -16,6 +16,9 @@ export class NewServicePage {
   cUser: any
   serviceName: string = ''
   category: string = ''
+
+  //Just demo later from firebase
+  categories = ['c1', 'c2', 'c3', 'c4', 'c5']
   constructor(public navCtrl: NavController,
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController,
