@@ -16,9 +16,15 @@
   }
 </style>
 <ion-content padding>
-  <button ion-button block (click)="onClickCreateService()">Create New Service</button>
-  <h2>Service List</h2>
-  <ion-card style="padding: 10px" *ngFor="let service of services">
-    <button ion-button block (click)="onClickService(service)">{{service.name}}</button>
-  </ion-card>
+  <ion-fab bottom right>
+    <button  ion-fab large (click)="onClickCreateService()">+</button>
+  </ion-fab>
+  <ion-list>
+    <ion-list-header>
+      Service List
+    </ion-list-header>
+    <ion-item *ngFor="let service of services" (click)="onClickService(service)">
+      {{service.name}}
+    </ion-item>
+  </ion-list>
 </ion-content>

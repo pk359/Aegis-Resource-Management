@@ -6,4 +6,9 @@ export class TimeHelper {
         var strDate = newDate + '';
         return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
     }
+    static formatDate(date: Date) {
+        var ampm = date.getHours() < 12 ? ' AM' : ' PM';
+        var strDate = date + '';
+        return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
+    }
 }

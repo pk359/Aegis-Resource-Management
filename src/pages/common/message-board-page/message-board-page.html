@@ -7,8 +7,8 @@
 </ion-header>
 <ion-content #content>
   <ion-grid>
-    <ion-row class="chatBubble" *ngFor="let message of messages" end>
-      <ion-item item-right *ngIf="message.sender == cUser.name">
+    <ion-row class="chatBubble" *ngFor="let message of messages" no-lines>
+      <ion-item item-right *ngIf="message.sender == cUser.name" no-lines>
         <div class="chat-bubble right">
           <div class="message">{{message.text}}</div>
           <img src="{{message.imageUrl}}" *ngIf="message.imageUrl != ''">

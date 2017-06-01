@@ -1,6 +1,7 @@
 import { MessageBoard } from './MessageBoard';
 import { User } from './User';
 import { JobProgress } from './JobProgress';
+import {TimeHelper} from '../Utilities/time-helper'
 export class Job {
     key: string = '';
     jobCreatorName: string = '';
@@ -22,7 +23,7 @@ export class Job {
     private messageBoard = new MessageBoard()
     public getCreationTime() {
         if (this.jobCreationTime != '') {
-            return new Date(this.jobCreationTime)
+            return TimeHelper.formatDate(new Date(this.jobCreationTime))
         } else {
             return undefined
         }
@@ -45,7 +46,7 @@ export class Job {
     }
     public getTradespersonAssignmentTime() {
         if (this.tradespersonAssignmentTime != '') {
-            return new Date(this.tradespersonAssignmentTime);
+            return TimeHelper.formatDate(new Date(this.tradespersonAssignmentTime));
         } else {
             return undefined;
         }
@@ -58,7 +59,7 @@ export class Job {
     }
     public getCheckInTime() {
         if (this.checkInTime != '') {
-            return new Date(this.checkInTime);
+            return TimeHelper.formatDate(new Date(this.checkInTime));
         } else {
             return undefined
         }
@@ -71,7 +72,7 @@ export class Job {
     }
     public getCompletionTime() {
         if (this.completionTime != '') {
-            return new Date(this.completionTime)
+            return TimeHelper.formatDate(new Date(this.completionTime))
         } else {
             return undefined;
         }
@@ -98,7 +99,7 @@ export class Job {
     }
     public getCompletionApprovalTime() {
         if (this.completionApprovalTime != '') {
-            return new Date(this.completionApprovalTime);
+            return TimeHelper.formatDate(new Date(this.completionApprovalTime));
         } else {
             return undefined;
         }
