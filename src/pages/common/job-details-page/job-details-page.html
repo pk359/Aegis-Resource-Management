@@ -97,7 +97,7 @@
       <div *ngIf="job.isCheckedIn()">
         <ion-slides loop>
           <ion-slide *ngFor="let url of job.checkInPhotos">
-            <img style="height:150px; margin: auto;" [src]="url" (click)="showInFullScreen(image)" />
+            <img style="height:150px; margin: auto;" [src]="url" (click)="showInFullScreen(url)" />
           </ion-slide>
         </ion-slides>
       </div>
@@ -127,7 +127,7 @@
       <div *ngIf="job.isCompleted()">
         <ion-slides loop>
           <ion-slide *ngFor="let url of job.completionPhotos">
-            <img style="height:150px; margin: auto;" [src]="url" (click)="showInFullScreen(image)" />
+            <img style="height:150px; margin: auto;" [src]="url" (click)="showInFullScreen(url)" />
           </ion-slide>
         </ion-slides>
       </div>
