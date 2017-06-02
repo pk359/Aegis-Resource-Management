@@ -12,9 +12,18 @@
 </ion-header>
 
 <ion-content class="card-background-page">
-  <ion-card *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
-    <img [src]="cj.photosByClient[0]" />
+  <ion-card style="height:50%" *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
+    <img style="height:100%" [src]="cj.photosByClient[0]" />
     <div class="card-title">{{cj.jobCreatorName}}</div>
-    <div class="card-subtitle">{{cj.room}}</div>
+    <div class="card-subtitle"> Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
+      <ion-label *ngIf="cj.isCompletionApproved()">
+        <ion-icon ios="ios-checkbox" md="md-checkbox" style="color:lightgreen"></ion-icon>
+        Completed
+      </ion-label>
+      <ion-label *ngIf="!cj.isCompletionApproved()">
+        <ion-icon ios="ios-alert" md="md-alert" color="danger"></ion-icon>
+        Outstanding
+      </ion-label>
+    </div>
   </ion-card>
 </ion-content>
