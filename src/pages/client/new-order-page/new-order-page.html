@@ -48,9 +48,9 @@
     </ion-item>
   </ion-card>
   <ion-row>
-    <ion-card *ngFor="let photo of this.photoHelper.photos">
-      <img src="data:image/jpeg;base64,{{photo.image}}" />
-    </ion-card>
+    <ion-col *ngFor="let photo of this.photoHelper.photos; let i = index">
+      <img src="data:image/jpeg;base64,{{photo.image}}" (click)="imageSelected(i)" />
+    </ion-col>
   </ion-row>
   <ion-row>
     <button ion-button (click)="snap()">

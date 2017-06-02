@@ -4,7 +4,7 @@ import { User } from './../../common/Model/User';
 import { PhotoHelper } from './../../common/Utilities/photo-helper';
 import { Job } from './../../common/Model/Job';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, ActionSheetController, NavParams, ModalController, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { Camera, CameraOptions } from '@ionic-native/camera'
@@ -27,7 +27,7 @@ export class NewOrderPage {
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController, public camera: Camera,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
+    public photoViewer: PhotoViewer, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
 
     this.cUser = UserHelper.getCurrentUser()
     firebase.database().ref('services/').on('value', data => {
@@ -75,6 +75,33 @@ export class NewOrderPage {
 
   snap() {
     this.photoHelper.snap()
+  }
+
+  imageSelected(i){
+     let actionSheet = this.actionSheetCtrl.create({
+      title: 'Choose your action',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.photoHelper.photos.splice(i, 1);
+          }
+        },{
+          text: 'Fullscreen',
+          handler: () =>{
+            console.log('dont have method')
+          }
+        },{
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
   }
 
   placeRequest() {
