@@ -54,40 +54,13 @@ export class NewOrderPage {
     this.photoHelper.snap()
   }
 
-<<<<<<< HEAD
+
   imageSelected(i){
      
    //Add code to show full screen image.
   }
   deleteImage(imageIndex){
     this.photoHelper.photos.splice(imageIndex, 1);
-=======
-  imageSelected(i) {
-    let actionSheet = this.actionSheetCtrl.create({
-      title: 'Choose your action',
-      buttons: [
-        {
-          text: 'Delete',
-          role: 'destructive',
-          handler: () => {
-            this.photoHelper.photos.splice(i, 1);
-          }
-        }, {
-          text: 'Fullscreen',
-          handler: () => {
-            console.log('dont have method')
-          }
-        }, {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
->>>>>>> origin/master
   }
 
   placeRequest() {
