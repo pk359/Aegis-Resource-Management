@@ -41,7 +41,7 @@ export class ServiceListPage {
   }
   onClickService(service: Service) {
     let alert = this.alertCtrl.create({
-      title: 'Delete ' + service,
+      title: 'Delete ' + service.name,
       subTitle: 'Are you sure?',
       buttons: [
         {
