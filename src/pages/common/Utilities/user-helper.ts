@@ -13,4 +13,8 @@ export class UserHelper {
         this.user = user;
         window.localStorage.setItem('userdetails', JSON.stringify(user))
     }
+    public static removeUser() {
+        window.localStorage.removeItem('userdetails')
+        this.user = undefined;
+    }
 }
