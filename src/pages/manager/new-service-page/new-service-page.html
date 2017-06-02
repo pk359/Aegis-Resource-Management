@@ -16,17 +16,6 @@
   }
 </style>
 <ion-content padding>
-
-  <ion-card>
-    <ion-card-header>
-      New Category Form
-    </ion-card-header>
-    <ion-card-content>
-      <ion-input placeholder="Enter a category name"></ion-input>
-      <button ion-button block outline>Add Category</button>
-    </ion-card-content>
-  </ion-card>
-
   <ion-card>
     <ion-card-header>
       New Service Form
@@ -45,6 +34,16 @@
         </ion-item>
       </ion-list>
       <button ion-button block (click)="save()">Save</button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      New Category Form
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input placeholder="Enter a category name"></ion-input>
+      <button ion-button block outline (click)="add_category()">Add Category</button>
     </ion-card-content>
   </ion-card>
 </ion-content>
