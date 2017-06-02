@@ -16,9 +16,9 @@ export class NewServicePage {
   cUser: any
   serviceName: string = ''
   category: string = ''
-
+  newCategoryName:string = '';
   //Just demo later from firebase
-  categories = ['c1', 'c2', 'c3', 'c4', 'c5']
+  categories:string[] = []
   constructor(public navCtrl: NavController,
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController,
@@ -26,6 +26,16 @@ export class NewServicePage {
     public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
 
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
+
+    firebase.database().ref('services').on('value', snap =>{
+      this.categories = []
+      if(snap.val() != null){
+        Object.keys(snap.val()).forEach( key =>{
+        this.categories.push(key)
+      })
+      }
+      
+    } )
 
   }
 
@@ -41,8 +51,7 @@ export class NewServicePage {
     });
     loading.present();
     var service = new Service(this.serviceName);
-    var reqRef = firebase.database().ref('services/').push();
-    reqRef.set(service).then(r => {
+    firebase.database().ref('services/' + this.category).push().set(service).then(r => {
       loading.dismiss();
       this.toastCtrl.create({
         message: 'Save Successfully.',
@@ -55,6 +64,16 @@ export class NewServicePage {
     }).catch(r => {
       console.log(r);
     })
+  }
+  addCategory(){
+    if(this.newCategoryName == ''){
+      this.toastCtrl.create({
+        message: 'Please enter category name you want to add!',
+        duration: 3
+    }).present()
+    return;
+  }
+  this.categories.push(this.newCategoryName);
   }
 }
 

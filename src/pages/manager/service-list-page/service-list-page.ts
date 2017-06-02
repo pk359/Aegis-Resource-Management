@@ -27,7 +27,12 @@ export class ServiceListPage {
       this.services = []
       if (data.val()) {
         Object.keys(data.val()).forEach(key => {
-          this.services.push(data.val()[key]);
+         let services:any[] = data.val()[key]
+         Object.keys(services).forEach( serviceKey =>{
+           console.log(services[serviceKey])
+           this.services.push(services[serviceKey]['name'])
+           console.log(this.services)
+         })
         })
       }
       console.log(data)
@@ -38,14 +43,14 @@ export class ServiceListPage {
   }
   onClickService(service: Service) {
     let alert = this.alertCtrl.create({
-      title: 'Delete ' + service.name,
+      title: 'Delete ' + service,
       subTitle: 'Are you sure?',
       buttons: [
         {
           text: 'Yes',
           role: 'yes',
           handler: () => {
-            firebase.database().ref('services/').orderByChild('name').equalTo("" + service.name).ref.remove(a => {
+            firebase.database().ref('services/').orderByChild('name').equalTo("" + service).ref.remove(a => {
 
             })
           }

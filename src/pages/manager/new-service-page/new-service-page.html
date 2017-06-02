@@ -39,11 +39,11 @@
 
   <ion-card>
     <ion-card-header>
-      New Category Form
+      New Category Form 
     </ion-card-header>
     <ion-card-content>
-      <ion-input placeholder="Enter a category name"></ion-input>
-      <button ion-button block outline (click)="add_category()">Add Category</button>
+      <ion-input placeholder="Enter a category name" [(ngModel)]='newCategoryName'> </ion-input>
+      <button ion-button block outline (click)="addCategory()">Add Category</button>
     </ion-card-content>
   </ion-card>
 </ion-content>

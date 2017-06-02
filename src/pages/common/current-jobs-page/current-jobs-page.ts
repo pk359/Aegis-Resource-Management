@@ -19,7 +19,7 @@ export class CurrentJobsPage {
   cUser: User
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.cUser = UserHelper.getCurrentUser()
-    firebase.database().ref('requests').on('value', snap => {
+    firebase.database().ref('requests').limitToLast(10).on('value', snap => {
       this.currentJobs = []
       if (snap.val()) {
         Object.keys(snap.val()).forEach(key => {
@@ -30,6 +30,12 @@ export class CurrentJobsPage {
           }
         })
       }
+      let temp:Job[] = []
+      for( let i = 0; i < this.currentJobs.length ; i ++){
+        let job = this.currentJobs[i]
+        temp.push(job);
+      }
+      this.currentJobs = temp;
     })
   }
 

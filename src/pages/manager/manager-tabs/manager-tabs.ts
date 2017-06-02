@@ -10,7 +10,6 @@ export class ManagerTabs {
   tab2Root = CurrentJobsPage;
   tab3Root = NewUserRequest;
   constructor() {
-
   }
 
 }
