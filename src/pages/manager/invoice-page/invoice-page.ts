@@ -1,3 +1,5 @@
+import { Job } from './../../common/Model/Job';
+import { Service } from './../../common/Model/Service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -7,13 +9,13 @@ import { EmailComposer } from '@ionic-native/email-composer';
 })
 export class InvoicePage {
 
-  jobs: any = []
+  job: Job;
   priceObject: any = {}
   cost: any = 0;
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, private emailComposer: EmailComposer) {
-    this.jobs = this.navParams.data.jobs;
-    this.jobs.forEach(job => {
-      this.priceObject[`${job}`] = 0
+    this.job = this.navParams.data.job;
+    this.job.serviceList.forEach(category => {
+      this.priceObject[`${category}`] = 0
     })
   }
 
@@ -58,7 +60,7 @@ export class InvoicePage {
                Total Cost: $ ${this.cost}<br>
                ----------------------------`
     let email = {
-      to: 'arni9495@gmail.com',
+      to: 'ching.huang.dexter@gmail.com',
       subject: 'Invoice for order ' + this.navParams.data.jobTitle,
       body: body,
       isHtml: true

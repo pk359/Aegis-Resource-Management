@@ -1,3 +1,4 @@
+import { InvoicePage } from './../../manager/invoice-page/invoice-page';
 import { MessageBoardPage } from './../message-board-page/message-board-page';
 import { Photo } from './../Model/Photo';
 import { Camera } from '@ionic-native/camera';
@@ -152,5 +153,8 @@ export class JobDetailsPage {
     firebase.database().ref('requests/' + this.job.key).update(this.job).then(a => {
       alert.dismiss()
     })
+  }
+  sendInvoice() {
+    this.navCtrl.push(InvoicePage, { job: this.job })
   }
 }

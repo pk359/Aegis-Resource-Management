@@ -7,13 +7,13 @@
 
 <ion-content padding>
   <h2 ion-text>Please enter Cost for the jobs.</h2>
-  <ion-card *ngFor="let job of jobs">
+  <ion-card *ngFor="let category of job.serviceList">
     <ion-item ion-text text-wrap>
-      {{job}}
+      {{category}}
     </ion-item>
     <ion-item>
       <ion-label>Cost: $</ion-label>
-      <ion-input type="number" min=0 placeholder="Enter price" [(ngModel)]="priceObject[job]"></ion-input>
+      <ion-input type="number" min=0 placeholder="Enter price" [(ngModel)]="priceObject[category]"></ion-input>
     </ion-item>
   </ion-card>
 

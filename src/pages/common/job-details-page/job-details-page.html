@@ -16,8 +16,8 @@
 <ion-content padding>
   <ion-card>
     <ion-card-header style="text-align:center;font-size:20px;color:dodgerblue" block>
-        <ion-icon icon-left md="md-bookmark" ></ion-icon>
-        Job Details From Client
+      <ion-icon icon-left md="md-bookmark"></ion-icon>
+      Job Details From Client
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -50,7 +50,7 @@
     <ion-card-header>
       <ion-item>
         <ion-icon icon-left *ngIf="job.isTradespersonAssigned()" ios="ios-checkmark-circle" md="md-checkmark-circle" color="success"></ion-icon>
-        <ion-icon icon-left *ngIf="!job.isTradespersonAssigned()" ios="ios-close-circle" md="md-close-circle" ></ion-icon>
+        <ion-icon icon-left *ngIf="!job.isTradespersonAssigned()" ios="ios-close-circle" md="md-close-circle"></ion-icon>
         Tradesperson
       </ion-item>
     </ion-card-header>
@@ -78,7 +78,7 @@
     <ion-card-header>
       <ion-item>
         <ion-icon icon-left *ngIf="job.isCheckedIn()" ios="ios-checkmark-circle" md="md-checkmark-circle" color="success"></ion-icon>
-        <ion-icon icon-left *ngIf="!job.isCheckedIn()" ios="ios-close-circle" md="md-close-circle" ></ion-icon>
+        <ion-icon icon-left *ngIf="!job.isCheckedIn()" ios="ios-close-circle" md="md-close-circle"></ion-icon>
         Check-In
       </ion-item>
     </ion-card-header>
@@ -109,7 +109,7 @@
     <ion-card-header>
       <ion-item>
         <ion-icon ion-icon icon-left *ngIf="job.isCompleted()" ios="ios-checkmark-circle" md="md-checkmark-circle" color="success"></ion-icon>
-        <ion-icon ion-icon icon-left *ngIf="!job.isCompleted()" ios="ios-close-circle" md="md-close-circle" ></ion-icon>
+        <ion-icon ion-icon icon-left *ngIf="!job.isCompleted()" ios="ios-close-circle" md="md-close-circle"></ion-icon>
         Completion
       </ion-item>
     </ion-card-header>
@@ -139,7 +139,7 @@
     <ion-card-header>
       <ion-item>
         <ion-icon icon-left *ngIf="job.isCompletionApproved()" ios="ios-checkmark-circle" md="md-checkmark-circle" color="success"></ion-icon>
-        <ion-icon icon-left *ngIf="!job.isCompletionApproved()" ios="ios-close-circle" md="md-close-circle" ></ion-icon>
+        <ion-icon icon-left *ngIf="!job.isCompletionApproved()" ios="ios-close-circle" md="md-close-circle"></ion-icon>
         Approval
       </ion-item>
     </ion-card-header>
@@ -148,4 +148,9 @@
         <button ion-button block (click)=onClickApproveCompletion()>Approve Completion</button>
       </div>
     </ion-card-content>
+  </ion-card>
+
+  <!--INVOICE-->
+  <ion-card *ngIf="job.isCompletionApproved()&& (userRole=='superUser' || userRole=='manager') ">
+    <button ion-button block (click)='sendInvoice()'>Send Invoice</button>
   </ion-card>
