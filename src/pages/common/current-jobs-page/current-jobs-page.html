@@ -24,6 +24,9 @@
         <ion-icon ios="ios-alert" md="md-alert" color="danger"></ion-icon>
         Outstanding
       </ion-label>
+      <ion-label *ngIf="cUser.role=='superUser'">
+        <button ion-button block (click)='removeRequest(cj)'>Remove Request</button>
+      </ion-label>
     </div>
   </ion-card>
 </ion-content>

@@ -1,8 +1,8 @@
+import { Job } from './../Model/Job';
 import { LoginPage } from './../login-page/login-page';
 import { ManagerJobProgressPage } from './../../manager/job-progress-page/job-progress-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
-import { Job } from './../../common/Model/Job';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
@@ -132,5 +132,7 @@ export class CurrentJobsPage {
   showProgress(job) {
 
   }
-
+  removeRequest(job: Job) {
+    firebase.database().ref('requests/' + job.key).remove().then()
+  }
 }
