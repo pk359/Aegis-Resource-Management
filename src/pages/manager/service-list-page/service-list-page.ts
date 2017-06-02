@@ -20,7 +20,8 @@ export class ServiceListPage {
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
-    public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
+    public photoViewer: PhotoViewer, public alertCtrl: AlertController,
+    public toastController: ToastController) {
 
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
     firebase.database().ref('services').on('value', snap => {
@@ -36,6 +37,7 @@ export class ServiceListPage {
   }
   onClickCreateService() {
     this.navCtrl.push(NewServicePage, {}, caches.has)
+
   }
   onClickService(service: Service) {
     let alert = this.alertCtrl.create({

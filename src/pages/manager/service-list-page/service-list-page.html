@@ -23,7 +23,7 @@
     <ion-list-header>
       Service List
     </ion-list-header>
-    <ion-item *ngFor="let service of services" (click)='onClickService()'>
+    <ion-item *ngFor="let service of services" (click)='onClickService(service)'>
       {{service.name}}
     </ion-item>
   </ion-list>

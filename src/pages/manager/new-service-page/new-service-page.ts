@@ -32,7 +32,7 @@ export class NewServicePage {
         Object.keys(snap.val()).forEach(key => {
           let service = new Service();
           Object.assign(service, snap.val()[key]);
-          if (service.category in this.categories == false) {
+          if (this.categories.indexOf(service.category) < 0) {
             this.categories.push(service.category)
           }
         })
@@ -66,7 +66,12 @@ export class NewServicePage {
         showCloseButton: false,
         dismissOnPageChange: true
       }).present();
-      this.navCtrl.pop();
+      // this.navCtrl.pop();
+      this.toastCtrl.create({
+        message: 'Service has been created!',
+        duration: 3
+      }).present()
+      this.serviceName = ''
     }).catch(r => {
       console.log(r);
     })
@@ -84,6 +89,7 @@ export class NewServicePage {
       message: 'Category added to list!',
       duration: 3
     }).present()
+    this.newCategoryName = ''
   }
 }
 
