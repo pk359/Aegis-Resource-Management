@@ -1,6 +1,7 @@
 export class Service {
-    name: String;
-    constructor(name) {
-        this.name = name;
+    name: string;
+    category: string;
+    key: string;
+    constructor() {
     }
 }

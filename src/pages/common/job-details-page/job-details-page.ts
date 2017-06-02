@@ -27,9 +27,7 @@ export class JobDetailsPage {
     firebase.database().ref('requests/' + this.navParams.data.jobKey).on('value', snap => {
       this.job = new Job();
       Object.assign(this.job, snap.val())
-      console.log(this.job)
     })
-    console.log(this.currentUser)
     this.userRole = this.currentUser.role
     this.photoHelper = new PhotoHelper(this.currentUser.name, camera)
   }

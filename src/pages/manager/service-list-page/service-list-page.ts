@@ -23,19 +23,15 @@ export class ServiceListPage {
     public photoViewer: PhotoViewer, public alertCtrl: AlertController) {
 
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
-    firebase.database().ref('services/').on('value', data => {
-      this.services = []
-      if (data.val()) {
-        Object.keys(data.val()).forEach(key => {
-         let services:any[] = data.val()[key]
-         Object.keys(services).forEach( serviceKey =>{
-           console.log(services[serviceKey])
-           this.services.push(services[serviceKey]['name'])
-           console.log(this.services)
-         })
+    firebase.database().ref('services').on('value', snap => {
+      this.services = [];
+      if (snap.val() != null) {
+        Object.keys(snap.val()).forEach(key => {
+          let service = new Service();
+          Object.assign(service, snap.val()[key]);
+          this.services.push(service);
         })
       }
-      console.log(data)
     })
   }
   onClickCreateService() {
@@ -50,8 +46,11 @@ export class ServiceListPage {
           text: 'Yes',
           role: 'yes',
           handler: () => {
-            firebase.database().ref('services/').orderByChild('name').equalTo("" + service).ref.remove(a => {
-
+            firebase.database().ref('services/' + service.key).remove().then(a => {
+              this.toastCtrl.create({
+                message: service.name + ' has been removed!',
+                duration: 3
+              }).present()
             })
           }
         },

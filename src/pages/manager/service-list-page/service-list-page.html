@@ -17,14 +17,14 @@
 </style>
 <ion-content padding>
   <ion-fab bottom right>
-    <button  ion-fab large (click)="onClickCreateService()">+</button>
+    <button ion-fab large (click)="onClickCreateService()">+</button>
   </ion-fab>
   <ion-list>
     <ion-list-header>
       Service List
     </ion-list-header>
-    <ion-item *ngFor="let service of services">
-      {{service}}
+    <ion-item *ngFor="let service of services" (click)='onClickService()'>
+      {{service.name}}
     </ion-item>
   </ion-list>
 </ion-content>

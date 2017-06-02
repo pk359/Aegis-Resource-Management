@@ -1,3 +1,4 @@
+import { LoginPage } from './../../common/login-page/login-page';
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
@@ -53,12 +54,40 @@ export class NewOrderPage {
     this.photoHelper.snap()
   }
 
+<<<<<<< HEAD
   imageSelected(i){
      
    //Add code to show full screen image.
   }
   deleteImage(imageIndex){
     this.photoHelper.photos.splice(imageIndex, 1);
+=======
+  imageSelected(i) {
+    let actionSheet = this.actionSheetCtrl.create({
+      title: 'Choose your action',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          handler: () => {
+            this.photoHelper.photos.splice(i, 1);
+          }
+        }, {
+          text: 'Fullscreen',
+          handler: () => {
+            console.log('dont have method')
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+>>>>>>> origin/master
   }
 
   placeRequest() {
@@ -154,6 +183,13 @@ export class NewOrderPage {
   }
   remove(array, element) {
 
+  }
+
+  logout() {
+    this.af.auth.logout().then(() => {
+      UserHelper.removeUser();
+      this.navCtrl.push(LoginPage);
+    });
   }
 }
 
