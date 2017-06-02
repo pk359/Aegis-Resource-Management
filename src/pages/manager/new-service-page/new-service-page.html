@@ -29,8 +29,7 @@
           </ion-select>
         </ion-item>
         <ion-item>
-          <ion-label stacked>Name of service</ion-label>
-          <ion-input [(ngModel)]="serviceName"></ion-input>
+          <ion-input placeholder="Enter a service name" [(ngModel)]="serviceName"></ion-input>
         </ion-item>
       </ion-list>
       <button ion-button block (click)="save()">Save</button>
@@ -39,7 +38,7 @@
 
   <ion-card>
     <ion-card-header>
-      New Category Form 
+      New Category Form
     </ion-card-header>
     <ion-card-content>
       <ion-input placeholder="Enter a category name" [(ngModel)]='newCategoryName'> </ion-input>

@@ -1,3 +1,4 @@
+import { LoginPage } from './../login-page/login-page';
 import { ManagerJobProgressPage } from './../../manager/job-progress-page/job-progress-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
@@ -6,7 +7,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
-import { LoginPage } from '../../common/login-page/login-page'
 import { JobDetailsPage } from '../../common/job-details-page/job-details-page'
 
 
@@ -17,7 +17,8 @@ export class CurrentJobsPage {
   currentJobs: Job[] = []
   ref: any
   cUser: User
-  constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public toastCtrl: ToastController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+    public af: AngularFire, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.cUser = UserHelper.getCurrentUser()
     firebase.database().ref('requests').limitToLast(10).on('value', snap => {
       this.currentJobs = []
@@ -30,12 +31,7 @@ export class CurrentJobsPage {
           }
         })
       }
-      let temp:Job[] = []
-      for( let i = 0; i < this.currentJobs.length ; i ++){
-        let job = this.currentJobs[i]
-        temp.push(job);
-      }
-      this.currentJobs = temp;
+      this.currentJobs = this.currentJobs.reverse()
     })
   }
 
@@ -127,10 +123,10 @@ export class CurrentJobsPage {
     return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
   }
   logout() {
-    this.currentJobs = null;
     this.af.auth.logout().then(() => {
-      window.localStorage.removeItem('userdetails')
-      this.navCtrl.push(LoginPage);
+      UserHelper.removeUser();
+      this.navCtrl.push(LoginPage)
+
     });
   }
   showProgress(job) {

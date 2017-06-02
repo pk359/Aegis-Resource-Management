@@ -1,3 +1,4 @@
+import { LoginPage } from './../../common/login-page/login-page';
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
@@ -77,8 +78,8 @@ export class NewOrderPage {
     this.photoHelper.snap()
   }
 
-  imageSelected(i){
-     let actionSheet = this.actionSheetCtrl.create({
+  imageSelected(i) {
+    let actionSheet = this.actionSheetCtrl.create({
       title: 'Choose your action',
       buttons: [
         {
@@ -87,12 +88,12 @@ export class NewOrderPage {
           handler: () => {
             this.photoHelper.photos.splice(i, 1);
           }
-        },{
+        }, {
           text: 'Fullscreen',
-          handler: () =>{
+          handler: () => {
             console.log('dont have method')
           }
-        },{
+        }, {
           text: 'Cancel',
           role: 'cancel',
           handler: () => {
@@ -197,6 +198,13 @@ export class NewOrderPage {
   }
   remove(array, element) {
 
+  }
+
+  logout() {
+    this.af.auth.logout().then(() => {
+      UserHelper.removeUser();
+      this.navCtrl.push(LoginPage);
+    });
   }
 }
 
