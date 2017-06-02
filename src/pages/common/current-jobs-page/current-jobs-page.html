@@ -11,18 +11,10 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content class="card-background-page">
   <ion-card *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
-    <p ion-text color="primary" text-center>{{cj.clientName}} placed an order at <br>{{cj.getCreationTime()}}</p>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <button ion-button block>Details</button>
-        </ion-col>
-        <!--<ion-col *ngIf="cj.isTradespersonAssigned()">
-          <button ion-button block (click)="showProgresPage(cj.key)">Progress</button>
-        </ion-col>-->
-      </ion-row>
-    </ion-grid>
+    <img [src]="cj.photosByClient[0]" />
+    <div class="card-title">{{cj.jobCreatorName}}</div>
+    <div class="card-subtitle">{{cj.room}}</div>
   </ion-card>
 </ion-content>
