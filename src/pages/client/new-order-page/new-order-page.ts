@@ -1,3 +1,4 @@
+import { Service } from './../../common/Model/Service';
 import { LoginPage } from './../../common/login-page/login-page';
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
@@ -24,6 +25,7 @@ export class NewOrderPage {
   jobData: Job = new Job();
   services = []
   photoHelper: PhotoHelper
+  categories: string[] = []
   constructor(public navCtrl: NavController,
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController, public camera: Camera,
@@ -32,21 +34,28 @@ export class NewOrderPage {
     this.cUser = UserHelper.getCurrentUser()
     firebase.database().ref('services/').on('value', data => {
       this.services = []
+      this.categories = []
       if (data.val()) {
         Object.keys(data.val()).forEach(key => {
-          this.services.push(data.val()[key]);
+          let service: Service = new Service();
+          Object.assign(service, data.val()[key]);
+          this.services.push();
+          console.log(this.categories.indexOf(service.category))
+          if (this.categories.indexOf(service.category) < 0) {
+            this.categories.push(service.category);
+          }
         })
       }
       console.log(data)
     })
     this.photoHelper = new PhotoHelper(this.cUser.name, this.camera)
   }
-  selectService(event, value){
+  selectService(event, value) {
     var index = this.jobData.serviceList.indexOf(value);
-    if(event.checked){
+    if (event.checked) {
       this.jobData.serviceList.push(value);
-    }else{
-      this.jobData.serviceList.splice(index,1);
+    } else {
+      this.jobData.serviceList.splice(index, 1);
     }
   }
 
@@ -55,11 +64,11 @@ export class NewOrderPage {
   }
 
 
-  imageSelected(i){
-     
-   //Add code to show full screen image.
+  imageSelected(i) {
+
+    //Add code to show full screen image.
   }
-  deleteImage(imageIndex){
+  deleteImage(imageIndex) {
     this.photoHelper.photos.splice(imageIndex, 1);
   }
 

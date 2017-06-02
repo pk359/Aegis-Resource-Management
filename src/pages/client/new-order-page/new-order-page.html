@@ -14,7 +14,6 @@
   ion-item {
     margin-top: 6px;
   }
-
 </style>
 <ion-content padding>
   <h2 ion-text text-center>Place your order</h2>
@@ -44,9 +43,9 @@
     <ion-list-header>
       Select services
     </ion-list-header>
-    <ion-item *ngFor="let service of services" no-lines>
-      <ion-label>{{service.name}}</ion-label>
-      <ion-checkbox (ionChange)="selectService($event, service.name)"></ion-checkbox>
+    <ion-item *ngFor="let category of categories" no-lines>
+      <ion-label>{{category}}</ion-label>
+      <ion-checkbox (ionChange)="selectService($event, category)"></ion-checkbox>
     </ion-item>
   </ion-list>
   <style>
@@ -60,7 +59,6 @@
       right: 2px;
       z-index: 100;
     }
-
   </style>
   <ion-list>
     <ion-list-header>
