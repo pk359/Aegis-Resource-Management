@@ -28,7 +28,6 @@ export class NewOrderPage {
     public modalCtrl: ModalController, public camera: Camera,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
     public photoViewer: PhotoViewer, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
-
     this.cUser = UserHelper.getCurrentUser()
     firebase.database().ref('services/').on('value', data => {
       this.services = []
@@ -41,36 +40,13 @@ export class NewOrderPage {
     })
     this.photoHelper = new PhotoHelper(this.cUser.name, this.camera)
   }
-
-  showJobs() {
-    var alert = this.alertCtrl.create({
-      title: 'All services...',
-      message: 'Select at least one service',
-      enableBackdropDismiss: false,
-      buttons: [{
-        text: 'Done',
-        handler: name => {
-          name.forEach(element => {
-            this.jobData.serviceList.push(element);
-
-          });
-        }
-      },
-      {
-        text: 'Cancel',
-        role: 'cancel'
-      }
-      ]
-    })
-    this.services.forEach(service => {
-      alert.addInput({
-        type: 'checkbox',
-        label: service.name,
-        value: service.name,
-        // checked
-      })
-    })
-    alert.present();
+  selectService(event, value){
+    var index = this.jobData.serviceList.indexOf(value);
+    if(event.checked){
+      this.jobData.serviceList.push(value);
+    }else{
+      this.jobData.serviceList.splice(index,1);
+    }
   }
 
   snap() {
@@ -78,30 +54,11 @@ export class NewOrderPage {
   }
 
   imageSelected(i){
-     let actionSheet = this.actionSheetCtrl.create({
-      title: 'Choose your action',
-      buttons: [
-        {
-          text: 'Delete',
-          role: 'destructive',
-          handler: () => {
-            this.photoHelper.photos.splice(i, 1);
-          }
-        },{
-          text: 'Fullscreen',
-          handler: () =>{
-            console.log('dont have method')
-          }
-        },{
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
+     
+   //Add code to show full screen image.
+  }
+  deleteImage(imageIndex){
+    this.photoHelper.photos.splice(imageIndex, 1);
   }
 
   placeRequest() {
