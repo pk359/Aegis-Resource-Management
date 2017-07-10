@@ -39,6 +39,17 @@ export class JobDetailsPage {
   showInFullScreen(imageUrl) {
     this.photoViewer.show(imageUrl)
   }
+
+  onclickApproveProcess() {
+    this.job.approveProcess(this.currentUser);
+    var alert = this.alertCtrl.create({
+      title: "Approving..",
+    })
+    alert.present()
+    firebase.database().ref('requests/' + this.job.key).update(this.job).then(a => {
+      alert.dismiss()
+    })
+  }
   public assignTradesperson(job: Job) {
     var tps: User[] = []
     firebase.database().ref('users/').orderByChild('role').equalTo('tradesperson').once('value', snap => {

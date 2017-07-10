@@ -1,3 +1,4 @@
+import { EngineerTabs } from './../../engineer/engineer-tabs/engineer-tabs';
 import { TradesPersonTabs } from './../../tradesperson/trades-person-tabs/trades-person-tabs';
 import { LoginPage } from './../login-page/login-page';
 import { JobDetailsPage } from './../job-details-page/job-details-page';
@@ -13,6 +14,7 @@ import { CurrentJobsPage } from '../current-jobs-page/current-jobs-page'
 import { MessagePage } from '../message-page/message-page'
 import { AngularFire } from 'angularfire2'
 import { App } from 'ionic-angular';
+
 @Component({
   selector: 'page-ui-decider',
   templateUrl: 'ui-decider.html',
@@ -31,6 +33,7 @@ export class UIDecider {
     }
     if (cU && cU.uid != undefined) {
       if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)
+      else if (cU.role == 'engineer') this.navCtrl.push(EngineerTabs)
       else if (cU.role == 'client') this.navCtrl.push(ClientTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)
       else if (cU.role == 'superUser') this.navCtrl.setRoot(SuperUserTabs)
@@ -67,7 +70,7 @@ export class UIDecider {
     this.fcm.getToken().then(token => {
       this.currentUser.updateToken(token)
     })
-    let topics = ['manager', 'client', 'tradesperson']
+    let topics = ['manager', 'client', 'tradesperson','engineer']
     topics.forEach(topic => {
       if (topic != this.currentUser.role) {
         this.fcm.unsubscribeFromTopic(topic)

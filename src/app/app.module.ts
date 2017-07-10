@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-
 //Common side
 import { LoginPage } from '../pages/common/login-page/login-page'
 import { UIDecider } from '../pages/common/ui-decider/ui-decider'
@@ -29,6 +28,9 @@ import { ClientJobProgressPage } from '../pages/client/client-job-progress-page/
 
 //SuperUser Side
 import { SuperUserTabs } from './../pages/superUser/superUser-tabs/superUser-tabs';
+
+//Engineer Side
+import { EngineerTabs } from './../pages/engineer/engineer-tabs/engineer-tabs';
 
 //Tradesperson Side
 import { TradesPersonTabs } from '../pages/tradesperson/trades-person-tabs/trades-person-tabs';
@@ -65,7 +67,7 @@ var firebaseConfig = {
   declarations: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    NewUserRequest, ManagerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
+    NewUserRequest, ManagerTabs, EngineerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage
@@ -80,7 +82,7 @@ var firebaseConfig = {
   entryComponents: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    ManagerTabs, NewUserRequest, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
+    ManagerTabs, NewUserRequest, EngineerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage

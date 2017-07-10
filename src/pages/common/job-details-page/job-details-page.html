@@ -45,6 +45,23 @@
     </ion-card-content>
   </ion-card>
 
+  <!-- Approve Process -->
+  <ion-card>
+    <ion-card-header>
+      <ion-item>
+        <ion-icon icon-left *ngIf="job.isApproveforProcess()" ios="ios-checkmark-circle" md="md-checkmark-circle" color="success"></ion-icon>
+        <ion-icon icon-left *ngIf="!job.isApproveforProcess()" ios="ios-close-circle" md="md-close-circle"></ion-icon>
+        Process Approval
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- IF NOT APPROVE FOR PROCESSING -->
+      <div *ngIf="!job.isApproveforProcess() && (userRole== 'superUser' || userRole=='engineer')">
+        <button ion-button block (click)="onclickApproveProcess()">Approve</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
   <!--TRADESPERSON CARD-->
   <ion-card>
     <ion-card-header>
@@ -56,7 +73,7 @@
     </ion-card-header>
     <ion-card-content>
       <!--IF HAVENT ASSIGN TRADESPERSON-->
-      <div *ngIf="!job.isTradespersonAssigned() && (userRole=='superUser' || userRole=='manager')">
+      <div *ngIf="!job.isTradespersonAssigned() && job.isApproveforProcess() && (userRole=='superUser' || userRole=='manager')">
         <button ion-button block (click)="assignTradesperson(job)">Assign</button>
       </div>
       <!--IF ASSIGNED-->

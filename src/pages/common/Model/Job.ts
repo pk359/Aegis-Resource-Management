@@ -1,7 +1,7 @@
 import { MessageBoard } from './MessageBoard';
 import { User } from './User';
 import { JobProgress } from './JobProgress';
-import {TimeHelper} from '../Utilities/time-helper'
+import { TimeHelper } from '../Utilities/time-helper'
 export class Job {
     key: string = '';
     jobCreatorName: string = '';
@@ -21,6 +21,10 @@ export class Job {
     completionApproval: User = null;
     private completionApprovalTime = ''
     private messageBoard = new MessageBoard()
+    processApproval: User = null;
+    private approvalTime = ''
+    private processApprovalTime = ''
+
     public getCreationTime() {
         if (this.jobCreationTime != '') {
             return TimeHelper.formatDate(new Date(this.jobCreationTime))
@@ -106,5 +110,24 @@ export class Job {
     }
     public setCompletionApprovalTime(time: Date) {
         this.completionApprovalTime = time.toDateString();
+    }
+
+    public setProcessApprovaltime(time: Date){
+        this.approvalTime = time.toDateString();
+    }
+    approveProcess(user: User) {
+        this.processApproval = user;
+        this.setProcessApprovaltime(new Date());
+    }
+    public getProcessApprovalTime() {
+        if (this.processApprovalTime != '') {
+            return TimeHelper.formatDate(new Date(this.completionApprovalTime));
+        } else {
+            return undefined;
+        }
+    }
+    
+    isApproveforProcess(){
+        return this.processApproval != undefined
     }
 }
