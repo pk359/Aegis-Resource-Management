@@ -7,7 +7,7 @@ import { User } from './../Model/User';
 import { TimeHelper } from './../Utilities/time-helper';
 import { Job } from './../Model/Job';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController, ActionSheetController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
@@ -22,7 +22,7 @@ export class JobDetailsPage {
   userRole = undefined
   photoHelper: PhotoHelper
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public photoViewer: PhotoViewer,
-    public toastCtrl: ToastController, public alertCtrl: AlertController, public camera: Camera) {
+    public toastCtrl: ToastController, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, public camera: Camera) {
 
     this.currentUser = JSON.parse(window.localStorage.getItem('userdetails'))
     firebase.database().ref('requests/' + this.navParams.data.jobKey).on('value', snap => {
@@ -41,15 +41,33 @@ export class JobDetailsPage {
   }
 
   onclickApproveProcess() {
-    this.job.approveProcess(this.currentUser);
-    var alert = this.alertCtrl.create({
-      title: "Approving..",
-    })
-    alert.present()
-    firebase.database().ref('requests/' + this.job.key).update(this.job).then(a => {
-      alert.dismiss()
-    })
+//remove from here
+
+       let confirm = this.alertCtrl.create({
+      title: 'Confirm Process Approval?',
+      message: 'Do you agree to approve the requested job details?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+          this.job.approveProcess(this.currentUser);
+          firebase.database().ref('requests/' + this.job.key).update(this.job)
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
+
+
+
+
   public assignTradesperson(job: Job) {
     var tps: User[] = []
     firebase.database().ref('users/').orderByChild('role').equalTo('tradesperson').once('value', snap => {
@@ -131,6 +149,40 @@ export class JobDetailsPage {
     this.photoHelper.snap();
   }
   confirmCompletion() {
+
+       let confirm = this.alertCtrl.create({
+      title: 'Confirm completion?',
+      message: 'Do you agree to the send of your completion photo?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+      this.photoHelper.uplaod().then(() => {      
+      this.photoHelper.photos.forEach(photo => {
+        var p: Photo = photo;
+        this.job.completionPhotos.push(p.URL);
+      });
+            
+      this.job.setCompletionTime(new Date())
+      firebase.database().ref("requests/" + this.job.key).update(this.job)
+          this.toastCtrl.create({
+          message: "upload successful",
+          duration: 2
+        })
+        }) 
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+   /***  
     var alert = this.alertCtrl.create({
       title: "Uploading, please wait..",
     })
@@ -148,13 +200,16 @@ export class JobDetailsPage {
           duration: 2
         })
       })
-    })
+    }) **/ 
   }
+
+
   onClickGoToMessageBoardButton() {
     this.navCtrl.push(MessageBoardPage, {
       key: this.job.key
     });
   }
+  /***editing
   onClickApproveCompletion() {
     this.job.approveCompletion(this.currentUser);
     var alert = this.alertCtrl.create({
@@ -164,7 +219,33 @@ export class JobDetailsPage {
     firebase.database().ref('requests/' + this.job.key).update(this.job).then(a => {
       alert.dismiss()
     })
+  }  ***/
+
+onClickApproveCompletion() {
+  //this.job.approveCompletion(this.currentUser);
+   let confirm = this.alertCtrl.create({
+      title: 'Confirm completion?',
+      message: 'Do you agree to the completion of your job request?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+          this.job.approveCompletion(this.currentUser);
+          firebase.database().ref('requests/' + this.job.key).update(this.job)
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
+
+
   sendInvoice() {
     this.navCtrl.push(InvoicePage, { job: this.job })
   }
