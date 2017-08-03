@@ -135,4 +135,47 @@ export class CurrentJobsPage {
   removeRequest(job: Job) {
     firebase.database().ref('requests/' + job.key).remove().then()
   }
+
+  onClickDownloadCSV() {
+    var converter = require('json-2-csv');
+
+    var options = {
+      delimiter: {
+        field: ',', // Comma field delimiter
+        array: ';', // Semicolon array value delimiter
+        eol: '\n' // Newline delimiter
+      },
+      prependHeader: true,
+      sortHeader: false,
+      trimHeaderValues: true,
+      trimFieldValues: true,
+      keys: ['building', 'room', 'jobCreationTime', 'jobCreatorName', 'serviceList','description', 'processApproval.name', 'processApprovalTime','tradespersonList.Name', 'tradespersonAssignmentTime','checkInTime','completionTime','completionApprovalTime']
+    };
+
+    var documents = []
+    firebase.database().ref('requests/').once('value', datasnapshot => {
+      if (datasnapshot.val()) {
+        Object.keys(datasnapshot.val()).forEach(key => {
+          var job: Job = new Job()
+          Object.assign(job, datasnapshot.val()[key])
+          documents.push(job)
+        })
+      }
+      converter.json2csv(documents, json2csvCallback, options);
+    })
+
+    var json2csvCallback = function (err, csv) {
+      if (err) throw err;
+      var csvContent = "data:text/csv;charset=utf-8,"
+      csvContent += csv
+      var encodedUri = encodeURI(csvContent);
+      var link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", "my_data.csv");
+      document.body.appendChild(link); // Required for FF
+      link.click(); // This will download the data file named "my_data.csv".
+    }
+
+
+  }
 }

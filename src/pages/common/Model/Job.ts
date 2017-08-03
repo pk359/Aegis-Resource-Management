@@ -22,8 +22,7 @@ export class Job {
     private completionApprovalTime = ''
     private messageBoard = new MessageBoard()
     processApproval: User = null;
-    private approvalTime = ''
-    private processApprovalTime = ''
+    processApprovalTime = ''
 
     public getCreationTime() {
         if (this.jobCreationTime != '') {
@@ -56,7 +55,7 @@ export class Job {
         }
     }
     public setTradespersonAssignmentTime(time: Date) {
-        this.tradespersonAssignmentTime = time.toDateString();
+        this.tradespersonAssignmentTime = time.toJSON();
     }
     public isCheckedIn() {
         return this.checkInPhotos.length > 0;
@@ -69,7 +68,7 @@ export class Job {
         }
     }
     public setCheckInTime(time: Date) {
-        this.checkInTime = time.toDateString();
+        this.checkInTime = time.toJSON();
     }
     public isCompleted() {
         return this.completionPhotos.length > 0;
@@ -82,7 +81,7 @@ export class Job {
         }
     }
     public setCompletionTime(time: Date) {
-        this.completionTime = time.toDateString();
+        this.completionTime = time.toJSON();
     }
     public getMessageBoard() {
         if (this.messageBoard instanceof MessageBoard == false) {
@@ -109,25 +108,27 @@ export class Job {
         }
     }
     public setCompletionApprovalTime(time: Date) {
-        this.completionApprovalTime = time.toDateString();
+        this.completionApprovalTime = time.toJSON();
     }
 
-    public setProcessApprovaltime(time: Date){
-        this.approvalTime = time.toDateString();
-    }
     approveProcess(user: User) {
         this.processApproval = user;
         this.setProcessApprovaltime(new Date());
     }
+
+    isApproveforProcess() {
+        return this.processApproval != undefined
+    }
+
+    public setProcessApprovaltime(time: Date) {
+        this.processApprovalTime = time.toJSON();
+    }
+
     public getProcessApprovalTime() {
         if (this.processApprovalTime != '') {
-            return TimeHelper.formatDate(new Date(this.completionApprovalTime));
+            return TimeHelper.formatDate(new Date(this.processApprovalTime));
         } else {
             return undefined;
         }
-    }
-    
-    isApproveforProcess(){
-        return this.processApproval != undefined
     }
 }
