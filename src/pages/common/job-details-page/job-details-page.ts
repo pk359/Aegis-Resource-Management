@@ -149,6 +149,40 @@ export class JobDetailsPage {
     this.photoHelper.snap();
   }
   confirmCompletion() {
+
+       let confirm = this.alertCtrl.create({
+      title: 'Confirm completion?',
+      message: 'Do you agree to the send of your completion photo?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+      this.photoHelper.uplaod().then(() => {      
+      this.photoHelper.photos.forEach(photo => {
+        var p: Photo = photo;
+        this.job.completionPhotos.push(p.URL);
+      });
+            
+      this.job.setCompletionTime(new Date())
+      firebase.database().ref("requests/" + this.job.key).update(this.job)
+          this.toastCtrl.create({
+          message: "upload successful",
+          duration: 2
+        })
+        }) 
+          }
+        }
+      ]
+    });
+    confirm.present();
+
+   /***  
     var alert = this.alertCtrl.create({
       title: "Uploading, please wait..",
     })
@@ -166,8 +200,10 @@ export class JobDetailsPage {
           duration: 2
         })
       })
-    })
+    }) **/ 
   }
+
+
   onClickGoToMessageBoardButton() {
     this.navCtrl.push(MessageBoardPage, {
       key: this.job.key
