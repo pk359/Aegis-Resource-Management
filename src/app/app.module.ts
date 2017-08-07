@@ -1,9 +1,11 @@
+
 import { FCM } from '@ionic-native/fcm';
 import { CurrentJobsPage } from './../pages/common/current-jobs-page/current-jobs-page';
 import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { BackgroundMode } from '@ionic-native/background-mode';
 import { MyApp } from './app.component';
 
 //Common side
@@ -37,6 +39,10 @@ import { TradesPersonTabs } from '../pages/tradesperson/trades-person-tabs/trade
 import { TPCurrentJobsPage } from '../pages/tradesperson/tp-current-jobs-page/tp-current-jobs-page'
 import { TPProgressUpdatePage } from '../pages/tradesperson/tp-progress-update-page/tp-progress-update-page'
 
+
+//feedback side
+import { FeedbackPage } from '../pages/feedback/feedback-page/feedback-page';
+
 //Native api request
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -54,6 +60,7 @@ import { AngularFireModule } from 'angularfire2';
 //     storageBucket: "aegis-c197c.appspot.com",
 //     messagingSenderId: "922210177619"
 // };
+import { LocalNotifications } from '@ionic-native/local-notifications';
 var firebaseConfig = {
   apiKey: "AIzaSyBz5UXAk9S8M5gEmMDtW59TBhXTqxjOIxg",
   authDomain: "questmanagement-a67c5.firebaseapp.com",
@@ -70,7 +77,7 @@ var firebaseConfig = {
     NewUserRequest, ManagerTabs, EngineerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage
+    ServiceListPage, MessageBoardPage, FeedbackPage
   ],
   imports: [
     BrowserModule,
@@ -85,12 +92,12 @@ var firebaseConfig = {
     ManagerTabs, NewUserRequest, EngineerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage
+    ServiceListPage, MessageBoardPage, FeedbackPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    Camera, PhotoViewer, EmailComposer, FCM,
+    Camera, PhotoViewer, EmailComposer, FCM, BackgroundMode, LocalNotifications,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

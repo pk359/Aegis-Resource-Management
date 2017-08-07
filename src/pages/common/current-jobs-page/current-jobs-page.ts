@@ -20,11 +20,12 @@ export class CurrentJobsPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public af: AngularFire, public toastCtrl: ToastController, public alertCtrl: AlertController) {
     this.cUser = UserHelper.getCurrentUser()
-    firebase.database().ref('requests').limitToLast(10).on('value', snap => {
+    firebase.database().ref('requests').orderByChild('completionApproval').equalTo(null).on('value', snap => {
       this.currentJobs = []
       if (snap.val()) {
         Object.keys(snap.val()).forEach(key => {
           var job: Job = new Job();
+          job.isCompletionApproved()
           Object.assign(job, snap.val()[key])
           if (this.cUser.hasAccessToJob(job)) {
             this.currentJobs.push(job)
@@ -125,9 +126,9 @@ export class CurrentJobsPage {
   logout() {
     this.af.auth.logout().then(() => {
       UserHelper.removeUser();
-      this.navCtrl.push(LoginPage)
-
     });
+    this.navCtrl.push(LoginPage)
+
   }
   showProgress(job) {
 

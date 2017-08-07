@@ -1,6 +1,13 @@
 var functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
+/** 
+exports.hourly_job =
+  functions.pubsub.topic('hourly-tick').onPublish((event) => {
+    console.log("This job is ran every hour!")
+  });  **/
+
+//sendToTopic
 const sendToTopic = function sendToTopic(topic, title, data, body = 'Press me to view detail') {
     const payLoad = {
         notification: {
@@ -18,6 +25,9 @@ const sendToTopic = function sendToTopic(topic, title, data, body = 'Press me to
     console.log('sending notification to ' + topic + ' topic!')
     return admin.messaging().sendToTopic(topic, payLoad, options);
 }
+
+
+//sendToDevice *
 const sentToDevice = function sendToDevice(token, title, data, body) {
     const payLoad = {
         notification: {
@@ -34,6 +44,10 @@ const sentToDevice = function sendToDevice(token, title, data, body) {
     };
     return admin.messaging().sendToDevice(token, payLoad, options)
 }
+
+
+
+//SendToUsers
 const sendToUsers = function sendToUsers(uids, title, data, body) {
     let promisses = []
     let getUidPromisses = []
@@ -49,6 +63,9 @@ const sendToUsers = function sendToUsers(uids, title, data, body) {
     console.log('sending to ' + uids.length + ' user');
     return Promise.all(promisses);
 }
+
+
+//getTradespersonUids
 const getTradespersonUids = function getTradespersonUids(job) {
     uids = []
     job.tradespersonList.forEach(function (user) {
@@ -56,13 +73,19 @@ const getTradespersonUids = function getTradespersonUids(job) {
     }, this);
     return uids;
 }
+
+//sendToTradspersons
 const sendToTradespersons = function sendToTradespersons(job, title, data, body = 'Press me to view detail') {
     return sendToUsers(getTradespersonUids(job), title, data, body)
 }
+
+//sendTOClient
 const sendToClient = function sendToClient(job, title, data, body = 'Press me to view detail') {
     console.log('sending notification to client')
     return sendToUsers([job.jobCreatorUid], title, data, body = body);
 }
+
+//exports.general  ******
 exports.general = functions.database.ref('/requests/{pushId}/').onWrite(event => {
     const requestKey = event.params.pushId
     if (!event.data.val()) {
@@ -73,6 +96,7 @@ exports.general = functions.database.ref('/requests/{pushId}/').onWrite(event =>
             key: requestKey
         })
     }
+    //important
     const oldJob = event.data.previous.val();
     const newJob = event.data.val()
     let data = {
@@ -84,7 +108,7 @@ exports.general = functions.database.ref('/requests/{pushId}/').onWrite(event =>
         promisses.push(sendToTopic('manager', 'A request has been assigned and dispatched!', data))
         promisses.push(sendToTradespersons(newJob, 'You have been assigned to a new job!', data));
     } else if (oldJob.checkInTime != newJob.checkInTime) {
-        promisses.push(sendToTopic('manager', 'A tradesperson has chanked in to a request!', data))
+        promisses.push(sendToTopic('manager', 'A tradesperson has checked in to a request!', data))
         promisses.push(sendToClient(newJob, 'Tradesperson has checked in to your request!', data))
     } else if (oldJob.completionTime != newJob.completionTime) {
         promisses.push(sendToTopic('manager', 'A tradesperson has mark a request as complete!', data))
@@ -95,10 +119,14 @@ exports.general = functions.database.ref('/requests/{pushId}/').onWrite(event =>
     }
     return Promise.all(promisses)
 });
+
+
+//exports2
 exports.messageboard = functions.database.ref('/requests/{requestID}/messageBoard/messages/{messageIndex}/').onWrite(event => {
     if (event.data.previous.exists()) {
         return;
     }
+
     const requestKey = event.params.requestID
     const messageIndex = event.params.messageIndex;
     let promisses = []
@@ -124,3 +152,22 @@ exports.messageboard = functions.database.ref('/requests/{requestID}/messageBoar
     })
     return Promise.all(promisses)
 })
+
+//export reminder for client
+//exports.hourlymessage = functions.database.ref('/requests/{pushId}/')
+//.onWrite(event => {
+ //   const post = event.data.val
+
+  //  do(job.isCompleted()){ 
+ //   } while (!job.isCompletionApproved()){
+        
+//    }
+
+//    post.pubsub.topic=true
+
+//})
+
+
+  functions.pubsub.topic('hourly-tick').onPublish((event) => {
+    console.log("one of your requested job is completed,check the room!")
+  }); 
