@@ -6,6 +6,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { MyApp } from './app.component';
 
 //Common side
@@ -60,7 +61,7 @@ import { AngularFireModule } from 'angularfire2';
 //     storageBucket: "aegis-c197c.appspot.com",
 //     messagingSenderId: "922210177619"
 // };
-import { LocalNotifications } from '@ionic-native/local-notifications';
+
 var firebaseConfig = {
   apiKey: "AIzaSyBz5UXAk9S8M5gEmMDtW59TBhXTqxjOIxg",
   authDomain: "questmanagement-a67c5.firebaseapp.com",

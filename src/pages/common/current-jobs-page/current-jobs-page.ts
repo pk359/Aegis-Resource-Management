@@ -150,7 +150,7 @@ export class CurrentJobsPage {
       sortHeader: false,
       trimHeaderValues: true,
       trimFieldValues: true,
-      keys: ['building', 'room', 'jobCreationTime', 'jobCreatorName', 'serviceList','description', 'processApproval.name', 'processApprovalTime','tradespersonList.Name', 'tradespersonAssignmentTime','checkInTime','completionTime','completionApprovalTime']
+      keys: ['building', 'room', 'jobCreationTime', 'jobCreatorName', 'serviceList', 'description', 'processApproval.name', 'processApprovalTime', 'tradespersonList.Name', 'tradespersonAssignmentTime', 'checkInTime', 'completionTime', 'completionApprovalTime']
     };
 
     var documents = []

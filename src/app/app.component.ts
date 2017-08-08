@@ -9,6 +9,8 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import * as firebase from 'firebase'
 @Component({
+
+
   templateUrl: 'app.html'
 })
 export class MyApp {
