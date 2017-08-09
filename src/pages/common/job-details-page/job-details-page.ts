@@ -22,7 +22,7 @@ export class JobDetailsPage {
   userRole = undefined
   photoHelper: PhotoHelper
   constructor(public navCtrl: NavController, public navParams: NavParams, public af: AngularFire, public photoViewer: PhotoViewer,
-    public toastCtrl: ToastController, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, public camera: Camera) {
+    public toastCtrl: ToastController, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, public camera: Camera) {
 
     this.currentUser = JSON.parse(window.localStorage.getItem('userdetails'))
     firebase.database().ref('requests/' + this.navParams.data.jobKey).on('value', snap => {
@@ -41,9 +41,8 @@ export class JobDetailsPage {
   }
 
   onclickApproveProcess() {
-//remove from here
-
-       let confirm = this.alertCtrl.create({
+    //remove from here
+    let confirm = this.alertCtrl.create({
       title: 'Confirm Process Approval?',
       message: 'Do you agree to approve the requested job details?',
       buttons: [
@@ -56,17 +55,14 @@ export class JobDetailsPage {
         {
           text: 'Agree',
           handler: () => {
-          this.job.approveProcess(this.currentUser);
-          firebase.database().ref('requests/' + this.job.key).update(this.job)
+            this.job.approveProcess(this.currentUser);
+            firebase.database().ref('requests/' + this.job.key).update(this.job)
           }
         }
       ]
     });
     confirm.present();
   }
-
-
-
 
   public assignTradesperson(job: Job) {
     var tps: User[] = []
@@ -150,7 +146,7 @@ export class JobDetailsPage {
   }
   confirmCompletion() {
 
-       let confirm = this.alertCtrl.create({
+    let confirm = this.alertCtrl.create({
       title: 'Confirm completion?',
       message: 'Do you agree to the send of your completion photo?',
       buttons: [
@@ -163,44 +159,44 @@ export class JobDetailsPage {
         {
           text: 'Agree',
           handler: () => {
-      this.photoHelper.uplaod().then(() => {      
-      this.photoHelper.photos.forEach(photo => {
-        var p: Photo = photo;
-        this.job.completionPhotos.push(p.URL);
-      });
-            
-      this.job.setCompletionTime(new Date())
-      firebase.database().ref("requests/" + this.job.key).update(this.job)
-          this.toastCtrl.create({
-          message: "upload successful",
-          duration: 2
-        })
-        }) 
+            this.photoHelper.uplaod().then(() => {
+              this.photoHelper.photos.forEach(photo => {
+                var p: Photo = photo;
+                this.job.completionPhotos.push(p.URL);
+              });
+
+              this.job.setCompletionTime(new Date())
+              firebase.database().ref("requests/" + this.job.key).update(this.job)
+              this.toastCtrl.create({
+                message: "upload successful",
+                duration: 2
+              })
+            })
           }
         }
       ]
     });
     confirm.present();
 
-   /***  
-    var alert = this.alertCtrl.create({
-      title: "Uploading, please wait..",
-    })
-    alert.present()
-    this.photoHelper.uplaod().then(() => {
-      this.photoHelper.photos.forEach(photo => {
-        var p: Photo = photo;
-        this.job.completionPhotos.push(p.URL);
-      });
-      this.job.setCompletionTime(new Date())
-      firebase.database().ref("requests/" + this.job.key).update(this.job).then(() => {
-        alert.dismiss()
-        this.toastCtrl.create({
-          message: "upload successful",
-          duration: 2
-        })
-      })
-    }) **/ 
+    /***  
+     var alert = this.alertCtrl.create({
+       title: "Uploading, please wait..",
+     })
+     alert.present()
+     this.photoHelper.uplaod().then(() => {
+       this.photoHelper.photos.forEach(photo => {
+         var p: Photo = photo;
+         this.job.completionPhotos.push(p.URL);
+       });
+       this.job.setCompletionTime(new Date())
+       firebase.database().ref("requests/" + this.job.key).update(this.job).then(() => {
+         alert.dismiss()
+         this.toastCtrl.create({
+           message: "upload successful",
+           duration: 2
+         })
+       })
+     }) **/
   }
 
 
@@ -221,9 +217,9 @@ export class JobDetailsPage {
     })
   }  ***/
 
-onClickApproveCompletion() {
-  //this.job.approveCompletion(this.currentUser);
-   let confirm = this.alertCtrl.create({
+  onClickApproveCompletion() {
+    //this.job.approveCompletion(this.currentUser);
+    let confirm = this.alertCtrl.create({
       title: 'Confirm completion?',
       message: 'Do you agree to the completion of your job request?',
       buttons: [
@@ -236,8 +232,8 @@ onClickApproveCompletion() {
         {
           text: 'Agree',
           handler: () => {
-          this.job.approveCompletion(this.currentUser);
-          firebase.database().ref('requests/' + this.job.key).update(this.job)
+            this.job.approveCompletion(this.currentUser);
+            firebase.database().ref('requests/' + this.job.key).update(this.job)
           }
         }
       ]
@@ -250,8 +246,3 @@ onClickApproveCompletion() {
     this.navCtrl.push(InvoicePage, { job: this.job })
   }
 }
-
-
-
-
-

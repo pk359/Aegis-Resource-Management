@@ -1,4 +1,3 @@
-
 import { FCM } from '@ionic-native/fcm';
 import { CurrentJobsPage } from './../pages/common/current-jobs-page/current-jobs-page';
 import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
@@ -6,7 +5,6 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
-import { LocalNotifications } from '@ionic-native/local-notifications';
 import { MyApp } from './app.component';
 
 //Common side
@@ -16,6 +14,7 @@ import { MessagePage } from '../pages/common/message-page/message-page'
 import { JobDetailsPage } from '../pages/common/job-details-page/job-details-page'
 import { FollowUpPage } from '../pages/common/follow-up-page/follow-up-page'
 import { MessageBoardPage } from './../pages/common/message-board-page/message-board-page';
+import { FeedbackPage } from '../pages/feedback/feedback-page/feedback-page';
 
 //Manager Side
 import { NewUserRequest } from '../pages/manager/new-user-request/new-user-request'
@@ -40,10 +39,6 @@ import { TradesPersonTabs } from '../pages/tradesperson/trades-person-tabs/trade
 import { TPCurrentJobsPage } from '../pages/tradesperson/tp-current-jobs-page/tp-current-jobs-page'
 import { TPProgressUpdatePage } from '../pages/tradesperson/tp-progress-update-page/tp-progress-update-page'
 
-
-//feedback side
-import { FeedbackPage } from '../pages/feedback/feedback-page/feedback-page';
-
 //Native api request
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -52,6 +47,7 @@ import { Camera } from '@ionic-native/camera';
 import { EmailComposer } from '@ionic-native/email-composer';
 
 import { AngularFireModule } from 'angularfire2';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 //Firebase setting
 // var firebaseConfig = {
 //     apiKey: "AIzaSyByoy4jwSFBahLuxoUD1Y0zotrxGbxa81Q",
@@ -61,7 +57,6 @@ import { AngularFireModule } from 'angularfire2';
 //     storageBucket: "aegis-c197c.appspot.com",
 //     messagingSenderId: "922210177619"
 // };
-
 var firebaseConfig = {
   apiKey: "AIzaSyBz5UXAk9S8M5gEmMDtW59TBhXTqxjOIxg",
   authDomain: "questmanagement-a67c5.firebaseapp.com",
