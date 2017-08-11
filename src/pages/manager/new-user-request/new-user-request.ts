@@ -73,11 +73,11 @@ export class NewUserRequest {
 
   }
 
-  logout() {
-    this.users = null;
-    this.af.auth.logout().then(() => {
-      window.localStorage.removeItem('userdetails')
-      this.navCtrl.push(LoginPage);
-    });
-  }
+  // logout() {
+  //   this.users = null;
+  //   this.af.auth.logout().then(() => {
+  //     window.localStorage.removeItem('userdetails')
+  //     this.navCtrl.push(LoginPage);
+  //   });
+  // }
 }

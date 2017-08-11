@@ -34,7 +34,6 @@ export class MyApp {
     setInterval(() => {
       //get jobs from firebase 
       firebase.database().ref('requests').once('value', d => {
-        console.log('h', d.val())
         if (d.val()) {
           const o = d.val();
           let count = 0;

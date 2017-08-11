@@ -1,5 +1,5 @@
 import { Job } from './../Model/Job';
-import { LoginPage } from './../login-page/login-page';
+// import { LoginPage } from './../login-page/login-page';
 import { ManagerJobProgressPage } from './../../manager/job-progress-page/job-progress-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
@@ -123,12 +123,12 @@ export class CurrentJobsPage {
     var strDate = newDate + '';
     return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
   }
-  logout() {
-    this.af.auth.logout().then(() => {
-      UserHelper.removeUser();
-    });
-    this.navCtrl.push(LoginPage)
-  }
+  // logout() {
+  //   this.af.auth.logout().then(() => {
+  //     UserHelper.removeUser();
+  //   });
+  //   this.navCtrl.push(LoginPage)
+  // }
   showProgress(job) {
 
   }
@@ -149,7 +149,7 @@ export class CurrentJobsPage {
       sortHeader: false,
       trimHeaderValues: true,
       trimFieldValues: true,
-      keys: ['building', 'room', 'jobCreationTime', 'jobCreatorName', 'serviceList','description', 'processApproval.name', 'processApprovalTime','tradespersonList.Name', 'tradespersonAssignmentTime','checkInTime','completionTime','completionApprovalTime']
+      keys: ['building', 'room', 'jobCreationTime', 'jobCreatorName', 'serviceList','description', 'processApproval.name', 'processApprovalTime','tradespersonList', 'tradespersonAssignmentTime','checkInTime','completionTime','completionApprovalTime']
     };
 
     var documents = []
@@ -158,7 +158,16 @@ export class CurrentJobsPage {
         Object.keys(datasnapshot.val()).forEach(key => {
           var job: Job = new Job()
           Object.assign(job, datasnapshot.val()[key])
-          documents.push(job)
+          var obj:any = {}
+          let index = 1;
+          Object.assign(obj, datasnapshot.val()[key]);
+          obj.tradespersonList = [];
+          job.tradespersonList.forEach( user =>{
+            const u = new User();
+            Object.assign(u, user);
+            obj.tradespersonList.push(u.name)
+          })
+          documents.push(obj)
         })
       }
       converter.json2csv(documents, json2csvCallback, options);

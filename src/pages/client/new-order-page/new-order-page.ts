@@ -167,11 +167,11 @@ export class NewOrderPage {
 
   }
 
-  logout() {
-    this.af.auth.logout().then(() => {
-      UserHelper.removeUser();
-      this.navCtrl.push(LoginPage);
-    });
-  }
+  // logout() {
+  //   this.af.auth.logout().then(() => {
+  //     UserHelper.removeUser();
+  //     this.navCtrl.push(LoginPage);
+  //   });
+  // }
 }
 

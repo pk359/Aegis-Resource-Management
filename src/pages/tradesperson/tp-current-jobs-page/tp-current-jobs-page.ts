@@ -54,11 +54,11 @@ export class TPCurrentJobsPage {
     })
   }
 
-  logout() {
-    this.af.auth.logout().then(() => {
-      window.localStorage.removeItem('userdetails')
-      this.navCtrl.push(LoginPage);
-    });
-  }
+  // logout() {
+  //   this.af.auth.logout().then(() => {
+  //     window.localStorage.removeItem('userdetails')
+  //     this.navCtrl.push(LoginPage);
+  //   });
+  // }
 
 }
