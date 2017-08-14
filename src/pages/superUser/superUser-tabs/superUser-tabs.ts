@@ -1,25 +1,42 @@
-import { UserHelper } from './../../common/Utilities/user-helper';
-import { LoginPage } from './../../common/login-page/login-page';
-import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
+import { NewUserRequest } from './../../manager/new-user-request/new-user-request';
 import { ServiceListPage } from './../../manager/service-list-page/service-list-page';
 import { NewOrderPage } from './../../client/new-order-page/new-order-page';
-import { TPCurrentJobsPage } from './../../tradesperson/tp-current-jobs-page/tp-current-jobs-page';
-import { NewUserRequest } from './../../manager/new-user-request/new-user-request';
-import { Component } from '@angular/core';
-import { App } from 'ionic-angular';
-import { AngularFire } from 'angularfire2'
+import { Historypage } from './../../common/history/history';
+import { FeedbackPage } from './../../feedback/feedback-page/feedback-page';
+import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
+import { Component, ViewChild } from '@angular/core';
+import { Nav } from 'ionic-angular'
+import * as firebase from 'firebase'
+import { UserHelper } from './../../common/Utilities/user-helper';
+import { NavController} from 'ionic-angular';
+import { LoginPage } from "../../common/login-page/login-page";
+
+
 @Component({
     templateUrl: 'superUser-tabs.html'
 })
 export class SuperUserTabs {
 
-    currentJobTab = CurrentJobsPage;
-    NewUserTab = NewUserRequest;
-    TPCurrentJobTab = TPCurrentJobsPage
-    newOrderTab = NewOrderPage
-    serviceListPage = ServiceListPage;
-    constructor(
-        public appCtrl: App, public af: AngularFire) {
-
-    }
+    @ViewChild(Nav) nav: Nav;
+  pages: Array<{ title: string, icon: string, component: any }>;
+  rootPage: any = CurrentJobsPage;
+  constructor(public navCtrl: NavController) {
+    this.pages = [
+      { title: 'Current Jobs', icon: 'logo-buffer', component: CurrentJobsPage },
+            {title: 'New Order', icon:'ios-clipboard', component: NewOrderPage},
+      { title: 'Service List', icon: 'contacts', component: ServiceListPage },
+      { title: 'New User Request', icon: 'contacts', component: NewUserRequest },
+      { title: 'Past Records', icon: 'ios-archive', component: Historypage },
+      { title: 'Feedback', icon: 'ios-paper', component: FeedbackPage }
+    ];
+  }
+  openPage(page){
+    this.nav.setRoot(page.component);
+  }
+  logout() {
+    firebase.auth().signOut().then(_=>{
+      this.navCtrl.push(LoginPage);
+      UserHelper.removeUser();
+    })
+  }
 }

@@ -15,6 +15,7 @@ import { JobDetailsPage } from '../pages/common/job-details-page/job-details-pag
 import { FollowUpPage } from '../pages/common/follow-up-page/follow-up-page'
 import { MessageBoardPage } from './../pages/common/message-board-page/message-board-page';
 import { FeedbackPage } from '../pages/feedback/feedback-page/feedback-page';
+import { Historypage } from './../pages/common/history/history';
 
 //Manager Side
 import { NewUserRequest } from '../pages/manager/new-user-request/new-user-request'
@@ -73,7 +74,7 @@ var firebaseConfig = {
     NewUserRequest, ManagerTabs, EngineerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage, FeedbackPage
+    ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
   ],
   imports: [
     BrowserModule,
@@ -88,7 +89,7 @@ var firebaseConfig = {
     ManagerTabs, NewUserRequest, EngineerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
     ClientTabs, NewOrderPage, ClientJobProgressPage,
     TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage, FeedbackPage
+    ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
   ],
   providers: [
     StatusBar,

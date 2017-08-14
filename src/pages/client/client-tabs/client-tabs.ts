@@ -7,6 +7,8 @@ import * as firebase from 'firebase'
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { NavController} from 'ionic-angular';
 import { LoginPage } from "../../common/login-page/login-page";
+import {Historypage} from "./../../common/history/history";
+
 @Component({
   templateUrl: 'client-tabs.html',
 })
@@ -19,6 +21,7 @@ export class ClientTabs {
     this.pages = [
       {title: 'Current Jobs', icon:'logo-buffer', component: CurrentJobsPage},
       {title: 'New Order', icon:'ios-clipboard', component: NewOrderPage},
+      {title: 'Past Records', icon:'ios-archive', component: Historypage},
       {title: 'Feedback', icon: 'ios-paper', component: FeedbackPage}
     ];
   }
