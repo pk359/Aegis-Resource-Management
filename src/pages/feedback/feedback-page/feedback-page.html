@@ -1,5 +1,8 @@
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       <h4>Welcome, {{cUser.name}} </h4>
     </ion-title>
@@ -20,20 +23,19 @@
 <!-- DESCRIPTION-->
 <ion-content padding>
 
-<ion-list>
-  <h5 ion-text text-center>Write a short feedback</h5>
+  <ion-list>
+    <h5 ion-text text-center>Write a short feedback</h5>
     <ion-item>
-        <ion-label stacked>Leave a Comment</ion-label>
-        <ion-textarea type="text" [(ngModel)]= "feedbackData.description" value="" ></ion-textarea>
+      <ion-label stacked>Leave a Comment</ion-label>
+      <ion-textarea type="text" [(ngModel)]="feedbackData.description" value=""></ion-textarea>
     </ion-item>
-</ion-list>
-<!--SUBMIT h4 contain the block color-->
-<h4 text-center style="color:red">{{error}}</h4>
-<button ion-button block (click)="submitFeedback()">Submit Feedback</button>
+  </ion-list>
+  <!--SUBMIT h4 contain the block color-->
+  <h4 text-center style="color:red">{{error}}</h4>
+  <button ion-button block (click)="submitFeedback()">Submit Feedback</button>
 
-<!--list the comment inside the firebase-->
+  <!--list the comment inside the firebase-->
   <ion-item *ngFor="let feedbacklist of feedbacklists | async" (click)="showOptions(feedbacklist.$key, feedbacklist.title)">
     {{feedbacklist.text}}
   </ion-item>
 </ion-content>
-
