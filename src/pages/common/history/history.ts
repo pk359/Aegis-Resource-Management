@@ -25,6 +25,7 @@ export class Historypage {
                 Object.keys(snap.val()).forEach(key => {
                     var job: Job = new Job();
                     Object.assign(job, snap.val()[key])
+                    if(job.isCompletionApproved())
                     this.currentJobs.push(job)
                 })
             }
