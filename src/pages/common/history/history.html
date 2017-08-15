@@ -19,12 +19,12 @@
   </ion-fab>
   <div>
     <ion-label style="font-size: large">
-      Request Records
+      Records
     </ion-label>
   </div>
   <ion-card *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
-      <div> 
-        Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
-      </div>
-    </ion-card>
+    <div>
+      <img src="img/paintroller.png" /> Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
+    </div>
+  </ion-card>
 </ion-content>

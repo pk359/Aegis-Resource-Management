@@ -16,7 +16,7 @@
 
 <ion-content class="card-background-page">
   <ion-card style="height:50%" *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
-    <img [src]="cj.photosByClient[0]" />
+    <img src="img/painting.png" />
     <div class="card-title">{{cj.jobCreatorName}}</div>
     <div class="card-subtitle"> Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
       <ion-label *ngIf="cj.isCompletionApproved()">

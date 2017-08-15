@@ -44,7 +44,7 @@ export class JobDetailsPage {
     //remove from here
     let confirm = this.alertCtrl.create({
       title: 'Confirm Process Approval?',
-      message: 'Do you agree to approve the requested job details?',
+      message: 'Acknowledge the requested job details?',
       buttons: [
         {
           text: 'Disagree',
@@ -148,7 +148,7 @@ export class JobDetailsPage {
 
     let confirm = this.alertCtrl.create({
       title: 'Confirm completion?',
-      message: 'Do you agree to the send of your completion photo?',
+      message: 'Do you agree to send job completion photo?',
       buttons: [
         {
           text: 'Disagree',
