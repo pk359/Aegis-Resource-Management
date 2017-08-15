@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      <h4>Welcome, {{cUser.name}} </h4>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<style>
+  ion-item {
+    margin-top: 6px;
+  }
+</style>
+<ion-content padding>
+  <ion-fab bottom right>
+    <button ion-fab large (click)="onClickDownloadCSV()"><ion-icon md="md-cloud-download"><a href="data:text/csv;charset=utf-8,'+escape(csv)+'" download="filename.csv"></a></ion-icon></button>
+  </ion-fab>
+  <ion-list>
+    <ion-list-header>
+      Request records
+    </ion-list-header>
+    <ion-item *ngFor="let cj of currentJobs" (click)="showDetailsPage(cj.key)">
+      Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
+    </ion-item>
+  </ion-list>
+</ion-content>
