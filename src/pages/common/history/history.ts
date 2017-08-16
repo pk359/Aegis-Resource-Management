@@ -25,8 +25,8 @@ export class Historypage {
                 Object.keys(snap.val()).forEach(key => {
                     var job: Job = new Job();
                     Object.assign(job, snap.val()[key])
-                    if(job.isCompletionApproved())
-                    this.currentJobs.push(job)
+                    if (job.isCompletionApproved())
+                        this.currentJobs.push(job)
                 })
             }
             this.currentJobs = this.currentJobs.reverse()
@@ -72,19 +72,20 @@ export class Historypage {
                     documents.push(obj)
                 })
             }
+
+            var json2csvCallback = function (err, csv) {
+                if (err) throw err;
+                var csvContent = "data:text/csv;charset=utf-8,"
+                csvContent += csv
+                var encodedUri = encodeURI(csvContent);
+                var link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "my_data.csv");
+                document.body.appendChild(link); // Required for FF
+                link.click(); // This will download the data file named "my_data.csv".
+            }
+
             converter.json2csv(documents, json2csvCallback, options);
         })
-
-        var json2csvCallback = function (err, csv) {
-            if (err) throw err;
-            var csvContent = "data:text/csv;charset=utf-8,"
-            csvContent += csv
-            var encodedUri = encodeURI(csvContent);
-            var link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "my_data.csv");
-            document.body.appendChild(link); // Required for FF
-            link.click(); // This will download the data file named "my_data.csv".
-        }
     }
 }
