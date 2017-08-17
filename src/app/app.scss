@@ -91,3 +91,31 @@
     font-weight: bold;
   }
 }
+ion-menu{
+  .scroll-content{
+    background: #000046;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #1CB5E0, #000046);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #1CB5E0, #000046); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    .intro-holder{
+      // background: #8E0E00;  /* fallback for old browsers */
+      // background: -webkit-linear-gradient(to top, #1F1C18, #8E0E00);  /* Chrome 10-25, Safari 5.1-6 */
+      // background: linear-gradient(to top, #1F1C18, #8E0E00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+      background-image: url("./assets/images/pankaj_kumar.jpg");
+      background-size: 100%;
+      font-style: "Arial Black", Gadget, sans-serif;
+      .welcome-header{
+        position: relative;
+        margin-top: 20px;
+        text-align: center;
+        color:white;
+        font-size: 40px;
+      }
+  
+    }
+    ion-item{
+      background:none;
+      color:white;
+
+    }
+  }
+}

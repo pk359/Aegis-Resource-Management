@@ -15,6 +15,7 @@ import {Historypage} from "./../../common/history/history";
 export class ClientTabs {
 
   @ViewChild(Nav) nav: Nav;
+  cUser :any
   pages: Array<{ title: string, icon: string, component: any }>;
   rootPage: any = CurrentJobsPage;
   constructor(public navCtrl: NavController) {
@@ -24,9 +25,13 @@ export class ClientTabs {
       {title: 'Past Records', icon:'ios-archive', component: Historypage},
       {title: 'Feedback', icon: 'ios-paper', component: FeedbackPage}
     ];
+    this.cUser = UserHelper.getCurrentUser()
+    console.log(this.cUser)
   }
+
   openPage(page){
     this.nav.setRoot(page.component);
+    window.localStorage.getItem('currentUser')
   }
   logout() {
     firebase.auth().signOut().then(_=>{
