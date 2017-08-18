@@ -49,7 +49,7 @@ export class NewServicePage {
     let loading = this.loadingCtrl.create({
       showBackdrop: false,
       spinner: 'crescent',
-      content: 'Saving new Service to database'
+      content: 'Saving new Services'
     });
     loading.present();
     var service = new Service();
@@ -59,17 +59,10 @@ export class NewServicePage {
     service.key = ref.key;
     ref.set(service).then(r => {
       loading.dismiss();
-      this.toastCtrl.create({
-        message: 'Save Successfully.',
-        duration: 2000,
-        position: 'bottom',
-        showCloseButton: false,
-        dismissOnPageChange: true
-      }).present();
-      // this.navCtrl.pop();
+
       this.toastCtrl.create({
         message: 'Service has been created!',
-        duration: 3
+        duration: 1550
       }).present()
       this.serviceName = ''
     }).catch(r => {
@@ -80,16 +73,15 @@ export class NewServicePage {
     if (this.newCategoryName == '') {
       this.toastCtrl.create({
         message: 'Please enter category name you want to add!',
-        duration: 3
+        duration: 3000
       }).present()
       return;
     }
     this.categories.push(this.newCategoryName);
     this.toastCtrl.create({
       message: 'Category added to list!',
-      duration: 3
+      duration: 1500
     }).present()
     this.newCategoryName = ''
   }
 }
-

@@ -51,7 +51,7 @@ export class ServiceListPage {
             firebase.database().ref('services/' + service.key).remove().then(a => {
               this.toastCtrl.create({
                 message: service.name + ' has been removed!',
-                duration: 3
+                duration: 1050
               }).present()
             })
           }

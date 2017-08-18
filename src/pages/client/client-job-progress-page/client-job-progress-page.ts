@@ -62,12 +62,12 @@ export class ClientJobProgressPage {
       });
       alert.present();
     } else {
-      var alert = this.alertCtrl.create({
+      var alertx = this.alertCtrl.create({
         title: 'Wait, ',
         message: 'Let worker finish job first.',
         buttons: ['Okay']
       })
-      alert.present();
+      alertx.present();
     }
   }
 

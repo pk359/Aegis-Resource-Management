@@ -24,8 +24,7 @@ export class MessagePage {
         this.redirectToUIDecider(user.role);
       }
     });
-    // window.localStorage.removeItem('userdetails');
-    // firebase.auth().signOut();
+
   }
   redirectToUIDecider(role) {
     this.ref = null;

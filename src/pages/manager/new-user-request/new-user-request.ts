@@ -17,11 +17,7 @@ export class NewUserRequest {
 
   }
   ionViewCanEnter() {
-    // this.ref = firebase.database().ref('users').orderByChild('role').equalTo('none');
-    // this.ref.on('value', snap=>{
-    //   console.log(snap.val())
-    //   this.users.push(snap.val())
-    // })
+
     this.users = this.af.database.list('users/', {
       query: {
         orderByChild: 'role',
@@ -73,11 +69,5 @@ export class NewUserRequest {
 
   }
 
-  // logout() {
-  //   this.users = null;
-  //   this.af.auth.logout().then(() => {
-  //     window.localStorage.removeItem('userdetails')
-  //     this.navCtrl.push(LoginPage);
-  //   });
-  // }
+
 }

@@ -178,25 +178,7 @@ export class JobDetailsPage {
     });
     confirm.present();
 
-    /***  
-     var alert = this.alertCtrl.create({
-       title: "Uploading, please wait..",
-     })
-     alert.present()
-     this.photoHelper.uplaod().then(() => {
-       this.photoHelper.photos.forEach(photo => {
-         var p: Photo = photo;
-         this.job.completionPhotos.push(p.URL);
-       });
-       this.job.setCompletionTime(new Date())
-       firebase.database().ref("requests/" + this.job.key).update(this.job).then(() => {
-         alert.dismiss()
-         this.toastCtrl.create({
-           message: "upload successful",
-           duration: 2
-         })
-       })
-     }) **/
+
   }
 
 
@@ -205,20 +187,9 @@ export class JobDetailsPage {
       key: this.job.key
     });
   }
-  /***editing
-  onClickApproveCompletion() {
-    this.job.approveCompletion(this.currentUser);
-    var alert = this.alertCtrl.create({
-      title: "Approving..",
-    })
-    alert.present()
-    firebase.database().ref('requests/' + this.job.key).update(this.job).then(a => {
-      alert.dismiss()
-    })
-  }  ***/
 
   onClickApproveCompletion() {
-    //this.job.approveCompletion(this.currentUser);
+
     let confirm = this.alertCtrl.create({
       title: 'Confirm completion?',
       message: 'Do you agree to the completion of your job request?',

@@ -7,7 +7,7 @@ import { UIDecider } from '../pages/common/ui-decider/ui-decider'
 import { BackgroundMode } from '@ionic-native/background-mode';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import * as firebase from 'firebase'
-// import {LoginPage} from  '../pages/common/login-page/login-page'
+
 
 @Component({
   templateUrl: 'app.html'
@@ -19,17 +19,14 @@ export class MyApp {
     private backgroundMode: BackgroundMode, private localNotifications: LocalNotifications, ionicapp: IonicApp) {
     this.backgroundMode.enable();
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
+
       statusBar.styleDefault();
       splashScreen.hide();
 
       platform.registerBackButtonAction(function (event) {
       }, 100)
     });
-    // setInterval(()=>{
-    //   firebase.database().ref('')
-    // },1000*60*60)
+
 
     setInterval(() => {
       //get jobs from firebase 
@@ -43,19 +40,15 @@ export class MyApp {
             if (job.isCompleted() && !job.isCompletionApproved()) {
               count++;
               console.log('approved')
-            } else {
-              console.log('un approved')
             }
           })
           if (count > 0) {
             const msg = count + ' jobs pending for approval';
             this.sendNotification(msg);
           }
-        } else {
-          console.log('NO JOB!')
         }
       })
-    }, 5000)
+    }, 1000 * 60 * 60)
   }
   sendNotification(msg: string) {
     this.localNotifications.schedule({
