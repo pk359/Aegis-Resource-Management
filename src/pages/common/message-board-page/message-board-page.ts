@@ -75,5 +75,11 @@ export class MessageBoardPage {
   takePicture() {
     this.photoHelper.photos = []
     this.photoHelper.snap();
+    let alert = this.alertCtrl.create({
+      title: 'Photo Taken',
+      subTitle: 'Press Send to send photo',
+      buttons:['OK']
+    });
+    alert.present();
   }
 }
