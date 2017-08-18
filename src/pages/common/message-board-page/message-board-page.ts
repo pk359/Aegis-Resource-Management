@@ -64,11 +64,11 @@ export class MessageBoardPage {
         m.imageUrl = this.photoHelper.photos[0].URL;
         firebase.database().ref('requests/' + this.jobKey + '/messageBoard/messages/').push(m).then(() => {
           this.photoHelper.photos = [];
+          m.imageUrl = null
         })
       })
-    } else {
+    } else if(m.text.length > 0){
       firebase.database().ref('requests/' + this.jobKey + '/messageBoard/messages/').push(m).then(() => {
-
       })
     }
 
