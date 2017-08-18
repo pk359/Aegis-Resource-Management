@@ -75,11 +75,10 @@ export class MessageBoardPage {
   takePicture() {
     this.photoHelper.photos = []
     this.photoHelper.snap();
-    let alert = this.alertCtrl.create({
-      title: 'Photo Taken',
-      subTitle: 'Press Send to send photo',
-      buttons:['OK']
+    let toast = this.toastCtrl.create({
+      message:'If you like to upload pic, click send',
+      duration: 2000
     });
-    alert.present();
+    toast.present();
   }
 }
