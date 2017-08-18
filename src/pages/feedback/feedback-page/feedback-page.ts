@@ -52,6 +52,7 @@ export class FeedbackPage {
       }); actionSheet.present();
     } else {
       this.saveRequestToFirebase();
+      this.feedbackData.description = null
     }
   }
 

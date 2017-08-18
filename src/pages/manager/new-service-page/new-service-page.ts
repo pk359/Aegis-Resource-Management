@@ -65,6 +65,7 @@ export class NewServicePage {
         duration: 1550
       }).present()
       this.serviceName = ''
+      this.category = ''
     }).catch(r => {
       console.log(r);
     })
