@@ -13,6 +13,7 @@ import { LoginPage } from "../../common/login-page/login-page";
 })
 export class EngineerTabs {
      @ViewChild(Nav) nav: Nav;
+     cUser: any
   pages: Array<{ title: string, icon: string, component: any }>;
   rootPage: any = CurrentJobsPage;
   constructor(public navCtrl: NavController) {
@@ -20,6 +21,7 @@ export class EngineerTabs {
       {title: 'Current Jobs', icon:'logo-buffer', component: CurrentJobsPage},
       {title: 'Feedback', icon: 'ios-paper', component: FeedbackPage}
     ];
+    this.cUser = UserHelper.getCurrentUser()
   }
   openPage(page){
     this.nav.setRoot(page.component);

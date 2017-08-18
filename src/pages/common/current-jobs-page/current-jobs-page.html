@@ -6,15 +6,14 @@
     <ion-title>
       Current Jobs
     </ion-title>
-
   </ion-navbar>
 </ion-header>
 
 <ion-content class="card-background-page">
-  <ion-card style="height:30%" *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
+  <ion-card style="height:35%" *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
     <img src="img/painting.png" />
     <div class="card-title">{{cj.jobCreatorName}}</div>
-    <div class="card-subtitle"> Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
+    <div class="card-subtitle"> Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: <br> {{cj.getCreationTime()}}
       <ion-label *ngIf="cj.isCompletionApproved()">
         <ion-icon ios="ios-checkbox" md="md-checkbox" style="color:lightgreen"></ion-icon>
         Completed

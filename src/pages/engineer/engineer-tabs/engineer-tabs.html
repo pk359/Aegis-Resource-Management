@@ -1,27 +1,21 @@
-<!-- <ion-tabs>
-  <ion-tab [root]="tab2Root" tabTitle="Current Jobs" tabIcon="logo-buffer"></ion-tab>
-  <ion-tab [root]="tab3Root" tabTitle="Feedback" tabIcon="ios-paper"></ion-tab>
-</ion-tabs> -->
-
 <ion-menu type="push" [content]="mainContent">
   <ion-content class="sidemenu">
-    <ion-toolbar color="primary">
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-    <div style="height: 40px ">
-
+    <div style="height: 150px" class="intro-holder">
+      <span class="welcome-header">
+          Welcome, {{cUser.name}}
+      </span>
     </div>
-    <ion-list id="menu-list1" no-lines>
+    <ion-list id="menu-list1">
       <ion-item *ngFor="let p of pages" tappable menuClose (click)="openPage(p)">
         <ion-icon [name]="p.icon" item-left></ion-icon>
         {{p.title}}
       </ion-item>
-      <ion-item>
-        <ion-icon name="" item-left></ion-icon>
-      </ion-item>
       <ion-item tappable (click)="logout()" tappable menuClose>
         <ion-icon name="log-out" item-left></ion-icon>
         Logout
+      </ion-item>
+      <ion-item>
+        <ion-icon name="" item-left></ion-icon>
       </ion-item>
     </ion-list>
   </ion-content>

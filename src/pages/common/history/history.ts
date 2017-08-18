@@ -1,5 +1,4 @@
 import { Job } from './../Model/Job';
-import { ManagerJobProgressPage } from './../../manager/job-progress-page/job-progress-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
 import { Component } from '@angular/core';
@@ -60,7 +59,6 @@ export class Historypage {
                     var job: Job = new Job()
                     Object.assign(job, datasnapshot.val()[key])
                     var obj: any = {}
-                    let index = 1;
                     Object.assign(obj, datasnapshot.val()[key]);
                     obj.tradespersonList = [];
                     job.tradespersonList.forEach(user => {

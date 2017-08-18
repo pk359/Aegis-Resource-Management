@@ -26,12 +26,10 @@ export class ClientTabs {
       {title: 'Feedback', icon: 'ios-paper', component: FeedbackPage}
     ];
     this.cUser = UserHelper.getCurrentUser()
-    console.log(this.cUser)
   }
 
   openPage(page){
     this.nav.setRoot(page.component);
-    window.localStorage.getItem('currentUser')
   }
   logout() {
     firebase.auth().signOut().then(_=>{

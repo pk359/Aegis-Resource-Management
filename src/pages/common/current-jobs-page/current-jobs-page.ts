@@ -1,5 +1,4 @@
 import { Job } from './../Model/Job';
-// import { LoginPage } from './../login-page/login-page';
 import { ManagerJobProgressPage } from './../../manager/job-progress-page/job-progress-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
@@ -36,9 +35,6 @@ export class CurrentJobsPage {
     })
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ManagerCurrentJobsPage');
-  }
   ionViewCanLeave() {
     this.ref = null;
   }
@@ -123,68 +119,11 @@ export class CurrentJobsPage {
     var strDate = newDate + '';
     return (strDate).substring(0, strDate.indexOf(' GMT')) + ampm
   }
-  // logout() {
-  //   this.af.auth.logout().then(() => {
-  //     UserHelper.removeUser();
-  //   });
-  //   this.navCtrl.push(LoginPage)
-  // }
+
   showProgress(job) {
 
   }
   removeRequest(job: Job) {
     firebase.database().ref('requests/' + job.key).remove().then()
-  }
-
-  onClickDownloadCSV() {
-    var converter = require('json-2-csv');
-
-    var options = {
-      delimiter: {
-        field: ',', // Comma field delimiter
-        array: ';', // Semicolon array value delimiter
-        eol: '\n' // Newline delimiter
-      },
-      prependHeader: true,
-      sortHeader: false,
-      trimHeaderValues: true,
-      trimFieldValues: true,
-      keys: ['building', 'room', 'jobCreationTime', 'jobCreatorName', 'serviceList','description', 'processApproval.name', 'processApprovalTime','tradespersonList', 'tradespersonAssignmentTime','checkInTime','completionTime','completionApprovalTime']
-    };
-
-    var documents = []
-    firebase.database().ref('requests/').once('value', datasnapshot => {
-      if (datasnapshot.val()) {
-        Object.keys(datasnapshot.val()).forEach(key => {
-          var job: Job = new Job()
-          Object.assign(job, datasnapshot.val()[key])
-          var obj:any = {}
-          let index = 1;
-          Object.assign(obj, datasnapshot.val()[key]);
-          obj.tradespersonList = [];
-          job.tradespersonList.forEach( user =>{
-            const u = new User();
-            Object.assign(u, user);
-            obj.tradespersonList.push(u.name)
-          })
-          documents.push(obj)
-        })
-      }
-      converter.json2csv(documents, json2csvCallback, options);
-    })
-
-    var json2csvCallback = function (err, csv) {
-      if (err) throw err;
-      var csvContent = "data:text/csv;charset=utf-8,"
-      csvContent += csv
-      var encodedUri = encodeURI(csvContent);
-      var link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", "my_data.csv");
-      document.body.appendChild(link); // Required for FF
-      link.click(); // This will download the data file named "my_data.csv".
-    }
-
-
   }
 }

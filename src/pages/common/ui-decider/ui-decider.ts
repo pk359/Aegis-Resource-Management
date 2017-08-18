@@ -78,11 +78,4 @@ export class UIDecider {
     })
     this.fcm.subscribeToTopic(this.currentUser.role);
   }
-  ionViewDidLoad() {
-    console.log('uidecided loaded')
-  }
-  //Will always fire
-  // ionViewDidEnter() {
-
-  // }
 }

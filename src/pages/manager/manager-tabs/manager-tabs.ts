@@ -17,16 +17,18 @@ import { LoginPage } from "../../common/login-page/login-page";
 export class ManagerTabs {
 
   @ViewChild(Nav) nav: Nav;
+  cUser :any
   pages: Array<{ title: string, icon: string, component: any }>;
   rootPage: any = CurrentJobsPage;
   constructor(public navCtrl: NavController) {
     this.pages = [
       { title: 'Current Jobs', icon: 'logo-buffer', component: CurrentJobsPage },
-      { title: 'Service List', icon: 'contacts', component: ServiceListPage },
+      { title: 'Service List', icon: 'ios-list-box', component: ServiceListPage },
       { title: 'New User Request', icon: 'contacts', component: NewUserRequest },
       { title: 'Past Records', icon: 'ios-archive', component: Historypage },
       { title: 'Feedback', icon: 'ios-paper', component: FeedbackPage }
     ];
+    this.cUser = UserHelper.getCurrentUser()
   }
   openPage(page) {
     this.nav.setRoot(page.component);

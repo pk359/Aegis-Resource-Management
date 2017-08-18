@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      <h4>Welcome, {{cUser.name}} </h4>
+      Past Records
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -17,14 +17,9 @@
   <ion-fab bottom right>
     <button ion-fab large (click)="onClickDownloadCSV()"><ion-icon md="md-cloud-download"><a href="data:text/csv;charset=utf-8,'+escape(csv)+'" download="filename.csv"></a></ion-icon></button>
   </ion-fab>
-  <div>
-    <ion-label style="font-size: large">
-      Records
-    </ion-label>
-  </div>
   <ion-card *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
     <div>
-      <img src="img/paintroller.png" /> Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
+      Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
     </div>
   </ion-card>
 </ion-content>

@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      <h4>Welcome, {{cUser.name}} </h4>
+      Service List
     </ion-title>
 
   </ion-navbar>
@@ -19,9 +19,6 @@
     <button ion-fab large (click)="onClickCreateService()">+</button>
   </ion-fab>
   <ion-list>
-    <ion-list-header>
-      Service List
-    </ion-list-header>
     <ion-item *ngFor="let service of services" (click)='onClickService(service)'>
       {{service.name}}
     </ion-item>
