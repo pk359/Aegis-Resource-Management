@@ -63,7 +63,7 @@ export class MessageBoardPage {
       this.photoHelper.uplaod().then(() => {
         m.imageUrl = this.photoHelper.photos[0].URL;
         firebase.database().ref('requests/' + this.jobKey + '/messageBoard/messages/').push(m).then(() => {
-
+          this.photoHelper.photos = [];
         })
       })
     } else {
