@@ -2,9 +2,7 @@ import { UserHelper } from './../Utilities/user-helper';
 import { User } from './../Model/User';
 import { Camera } from '@ionic-native/camera';
 import { PhotoHelper } from './../Utilities/photo-helper';
-import { TimeHelper } from './../Utilities/time-helper';
 import { Message } from './../Model/Message';
-import { Job } from './../Model/Job';
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
