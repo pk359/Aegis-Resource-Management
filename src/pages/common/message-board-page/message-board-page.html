@@ -35,15 +35,16 @@
 
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-input type="text" [(ngModel)]="currentMessage" autofocus style="background-color: #e4e4e4; border-radius:30px"></ion-input>
+  <!--change toolbar color-->
+  <ion-toolbar color="secondary">
+    <ion-input placeholder="Type a message" [(ngModel)]="currentMessage" autofocus style="background-color: #e4e4e4; border-radius:30px"></ion-input>
     <ion-buttons end>
       <button ion-button icon-right [hidden]="!isMobile()" color="royal" (click)="takePicture()">
         <ion-icon name="camera"></ion-icon>
       </button>
-      <button ion-button icon-right color="royal" (click)="postMessage()">
-        Send
-        <ion-icon name="send"></ion-icon>
+      <button ion-button icon-right color="" (click)="postMessage()">
+        
+        <ion-icon ios="ios-send" md="md-send"style="color: white"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
