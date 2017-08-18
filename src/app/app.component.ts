@@ -39,7 +39,7 @@ export class MyApp {
             Object.assign(job, o[key]);
             if (job.isCompleted() && !job.isCompletionApproved()) {
               count++;
-              console.log('approved')
+
             }
           })
           if (count > 0) {
