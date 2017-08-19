@@ -120,6 +120,7 @@ ion-menu{
 }
 
 ion-navbar{
+  // android phone
   .toolbar-background-md{
     background: #005C97;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to bottom, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
@@ -132,6 +133,19 @@ ion-navbar{
     color: white
   }
   .bar-button-default-md:hover:not(.disable-hover), .bar-button-clear-md-default:hover:not(.disable-hover), .bar-button-md-default:hover:not(.disable-hover){
+    color: white
+  }
+
+  // ios phone
+  .toolbar-background-ios{
+    background: #005C97;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+  }
+  .toolbar-title-ios{
+    color: white
+  }
+  .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default{
     color: white
   }
 }
