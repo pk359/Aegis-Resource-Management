@@ -49,6 +49,22 @@ export class MessageBoardPage {
   ngOnInit() {
     // this returns undefined
   }
+
+  isMobile() {
+    if (navigator.userAgent.match(/Android/i)
+      || navigator.userAgent.match(/webOS/i)
+      || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i)
+      || navigator.userAgent.match(/iPod/i)
+      || navigator.userAgent.match(/BlackBerry/i)
+      || navigator.userAgent.match(/Windows Phone/i)
+    ) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
   postMessage() {
     var m = new Message();
     m.sender = this.cUser.name;
@@ -62,7 +78,7 @@ export class MessageBoardPage {
           this.photoHelper.photos.pop();
         })
       })
-    } else if(m.text.length > 0){
+    } else if (m.text.length > 0) {
       firebase.database().ref('requests/' + this.jobKey + '/messageBoard/messages/').push(m).then(() => {
       })
     }
@@ -72,8 +88,8 @@ export class MessageBoardPage {
     this.photoHelper.photos = []
     this.photoHelper.snap();
     let toast = this.toastCtrl.create({
-      message:'If you like to upload pic, click send',
-      duration: 2000
+      message: 'If you like to upload pic, click send',
+      duration: 7000
     });
     toast.present();
   }

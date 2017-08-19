@@ -28,9 +28,4 @@
   <!--SUBMIT h4 contain the block color-->
   <h4 text-center style="color:red">{{error}}</h4>
   <button ion-button block (click)="submitFeedback()">Submit Feedback</button>
-
-  <!--list the comment inside the firebase-->
-  <ion-item *ngFor="let feedbacklist of feedbacklists | async" (click)="showOptions(feedbacklist.$key, feedbacklist.title)">
-    {{feedbacklist.text}}
-  </ion-item>
 </ion-content>

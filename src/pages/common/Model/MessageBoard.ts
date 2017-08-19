@@ -1,4 +1,3 @@
-import { TimeHelper } from './../Utilities/time-helper';
 import { Message } from './Message';
 export class MessageBoard {
     private messages: Message[] = []

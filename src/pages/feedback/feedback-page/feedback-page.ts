@@ -64,7 +64,6 @@ export class FeedbackPage {
         showCloseButton: true,
         dismissOnPageChange: false
       }).present();
-
     })
   }
 }

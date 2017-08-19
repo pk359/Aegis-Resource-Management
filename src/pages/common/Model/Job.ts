@@ -1,6 +1,5 @@
 import { MessageBoard } from './MessageBoard';
 import { User } from './User';
-import { JobProgress } from './JobProgress';
 import { TimeHelper } from '../Utilities/time-helper'
 export class Job {
     key: string = '';
