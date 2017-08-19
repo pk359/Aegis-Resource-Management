@@ -1,16 +1,11 @@
 import { Component } from '@angular/core';
-import { LoginPage } from './../../common/login-page/login-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
 import { NavController, NavParams, ToastController, AlertController, ActionSheetController, LoadingController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
-
 import { Feedback } from './../../common/Model/Feedback';
-
-
 import { AngularFireDatabase } from 'angularfire2/database';
-
 
 @Component({
 
@@ -18,10 +13,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class FeedbackPage {
 
-
   feedbackData: Feedback = new Feedback();
   cUser: User
-
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public af: AngularFire,
@@ -35,18 +28,13 @@ export class FeedbackPage {
   }
 
   submitFeedback() {
-
     if (this.feedbackData.description === '') {
-
       let actionSheet = this.actionSheetCtrl.create({
         title: 'Please fill in the description',
         buttons: [
           {
             text: 'Cancel',
             role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
-            }
           }
         ]
       }); actionSheet.present();
@@ -77,11 +65,8 @@ export class FeedbackPage {
         dismissOnPageChange: false
       }).present();
 
-    }).catch(r => {
-      console.log(r);
     })
   }
-
 }
 
 

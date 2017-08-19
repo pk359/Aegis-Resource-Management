@@ -10,7 +10,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ManagerTabs } from '../../manager/manager-tabs/manager-tabs'
 import { ClientTabs } from '../../client/client-tabs/client-tabs'
-import { CurrentJobsPage } from '../current-jobs-page/current-jobs-page'
 import { MessagePage } from '../message-page/message-page'
 import { AngularFire } from 'angularfire2'
 import { App } from 'ionic-angular';
@@ -29,7 +28,7 @@ export class UIDecider {
     try {
       this.doNotificationStuff();
     } catch (e) {
-      console.error(e)
+
     }
     if (cU && cU.uid != undefined) {
       if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)
@@ -48,7 +47,6 @@ export class UIDecider {
   doNotificationStuff() {
     this.fcm.onNotification().subscribe(data => {
       if (data.wasTapped) {
-        console.log("Received in background");
         let jobKey = data.key;
         let page = data.page;
         if (page == 'messageboard') {
@@ -58,9 +56,7 @@ export class UIDecider {
             key: jobKey
           })
         }
-      } else {
-        console.log("Received in foreground");
-      };
+      }
     })
 
     this.fcm.onTokenRefresh().subscribe(token => {

@@ -1,5 +1,4 @@
 import { Job } from './../../common/Model/Job';
-import { Service } from './../../common/Model/Service';
 import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { EmailComposer } from '@ionic-native/email-composer';
@@ -19,10 +18,6 @@ export class InvoicePage {
     })
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad InvoicePage');
-  }
-
   sendInvoiceToClient() {
     this.calculateTotalPrice();
 
@@ -34,9 +29,6 @@ export class InvoicePage {
           buttons: [{
             text: 'No',
             role: 'cancel',
-            handler: () => {
-              console.log('Cancel clicked');
-            }
           },
           {
             text: 'Yes',

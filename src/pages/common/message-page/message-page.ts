@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
-import { LoginPage } from '../login-page/login-page'
 import { UIDecider } from '../ui-decider/ui-decider'
 @Component({
   templateUrl: 'message-page.html',
@@ -34,9 +33,6 @@ export class MessagePage {
       buttons: [
         {
           text: 'Okay',
-          handler: data => {
-            console.log('Okay Clicked');
-          }
         }
       ]
     });

@@ -19,13 +19,6 @@ export class LoginPage {
     this.navCtrl.removeView(this.navCtrl.getPrevious());
   }
 
-  ionViewDidEnter() {
-    var views = this.navCtrl.getViews();
-    views.forEach((k) => {
-      console.log(k.component.name)
-    });
-  }
-
   login(email: string, password: string) {
     let loading = this.loadingCtrl.create({
       showBackdrop: false,
@@ -120,14 +113,11 @@ export class LoginPage {
     switch (formName) {
       case "login":
         this.activeForm = 'login';
-        // console.log('login clicked')
         break;
       case "forgot":
-        // console.log('forgot clicked')
         this.activeForm = 'forgot';
         break;
       case "signup":
-        // console.log('signup clicked')
         this.activeForm = 'signup';
         break;
     }

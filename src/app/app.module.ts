@@ -1,6 +1,4 @@
 import { FCM } from '@ionic-native/fcm';
-import { CurrentJobsPage } from './../pages/common/current-jobs-page/current-jobs-page';
-import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -8,6 +6,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { MyApp } from './app.component';
 
 //Common side
+import { CurrentJobsPage } from './../pages/common/current-jobs-page/current-jobs-page';
 import { LoginPage } from '../pages/common/login-page/login-page'
 import { UIDecider } from '../pages/common/ui-decider/ui-decider'
 import { MessagePage } from '../pages/common/message-page/message-page'
@@ -20,14 +19,13 @@ import { Historypage } from './../pages/common/history/history';
 //Manager Side
 import { NewUserRequest } from '../pages/manager/new-user-request/new-user-request'
 import { ManagerTabs } from '../pages/manager/manager-tabs/manager-tabs'
-import { ManagerJobProgressPage } from '../pages/manager/job-progress-page/job-progress-page'
 import { InvoicePage } from '../pages/manager/invoice-page/invoice-page'
 import { NewServicePage } from './../pages/manager/new-service-page/new-service-page';
+import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
 
 //Client Side
 import { ClientTabs } from '../pages/client/client-tabs/client-tabs'
 import { NewOrderPage } from '../pages/client/new-order-page/new-order-page'
-import { ClientJobProgressPage } from '../pages/client/client-job-progress-page/client-job-progress-page'
 
 //SuperUser Side
 import { SuperUserTabs } from './../pages/superUser/superUser-tabs/superUser-tabs';
@@ -37,8 +35,6 @@ import { EngineerTabs } from './../pages/engineer/engineer-tabs/engineer-tabs';
 
 //Tradesperson Side
 import { TradesPersonTabs } from '../pages/tradesperson/trades-person-tabs/trades-person-tabs';
-import { TPCurrentJobsPage } from '../pages/tradesperson/tp-current-jobs-page/tp-current-jobs-page'
-import { TPProgressUpdatePage } from '../pages/tradesperson/tp-progress-update-page/tp-progress-update-page'
 
 //Native api request
 import { StatusBar } from '@ionic-native/status-bar';
@@ -71,9 +67,9 @@ var firebaseConfig = {
   declarations: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    NewUserRequest, ManagerTabs, EngineerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
-    ClientTabs, NewOrderPage, ClientJobProgressPage,
-    TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
+    NewUserRequest, ManagerTabs, EngineerTabs, CurrentJobsPage, InvoicePage,
+    ClientTabs, NewOrderPage,
+    TradesPersonTabs, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
   ],
   imports: [
@@ -86,9 +82,9 @@ var firebaseConfig = {
   entryComponents: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    ManagerTabs, NewUserRequest, EngineerTabs, CurrentJobsPage, ManagerJobProgressPage, InvoicePage,
-    ClientTabs, NewOrderPage, ClientJobProgressPage,
-    TradesPersonTabs, TPCurrentJobsPage, TPProgressUpdatePage, SuperUserTabs, NewServicePage,
+    ManagerTabs, NewUserRequest, EngineerTabs, CurrentJobsPage, InvoicePage,
+    ClientTabs, NewOrderPage, 
+    TradesPersonTabs, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
   ],
   providers: [

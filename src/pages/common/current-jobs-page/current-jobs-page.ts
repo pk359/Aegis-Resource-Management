@@ -1,5 +1,4 @@
 import { Job } from './../Model/Job';
-import { ManagerJobProgressPage } from './../../manager/job-progress-page/job-progress-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
 import { Component } from '@angular/core';
@@ -7,7 +6,6 @@ import { NavController, NavParams, ToastController, AlertController } from 'ioni
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { JobDetailsPage } from '../../common/job-details-page/job-details-page'
-
 
 @Component({
   templateUrl: 'current-jobs-page.html',
@@ -72,7 +70,6 @@ export class CurrentJobsPage {
       alert.addButton({
         text: 'Okay',
         handler: data => {
-          console.log(data)
           var tpData = {}
           data.forEach(d => {
             tpData[`${JSON.parse(d).tpId}`] = { tpId: JSON.parse(d).tpId, tpName: JSON.parse(d).tpName }
@@ -91,14 +88,6 @@ export class CurrentJobsPage {
   showDetailsPage(key) {
     this.navCtrl.push(JobDetailsPage, {
       jobKey: key
-    });
-  }
-  showProgresPage(key) {
-    var jobTitle = ''
-
-    this.navCtrl.push(ManagerJobProgressPage, {
-      jobKey: key,
-      jobTitle: jobTitle
     });
   }
 

@@ -18,7 +18,6 @@ export class User {
             })
             return found;
         } else if (this.role == 'client') {
-            console.log(job.jobCreatorName + "  " + this.name)
             if (job.jobCreatorName == this.name) {
                 return true;
             }

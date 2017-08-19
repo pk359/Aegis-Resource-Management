@@ -33,9 +33,6 @@ export class JobDetailsPage {
     this.photoHelper = new PhotoHelper(this.currentUser.name, camera)
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ManagerJobDetailsPage');
-  }
   showInFullScreen(imageUrl) {
     this.photoViewer.show(imageUrl)
   }
@@ -49,7 +46,7 @@ export class JobDetailsPage {
         {
           text: 'Disagree',
           handler: () => {
-            console.log('Disagree clicked');
+
           }
         },
         {
@@ -153,7 +150,6 @@ export class JobDetailsPage {
         {
           text: 'Disagree',
           handler: () => {
-            console.log('Disagree clicked');
           }
         },
         {
@@ -177,8 +173,6 @@ export class JobDetailsPage {
       ]
     });
     confirm.present();
-
-
   }
 
 
@@ -197,7 +191,6 @@ export class JobDetailsPage {
         {
           text: 'Disagree',
           handler: () => {
-            console.log('Disagree clicked');
           }
         },
         {
@@ -211,7 +204,6 @@ export class JobDetailsPage {
     });
     confirm.present();
   }
-
 
   sendInvoice() {
     this.navCtrl.push(InvoicePage, { job: this.job })

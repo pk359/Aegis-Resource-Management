@@ -4,6 +4,7 @@ import { NavController, NavParams, ModalController, AlertController, LoadingCont
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+
 @Component({
   templateUrl: 'new-service-page.html',
 })
@@ -66,8 +67,6 @@ export class NewServicePage {
       }).present()
       this.serviceName = ''
       this.category = ''
-    }).catch(r => {
-      console.log(r);
     })
   }
   addCategory() {

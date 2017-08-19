@@ -51,6 +51,7 @@ export class Historypage {
             return false
         }
     }
+    
     onClickDownloadCSV() {
         var converter = require('json-2-csv');
 

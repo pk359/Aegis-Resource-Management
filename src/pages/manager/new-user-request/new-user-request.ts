@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController, NavParams } from 'ionic-angular';
-
-import { AngularFire, FirebaseListObservable } from 'angularfire2'
+import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
-import { LoginPage } from '../../common/login-page/login-page'
 
 @Component({
   templateUrl: 'new-user-request.html',

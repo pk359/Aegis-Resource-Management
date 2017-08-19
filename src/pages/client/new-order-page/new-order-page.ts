@@ -1,6 +1,4 @@
 import { Service } from './../../common/Model/Service';
-import { LoginPage } from './../../common/login-page/login-page';
-import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { UserHelper } from './../../common/Utilities/user-helper';
 import { User } from './../../common/Model/User';
 import { PhotoHelper } from './../../common/Utilities/photo-helper';
@@ -9,7 +7,7 @@ import { Component } from '@angular/core';
 import { NavController, ActionSheetController, NavParams, ModalController, AlertController, LoadingController, ToastController } from 'ionic-angular';
 import { AngularFire } from 'angularfire2'
 import firebase from 'firebase'
-import { Camera, CameraOptions } from '@ionic-native/camera'
+import { Camera } from '@ionic-native/camera'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 @Component({
   templateUrl: 'new-order-page.html',
@@ -40,13 +38,11 @@ export class NewOrderPage {
           let service: Service = new Service();
           Object.assign(service, data.val()[key]);
           this.services.push();
-          console.log(this.categories.indexOf(service.category))
           if (this.categories.indexOf(service.category) < 0) {
             this.categories.push(service.category);
           }
         })
       }
-      console.log(data)
     })
     this.photoHelper = new PhotoHelper(this.cUser.name, this.camera)
   }
@@ -62,7 +58,6 @@ export class NewOrderPage {
   snap() {
     this.photoHelper.snap()
   }
-
 
   imageSelected(i) {
 
@@ -134,8 +129,6 @@ export class NewOrderPage {
         }).present();
         this.jobData = new Job();
         this.photoHelper = new PhotoHelper(this.cUser.name, this.camera)
-      }).catch(r => {
-        console.log(r);
       })
     })
   }
@@ -161,12 +154,8 @@ export class NewOrderPage {
         }
       ]
     }).present()
-
   }
   remove(array, element) {
-
   }
-
-
 }
 

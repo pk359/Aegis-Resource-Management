@@ -7,10 +7,6 @@ import { NavController, NavParams } from 'ionic-angular';
 export class FollowUpPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    
   }
-
-  ionViewDidLoad() {
-    console.log(this.navParams.data.jobKey);
-  }
-
 }

@@ -10,7 +10,6 @@ import { UserHelper } from './../../common/Utilities/user-helper';
 import { NavController } from 'ionic-angular';
 import { LoginPage } from "../../common/login-page/login-page";
 
-
 @Component({
   templateUrl: 'manager-tabs.html'
 })

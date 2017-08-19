@@ -28,7 +28,6 @@ export class MessageBoardPage {
 
   ngAfterViewInit() {
     let c = this.content
-    console.log('on after view init', c);
     firebase.database().ref("requests/" + this.jobKey + "/messageBoard/messages/").on('value', snap => {
       if (snap.exists()) {
         this.messages = []
@@ -42,15 +41,12 @@ export class MessageBoardPage {
           try {
             c.scrollToBottom(1000)
           } catch (e) {
-            console.log('cannot find content, no scroll to button: ' + c);
-            console.error(e)
           }
         }, 300);
       }
     })
   }
   ngOnInit() {
-    console.log('on init', this.content);
     // this returns undefined
   }
   postMessage() {
