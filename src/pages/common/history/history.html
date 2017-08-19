@@ -17,7 +17,7 @@
   <ion-fab bottom right>
     <button ion-fab large [hidden]="isMobile()" (click)="onClickDownloadCSV()"><ion-icon md="md-cloud-download"><a href="data:text/csv;charset=utf-8,'+escape(csv)+'" download="filename.csv"></a></ion-icon></button>
   </ion-fab>
-  <ion-card *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
+  <ion-card colour="primary" *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
     <div>
       Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: {{cj.getCreationTime()}}
     </div>

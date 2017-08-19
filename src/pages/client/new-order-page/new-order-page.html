@@ -4,7 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>
-      New Request
+      New Order
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -19,13 +19,13 @@
     <ion-col>
       <ion-item>
         <ion-label stacked>Room</ion-label>
-        <ion-input type="text" [(ngModel)]="jobData.room"></ion-input>
+        <ion-input placeholder="Enter details" [(ngModel)]="jobData.room"></ion-input>
       </ion-item>
     </ion-col>
     <ion-col>
       <ion-item>
         <ion-label stacked>Building</ion-label>
-        <ion-input type="text" [(ngModel)]="jobData.building"></ion-input>
+        <ion-input placeholder="Enter details" [(ngModel)]="jobData.building"></ion-input>
       </ion-item>
     </ion-col>
   </ion-row>
@@ -33,7 +33,7 @@
   <ion-row>
     <ion-item>
       <ion-label stacked>Description</ion-label>
-      <ion-textarea [(ngModel)]="jobData.description"> </ion-textarea>
+      <ion-textarea placeholder="Write a description" [(ngModel)]="jobData.description"> </ion-textarea>
     </ion-item>
   </ion-row>
 
@@ -42,7 +42,7 @@
       Select services
     </ion-list-header>
     <ion-item *ngFor="let category of categories" no-lines>
-      <ion-label>{{category}}</ion-label>
+      <ion-label color="primary">{{category}}</ion-label>
       <ion-checkbox (ionChange)="selectService($event, category)"></ion-checkbox>
     </ion-item>
   </ion-list>
