@@ -36,7 +36,7 @@
 
 <ion-footer>
   <!--change toolbar color-->
-  <ion-toolbar color="Sblue">
+  <ion-toolbar>
     <ion-input placeholder="Type a message" [(ngModel)]="currentMessage" autofocus style="background-color: #e4e4e4; border-radius:30px"></ion-input>
     <ion-buttons end>
       <button ion-button icon-right [hidden]="!isMobile()" color="royal" (click)="takePicture()">
@@ -44,7 +44,7 @@
       </button>
       <button ion-button icon-right color="" (click)="postMessage()">
         
-        <ion-icon ios="ios-send" md="md-send"style="color: white"></ion-icon>
+        <ion-icon ios="ios-send" md="md-send"style="color:"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>

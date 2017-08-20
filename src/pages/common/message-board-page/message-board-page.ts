@@ -89,7 +89,7 @@ export class MessageBoardPage {
     this.photoHelper.snap();
     let toast = this.toastCtrl.create({
       message: 'If you like to upload pic, click send',
-      duration: 7000
+      duration: 1200
     });
     toast.present();
   }

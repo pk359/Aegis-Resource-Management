@@ -94,11 +94,11 @@
 
 ion-menu{
   .scroll-content{
-    background: #005C97;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */       
+    background: #118C4E;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom,#118C4E ,#4FF700);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #118C4E ,#4FF700); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */       
     .intro-holder{
-      background-image: url("../assets/images/UNIV.jpg"); //for you to change the picture!!
+      background-image: url("../assets/images/Aegis3.PNG"); //for you to change the picture!!
       background-size: 100%;
       font-family: 'Paytone One';
       text-align: center;
@@ -124,9 +124,9 @@ ion-menu{
 ion-navbar{
   // android phone
   .toolbar-background-md{
-    background: #005C97;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+    background: #118C4E;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom,#108C4C ,#4FF700);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #118C4E ,#4FF700); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
   }
   .toolbar-title-md{
     color:white
@@ -140,9 +140,9 @@ ion-navbar{
 
   // ios phone
   .toolbar-background-ios{
-    background: #005C97;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #363795, #005C97);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #363795, #005C97); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+    background: #118C4E;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #118C4E ,#4FF700);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #118C4E ,#4FF700); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
   }
   .toolbar-title-ios{
     color: white
