@@ -95,18 +95,18 @@
 ion-menu{
   .scroll-content{
     background: #118C4E;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom,#118C4E ,#40C800);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #118C4E ,#40C800); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */       
+    background: -webkit-linear-gradient(to bottom,#118C4E ,#47DF00);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #108C4D ,#47DF00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */       
     .intro-holder{
       background-image: url("../assets/images/rsz_aegis4.png"); //for you to change the picture!!
-      background-size: 100%;
+      background-size: 97.5%;
       font-family: 'Paytone One';
       text-align: center;
-      height: 150px;
+      height: 151px;
       .welcome-header{
         position: relative;
         margin-top: 20px;
-        color:#0C0CBD;
+        color:#118C4E;
         font-size: 22px;
         text-shadow: -.03em .03em #182642;
       }
