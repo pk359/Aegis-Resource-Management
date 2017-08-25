@@ -55,6 +55,12 @@ export class NewUserRequest {
       value: 'engineer',
       checked: false
     });
+    alert.addInput({
+      type: 'radio',
+      label: 'Superuser',
+      value: 'superUser',
+      checked: false
+    });
 
     alert.addButton('Cancel');
     alert.addButton({
