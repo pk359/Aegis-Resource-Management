@@ -3,6 +3,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 import { MyApp } from './app.component';
 
 //Common side
@@ -44,7 +45,6 @@ import { Camera } from '@ionic-native/camera';
 import { EmailComposer } from '@ionic-native/email-composer';
 
 import { AngularFireModule } from 'angularfire2';
-import { LocalNotifications } from '@ionic-native/local-notifications';
 //Firebase setting
 // var firebaseConfig = {
 //     apiKey: "AIzaSyByoy4jwSFBahLuxoUD1Y0zotrxGbxa81Q",
