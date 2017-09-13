@@ -10,9 +10,10 @@ import { LoginPage } from "../../common/login-page/login-page";
 import {Historypage} from "./../../common/history/history";
 
 @Component({
-  templateUrl: 'client-tabs.html',
+  templateUrl: 'housekeeper-tabs.html',
 })
-export class ClientTabs {
+export class HousekeeperTabs {
+
 
   @ViewChild(Nav) nav: Nav;
   cUser :any
@@ -22,8 +23,8 @@ export class ClientTabs {
     this.pages = [
       {title: 'Current Jobs', icon:'logo-buffer', component: CurrentJobsPage},
       {title: 'New Order', icon:'ios-clipboard', component: NewOrderPage},
-      {title: 'Past Records', icon:'ios-archive', component: Historypage},
-      {title: 'Feedback', icon: 'ios-paper', component: FeedbackPage}
+      // {title: 'Past Records', icon:'ios-archive', component: Historypage},
+      // {title: 'Feedback', icon: 'ios-paper', component: FeedbackPage}
     ];
     this.cUser = UserHelper.getCurrentUser()
   }

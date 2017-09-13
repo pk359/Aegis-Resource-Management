@@ -111,7 +111,7 @@ export class NewOrderPage {
     this.photoHelper.uplaod().then(() => {
       // Upload completed successfully, now we can get the download URL
       this.photoHelper.photos.forEach(photo => {
-        this.jobData.photosByClient.push(photo.URL);
+        this.jobData.photosByHousekeeper.push(photo.URL);
       })
       this.jobData.jobCreatorName = this.cUser.name;
       this.jobData.jobCreatorUid = this.cUser.uid;

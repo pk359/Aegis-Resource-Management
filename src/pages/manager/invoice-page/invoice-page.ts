@@ -18,7 +18,7 @@ export class InvoicePage {
     })
   }
 
-  sendInvoiceToClient() {
+  sendInvoiceToHousekeeper() {
     this.calculateTotalPrice();
 
     if (!isNaN(this.cost)) {

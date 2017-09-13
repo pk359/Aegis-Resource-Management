@@ -15,7 +15,7 @@
   <ion-card>
     <ion-card-header style="text-align:center;font-size:20px;color:dodgerblue" block>
       <ion-icon icon-left md="md-bookmark"></ion-icon>
-      Job Details From Client
+      Job Details From Housekeeper
     </ion-card-header>
     <ion-card-content>
       <ion-item>
@@ -36,7 +36,7 @@
       </ion-item>
 
       <ion-slides loop>
-        <ion-slide *ngFor="let image of job.photosByClient">
+        <ion-slide *ngFor="let image of job.photosByHousekeeper">
           <img style="height:150px; margin: auto;" [src]="image" (click)="showInFullScreen(image)" />
         </ion-slide>
       </ion-slides>
@@ -54,7 +54,7 @@
     </ion-card-header>
     <ion-card-content>
       <!-- IF NOT APPROVE FOR PROCESSING -->
-      <div *ngIf="!job.isApproveforProcess() && (userRole== 'superUser' || userRole=='engineer')">
+      <div *ngIf="!job.isApproveforProcess() && (userRole== 'superUser' || userRole=='headEngineer')">
         <button ion-button block (click)="onclickApproveProcess()">Approve</button>
       </div>
     </ion-card-content>
@@ -159,7 +159,7 @@
       </ion-item>
     </ion-card-header>
     <ion-card-content>
-      <div *ngIf="!job.isCompletionApproved() && job.isCompleted() && (userRole=='superUser' || userRole=='client') ">
+      <div *ngIf="!job.isCompletionApproved() && job.isCompleted() && (userRole=='superUser' || userRole=='housekeeper') ">
         <button ion-button block (click)=onClickApproveCompletion()>Approve Completion</button>
       </div>
     </ion-card-content>

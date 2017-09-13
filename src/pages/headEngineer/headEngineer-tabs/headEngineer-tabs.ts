@@ -8,9 +8,9 @@ import { NavController} from 'ionic-angular';
 import { LoginPage } from "../../common/login-page/login-page";
 
 @Component({
-    templateUrl: 'engineer-tabs.html'
+    templateUrl: 'headEngineer-tabs.html'
 })
-export class EngineerTabs {
+export class HeadEngineerTabs {
      @ViewChild(Nav) nav: Nav;
      cUser: any
   pages: Array<{ title: string, icon: string, component: any }>;

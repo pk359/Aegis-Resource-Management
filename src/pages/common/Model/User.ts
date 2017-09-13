@@ -7,7 +7,7 @@ export class User {
     role: string
     token: string
     public hasAccessToJob(job: Job) {
-        if (this.role == 'superUser' || this.role == 'manager' || this.role =='engineer') {
+        if (this.role == 'superUser' || this.role == 'manager' || this.role =='headEngineer') {
             return true;
         } else if (this.role == 'tradesperson') {
             var found = false;
@@ -17,7 +17,7 @@ export class User {
                 }
             })
             return found;
-        } else if (this.role == 'client') {
+        } else if (this.role == 'housekeeper') {
             if (job.jobCreatorName == this.name) {
                 return true;
             }

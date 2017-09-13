@@ -24,15 +24,15 @@ import { InvoicePage } from '../pages/manager/invoice-page/invoice-page'
 import { NewServicePage } from './../pages/manager/new-service-page/new-service-page';
 import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
 
-//Client Side
-import { ClientTabs } from '../pages/client/client-tabs/client-tabs'
-import { NewOrderPage } from '../pages/client/new-order-page/new-order-page'
+//Housekeeper Side
+import { HousekeeperTabs } from '../pages/housekeeper/housekeeper-tabs/housekeeper-tabs'
+import { NewOrderPage } from '../pages/housekeeper/new-order-page/new-order-page'
 
 //SuperUser Side
 import { SuperUserTabs } from './../pages/superUser/superUser-tabs/superUser-tabs';
 
-//Engineer Side
-import { EngineerTabs } from './../pages/engineer/engineer-tabs/engineer-tabs';
+//HeadEngineer Side
+import { HeadEngineerTabs } from './../pages/headEngineer/headEngineer-tabs/headEngineer-tabs';
 
 //Tradesperson Side
 import { TradesPersonTabs } from '../pages/tradesperson/trades-person-tabs/trades-person-tabs';
@@ -67,8 +67,8 @@ var firebaseConfig = {
   declarations: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    NewUserRequest, ManagerTabs, EngineerTabs, CurrentJobsPage, InvoicePage,
-    ClientTabs, NewOrderPage,
+    NewUserRequest, ManagerTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
+    HousekeeperTabs, NewOrderPage,
     TradesPersonTabs, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
   ],
@@ -82,8 +82,8 @@ var firebaseConfig = {
   entryComponents: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    ManagerTabs, NewUserRequest, EngineerTabs, CurrentJobsPage, InvoicePage,
-    ClientTabs, NewOrderPage, 
+    ManagerTabs, NewUserRequest, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
+    HousekeeperTabs, NewOrderPage, 
     TradesPersonTabs, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
   ],

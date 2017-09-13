@@ -1,4 +1,4 @@
-import { EngineerTabs } from './../../engineer/engineer-tabs/engineer-tabs';
+import { HeadEngineerTabs } from './../../headEngineer/headEngineer-tabs/headEngineer-tabs';
 import { TradesPersonTabs } from './../../tradesperson/trades-person-tabs/trades-person-tabs';
 import { LoginPage } from './../login-page/login-page';
 import { JobDetailsPage } from './../job-details-page/job-details-page';
@@ -9,7 +9,7 @@ import { SuperUserTabs } from './../../superUser/superUser-tabs/superUser-tabs';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ManagerTabs } from '../../manager/manager-tabs/manager-tabs'
-import { ClientTabs } from '../../client/client-tabs/client-tabs'
+import { HousekeeperTabs } from '../../housekeeper/housekeeper-tabs/housekeeper-tabs'
 import { MessagePage } from '../message-page/message-page'
 import { AngularFire } from 'angularfire2'
 import { App } from 'ionic-angular';
@@ -32,8 +32,8 @@ export class UIDecider {
     }
     if (cU && cU.uid != undefined) {
       if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)
-      else if (cU.role == 'engineer') this.navCtrl.push(EngineerTabs)
-      else if (cU.role == 'client') this.navCtrl.push(ClientTabs)
+      else if (cU.role == 'headEngineer') this.navCtrl.push(HeadEngineerTabs)
+      else if (cU.role == 'housekeeper') this.navCtrl.push(HousekeeperTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)
       else if (cU.role == 'superUser') this.navCtrl.setRoot(SuperUserTabs)
       else if (cU.role == 'none') this.navCtrl.push(MessagePage, {
@@ -66,7 +66,7 @@ export class UIDecider {
     this.fcm.getToken().then(token => {
       this.currentUser.updateToken(token)
     })
-    let topics = ['manager', 'client', 'tradesperson','engineer']
+    let topics = ['manager', 'housekeeper', 'tradesperson','headEngineer']
     topics.forEach(topic => {
       if (topic != this.currentUser.role) {
         this.fcm.unsubscribeFromTopic(topic)

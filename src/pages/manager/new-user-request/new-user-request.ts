@@ -33,8 +33,8 @@ export class NewUserRequest {
     alert.addInput(
       {
         type: 'radio',
-        label: 'Client',
-        value: 'client',
+        label: 'Housekeeper',
+        value: 'housekeeper',
         checked: true
       });
     alert.addInput({
@@ -51,8 +51,8 @@ export class NewUserRequest {
     });
     alert.addInput({
       type: 'radio',
-      label: 'Engineer',
-      value: 'engineer',
+      label: 'HeadEngineer',
+      value: 'headEngineer',
       checked: false
     });
     alert.addInput({

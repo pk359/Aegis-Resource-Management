@@ -10,7 +10,7 @@ export class Job {
     description: string = '';
     room: string = '';
     building: string = '';
-    photosByClient = [];
+    photosByHousekeeper = [];
     tradespersonList: User[] = []
     tradespersonAssignmentTime = ''
     checkInPhotos = []
