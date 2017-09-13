@@ -32,13 +32,13 @@ export class UIDecider {
     }
     if (cU && cU.uid != undefined) {
       if (cU.role == 'headAegis') this.navCtrl.push(HeadAegisTabs)
-      else if (cU.role == 'headEngineer') this.navCtrl.push(HeadEngineerTabs)
+      else if (cU.role == 'headEngineer' || cU.role == 'engineer' || cU.role == 'headHousekeeper' || cU.role == 'sales') this.navCtrl.push(HeadEngineerTabs)
       else if (cU.role == 'housekeeper') this.navCtrl.push(HousekeeperTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)
-      else if (cU.role == 'superUser') this.navCtrl.setRoot(SuperUserTabs)
-      else if (cU.role == 'none') this.navCtrl.push(MessagePage, {
+        else if (cU.role == 'none') this.navCtrl.push(MessagePage, {
         message: 'Please wait for administrator to assign you a role.'
       })
+      else if (cU.role == 'superUser') this.navCtrl.setRoot(SuperUserTabs)
     } else {
       this.navCtrl.resize();
       this.navCtrl.push(LoginPage, {}, caches.delete)
@@ -66,7 +66,7 @@ export class UIDecider {
     this.fcm.getToken().then(token => {
       this.currentUser.updateToken(token)
     })
-    let topics = ['headAegis', 'housekeeper', 'tradesperson','headEngineer']
+    let topics = ['headAegis', 'housekeeper', 'tradesperson', 'headEngineer']
     topics.forEach(topic => {
       if (topic != this.currentUser.role) {
         this.fcm.unsubscribeFromTopic(topic)
