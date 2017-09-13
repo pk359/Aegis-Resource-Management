@@ -45,8 +45,8 @@ export class NewUserRequest {
     });
     alert.addInput({
       type: 'radio',
-      label: 'Manager',
-      value: 'manager',
+      label: 'HeadAegis',
+      value: 'headAegis',
       checked: false
     });
     alert.addInput({

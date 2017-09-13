@@ -1,5 +1,5 @@
-import { NewUserRequest } from './../../manager/new-user-request/new-user-request';
-import { ServiceListPage } from './../../manager/service-list-page/service-list-page';
+import { NewUserRequest } from './../../headAegis/new-user-request/new-user-request';
+import { ServiceListPage } from './../../headAegis/service-list-page/service-list-page';
 import { Historypage } from './../../common/history/history';
 import { FeedbackPage } from './../../feedback/feedback-page/feedback-page';
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';

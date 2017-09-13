@@ -17,12 +17,12 @@ import { MessageBoardPage } from './../pages/common/message-board-page/message-b
 import { FeedbackPage } from '../pages/feedback/feedback-page/feedback-page';
 import { Historypage } from './../pages/common/history/history';
 
-//Manager Side
-import { NewUserRequest } from '../pages/manager/new-user-request/new-user-request'
-import { ManagerTabs } from '../pages/manager/manager-tabs/manager-tabs'
-import { InvoicePage } from '../pages/manager/invoice-page/invoice-page'
-import { NewServicePage } from './../pages/manager/new-service-page/new-service-page';
-import { ServiceListPage } from './../pages/manager/service-list-page/service-list-page';
+//HeadAegis Side
+import { NewUserRequest } from '../pages/headAegis/new-user-request/new-user-request'
+import { HeadAegisTabs } from '../pages/headAegis/headAegis-tabs/headAegis-tabs'
+import { InvoicePage } from '../pages/headAegis/invoice-page/invoice-page'
+import { NewServicePage } from './../pages/headAegis/new-service-page/new-service-page';
+import { ServiceListPage } from './../pages/headAegis/service-list-page/service-list-page';
 
 //Housekeeper Side
 import { HousekeeperTabs } from '../pages/housekeeper/housekeeper-tabs/housekeeper-tabs'
@@ -67,7 +67,7 @@ var firebaseConfig = {
   declarations: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    NewUserRequest, ManagerTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
+    NewUserRequest, HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
     HousekeeperTabs, NewOrderPage,
     TradesPersonTabs, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
@@ -82,7 +82,7 @@ var firebaseConfig = {
   entryComponents: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    ManagerTabs, NewUserRequest, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
+    HeadAegisTabs, NewUserRequest, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
     HousekeeperTabs, NewOrderPage, 
     TradesPersonTabs, SuperUserTabs, NewServicePage,
     ServiceListPage, MessageBoardPage, FeedbackPage,Historypage

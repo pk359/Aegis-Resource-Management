@@ -11,9 +11,9 @@ import { NavController } from 'ionic-angular';
 import { LoginPage } from "../../common/login-page/login-page";
 
 @Component({
-  templateUrl: 'manager-tabs.html'
+  templateUrl: 'headAegis-tabs.html'
 })
-export class ManagerTabs {
+export class HeadAegisTabs {
 
   @ViewChild(Nav) nav: Nav;
   cUser :any

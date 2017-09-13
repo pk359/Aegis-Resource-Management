@@ -71,7 +71,7 @@
     </ion-card-header>
     <ion-card-content>
       <!--IF HAVENT ASSIGN TRADESPERSON-->
-      <div *ngIf="!job.isTradespersonAssigned() && job.isApproveforProcess() && (userRole=='superUser' || userRole=='manager')">
+      <div *ngIf="!job.isTradespersonAssigned() && job.isApproveforProcess() && (userRole=='superUser' || userRole=='headAegis')">
         <button ion-button block (click)="assignTradesperson(job)">Assign</button>
       </div>
       <!--IF ASSIGNED-->
@@ -166,6 +166,6 @@
   </ion-card>
 
   <!--INVOICE-->
-  <ion-card *ngIf="job.isCompletionApproved()&& (userRole=='superUser' || userRole=='manager') ">
+  <ion-card *ngIf="job.isCompletionApproved()&& (userRole=='superUser' || userRole=='headAegis') ">
     <button ion-button block (click)='sendInvoice()'>Send Invoice</button>
   </ion-card>

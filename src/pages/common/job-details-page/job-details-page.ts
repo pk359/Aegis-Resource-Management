@@ -1,4 +1,4 @@
-import { InvoicePage } from './../../manager/invoice-page/invoice-page';
+import { InvoicePage } from './../../headAegis/invoice-page/invoice-page';
 import { MessageBoardPage } from './../message-board-page/message-board-page';
 import { Photo } from './../Model/Photo';
 import { Camera } from '@ionic-native/camera';

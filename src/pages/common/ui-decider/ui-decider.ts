@@ -8,7 +8,7 @@ import { UserHelper } from './../Utilities/user-helper';
 import { SuperUserTabs } from './../../superUser/superUser-tabs/superUser-tabs';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { ManagerTabs } from '../../manager/manager-tabs/manager-tabs'
+import { HeadAegisTabs } from '../../headAegis/headAegis-tabs/headAegis-tabs'
 import { HousekeeperTabs } from '../../housekeeper/housekeeper-tabs/housekeeper-tabs'
 import { MessagePage } from '../message-page/message-page'
 import { AngularFire } from 'angularfire2'
@@ -31,7 +31,7 @@ export class UIDecider {
 
     }
     if (cU && cU.uid != undefined) {
-      if (cU.role == 'manager') this.navCtrl.push(ManagerTabs)
+      if (cU.role == 'headAegis') this.navCtrl.push(HeadAegisTabs)
       else if (cU.role == 'headEngineer') this.navCtrl.push(HeadEngineerTabs)
       else if (cU.role == 'housekeeper') this.navCtrl.push(HousekeeperTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)
@@ -66,7 +66,7 @@ export class UIDecider {
     this.fcm.getToken().then(token => {
       this.currentUser.updateToken(token)
     })
-    let topics = ['manager', 'housekeeper', 'tradesperson','headEngineer']
+    let topics = ['headAegis', 'housekeeper', 'tradesperson','headEngineer']
     topics.forEach(topic => {
       if (topic != this.currentUser.role) {
         this.fcm.unsubscribeFromTopic(topic)
