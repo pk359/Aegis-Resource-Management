@@ -68,7 +68,7 @@ export class UIDecider {
     this.fcm.getToken().then(token => {
       this.currentUser.updateToken(token)
     })
-    let topics = ['headAegis', 'housekeeper', 'tradesperson', 'headEngineer']
+    let topics = ['headAegis', 'housekeeper', 'tradesperson', 'headEngineer', 'sales', 'headHousekeeper']
     topics.forEach(topic => {
       if (topic != this.currentUser.role) {
         this.fcm.unsubscribeFromTopic(topic)

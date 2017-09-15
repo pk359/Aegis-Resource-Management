@@ -59,8 +59,8 @@ const getTradespersonUids = function getTradespersonUids(job) {
 const sendToTradespersons = function sendToTradespersons(job, title, data, body = 'Press me to view detail') {
     return sendToUsers(getTradespersonUids(job), title, data, body)
 }
-const sendToClient = function sendToClient(job, title, data, body = 'Press me to view detail') {
-    console.log('sending notification to client')
+const sendToHosuekeepr = function sendToHosuekeepr(job, title, data, body = 'Press me to view detail') {
+    console.log('sending notification to hosuekeeper')
     return sendToUsers([job.jobCreatorUid], title, data, body = body);
 }
 exports.general = functions.database.ref('/requests/{pushId}/').onWrite(event => {
@@ -79,19 +79,34 @@ exports.general = functions.database.ref('/requests/{pushId}/').onWrite(event =>
         key: requestKey,
         page: 'detail'
     }
+    // let topics = ['headAegis', 'housekeeper', 'tradesperson', 'headEngineer', 'sales', 'headHousekeeper']
     let promisses = []
-    if (oldJob.tradespersonAssignmentTime != newJob.tradespersonAssignmentTime) {
-        promisses.push(sendToTopic('manager', 'A request has been assigned and dispatched!', data))
+    if(!oldJob){
+        promisses.push(sendToTopic('headEngineer', 'A new request has been created, please approve',data))
+        promisses.push(sendToTopic('sales', 'A new request has been created, please approve',data))
+        promisses.push(sendToTopic('headHousekeeper', newJob.jobCreatorName + ' has created a request', data) )
+    }else if (oldJob.processApproval != newJob.processApproval){
+        promisses.push(sendToTopic('headAegis', 'An request has been confirmed, please assign tradesperson', data))
+    }else if (oldJob.tradespersonAssignmentTime != newJob.tradespersonAssignmentTime) {
+        promisses.push(sendToTopic('headAegis', 'A request has been assigned and dispatched!', data))
         promisses.push(sendToTradespersons(newJob, 'You have been assigned to a new job!', data));
+        promisses.push(sendToTopic('sales', 'A request has been assigned and dispatched!',data))
     } else if (oldJob.checkInTime != newJob.checkInTime) {
-        promisses.push(sendToTopic('manager', 'A tradesperson has chanked in to a request!', data))
-        promisses.push(sendToClient(newJob, 'Tradesperson has checked in to your request!', data))
+        promisses.push(sendToTopic('headAegis', 'A tradesperson has checked in to a request!', data))
+        promisses.push(sendToHosuekeepr(newJob, 'Tradesperson has checked in to your request!', data))
+        promisses.push(sendToTopic('sales', 'A tradesperson has checked in to a request!',data))
     } else if (oldJob.completionTime != newJob.completionTime) {
-        promisses.push(sendToTopic('manager', 'A tradesperson has mark a request as complete!', data))
-        promisses.push(sendToClient(newJob, 'Tradesperson has completed your request please for approval!', data))
+        promisses.push(sendToTopic('headAegis', 'A tradesperson has mark a request as complete!', data))
+        promisses.push(sendToHosuekeepr(newJob, 'Tradesperson has completed your request now waiting for approval!', data))
+        promisses.push(sendToTopic('sales', 'A tradesperson has mark a request as complete!',data))
+        promisses.push(sendToTopic('headHousekeeper', 'A tradesperson has mark a request as complete!',data))
+        promisses.push(sendToTopic('headEngineer', 'A tradesperson has mark a request as complete! Awaits for approval',data))
     } else if (oldJob.completionApprovalTime != newJob.completionApprovalTime) {
-        promisses.push(sendToTopic('manager', 'A request completion has been aprroved!', data))
+        promisses.push(sendToTopic('headAegis', 'A request completion has been aprroved!', data))
         promisses.push(sendToTradespersons(newJob, 'Your completion has been approved. Well done!', data));
+        promisses.push(sendToTopic('sales', 'A request completion has been aprroved!',data))
+        promisses.push(sendToTopic('headHousekeeper', 'A request completion has been aprroved!',data))
+        promisses.push(sendToTopic('headEngineer', 'A request completion has been aprroved!',data))
     }
     return Promise.all(promisses)
 });
@@ -119,7 +134,7 @@ exports.messageboard = functions.database.ref('/requests/{requestID}/messageBoar
         })
         promisses.push(sendToUsers(uids, sender + ' has posted on messageboard', data, body = text));
         if (job.jobCreatorName != sender) {
-            promisses.push(sendToClient(job, sender + ' has posted on messageboard', data, body = text))
+            promisses.push(sendToHosuekeepr(job, sender + ' has posted on messageboard', data, body = text))
         }
     })
     return Promise.all(promisses)
