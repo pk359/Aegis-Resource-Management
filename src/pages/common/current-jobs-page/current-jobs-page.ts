@@ -24,7 +24,9 @@ export class CurrentJobsPage {
           var job: Job = new Job();
           job.isCompletionApproved()
           Object.assign(job, snap.val()[key])
-          if (this.cUser.hasAccessToJob(job)) {
+          if (this.cUser.hasAccessToJob(job) && !job.isApproveforProcess() && this.cUser.role != 'headAegis') {
+            this.currentJobs.push(job)
+          } else if(this.cUser.hasAccessToJob(job) && job.isApproveforProcess()){
             this.currentJobs.push(job)
           }
         })

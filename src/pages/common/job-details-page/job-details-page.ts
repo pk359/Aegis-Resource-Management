@@ -61,6 +61,27 @@ export class JobDetailsPage {
     confirm.present();
   }
 
+  onclickRejectProcess() {
+    //remove from here
+    let confirm = this.alertCtrl.create({
+      title: 'Confirm Process Approval?',
+      message: 'Acknowledge the requested job details?',
+      buttons: [
+        {
+          text: 'Disagree',
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.job.approveProcess(this.currentUser);
+            firebase.database().ref('requests/' + this.job.key).remove()
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
   public assignTradesperson(job: Job) {
     var tps: User[] = []
     firebase.database().ref('users/').orderByChild('role').equalTo('tradesperson').once('value', snap => {
