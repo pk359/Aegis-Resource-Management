@@ -32,7 +32,9 @@ export class UIDecider {
     }
     if (cU && cU.uid != undefined) {
       if (cU.role == 'headAegis') this.navCtrl.push(HeadAegisTabs)
-      else if (cU.role == 'headEngineer' || cU.role == 'engineer' || cU.role == 'headHousekeeper' || cU.role == 'sales') this.navCtrl.push(HeadEngineerTabs)
+      //roles: headEngineer, engineer, headHousekeeper and sales are from hotel side and does same thing
+      //of viewing current jobs
+        else if (cU.role == 'headEngineer' || cU.role == 'engineer' || cU.role == 'headHousekeeper' || cU.role == 'sales') this.navCtrl.push(HeadEngineerTabs)
       else if (cU.role == 'housekeeper') this.navCtrl.push(HousekeeperTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)
         else if (cU.role == 'none') this.navCtrl.push(MessagePage, {

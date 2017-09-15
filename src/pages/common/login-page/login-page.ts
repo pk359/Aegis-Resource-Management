@@ -7,7 +7,7 @@ import { AngularFire, AuthProviders, AuthMethods } from 'angularfire2'
 
 import { UIDecider } from '../ui-decider/ui-decider'
 @Component({
-  selector: 'page-login-page',
+  selector: 'login-page',
   templateUrl: 'login-page.html'
 })
 export class LoginPage {
@@ -54,45 +54,6 @@ export class LoginPage {
       });
   }
 
-  signup(name: string, email: string, password: string) {
-    this.errors = []
-    name = name.trim();
-    if (name.length < 2) {
-      this.errors.push('Name must have more than 1 characters.')
-    }
-    if (password.length < 6) {
-      this.errors.push('Password must have more than 5 chars.')
-    }
-    if (this.errors.length == 0) {
-      let loading = this.loadingCtrl.create({
-        showBackdrop: false,
-        spinner: 'crescent',
-        content: 'Creating your account, you may have to login again.'
-      });
-      loading.present();
-      this.af.auth.createUser({
-        email, password
-      })
-        .then((response) => {
-          //Register user in database now.
-          var user: User = new User();
-          user.name = name;
-          user.role = 'none'
-          user.email = email;
-          user.uid = response.uid;
-          firebase.database().ref('users/' + response.uid).set(user)
-          //Create a cookie 
-          this.setCurrentUser(user)
-          //Once both authentication and adding role = none is successful navigate to new page.
-          loading.dismissAll();
-          this.navCtrl.push(UIDecider)
-        }).catch((error) => {
-          var errorMessage = error['message'];
-          this.errors.push(errorMessage)
-        });
-    }
-  }
-
   setCurrentUser(user: User) {
     UserHelper.setCurrentUser(user);
   }
@@ -116,9 +77,6 @@ export class LoginPage {
         break;
       case "forgot":
         this.activeForm = 'forgot';
-        break;
-      case "signup":
-        this.activeForm = 'signup';
         break;
     }
   }

@@ -18,7 +18,7 @@ import { FeedbackPage } from '../pages/feedback/feedback-page/feedback-page';
 import { Historypage } from './../pages/common/history/history';
 
 //HeadAegis Side
-import { NewUserRequest } from '../pages/headAegis/new-user-request/new-user-request'
+
 import { HeadAegisTabs } from '../pages/headAegis/headAegis-tabs/headAegis-tabs'
 import { InvoicePage } from '../pages/headAegis/invoice-page/invoice-page'
 import { NewServicePage } from './../pages/headAegis/new-service-page/new-service-page';
@@ -45,6 +45,7 @@ import { Camera } from '@ionic-native/camera';
 import { EmailComposer } from '@ionic-native/email-composer';
 
 import { AngularFireModule } from 'angularfire2';
+import { CreateNewUserPage } from '../pages/common/create-new-user/create-new-user';
 //Firebase setting
 // var firebaseConfig = {
 //     apiKey: "AIzaSyByoy4jwSFBahLuxoUD1Y0zotrxGbxa81Q",
@@ -67,10 +68,10 @@ var firebaseConfig = {
   declarations: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    NewUserRequest, HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
+     HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
     HousekeeperTabs, NewOrderPage,
     TradesPersonTabs, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
+    ServiceListPage, MessageBoardPage, FeedbackPage,Historypage ,CreateNewUserPage
   ],
   imports: [
     BrowserModule,
@@ -82,10 +83,10 @@ var firebaseConfig = {
   entryComponents: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    HeadAegisTabs, NewUserRequest, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
+    HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
     HousekeeperTabs, NewOrderPage, 
     TradesPersonTabs, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage, FeedbackPage,Historypage
+    ServiceListPage, MessageBoardPage, FeedbackPage,Historypage, CreateNewUserPage
   ],
   providers: [
     StatusBar,

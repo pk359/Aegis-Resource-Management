@@ -10,7 +10,8 @@ import { PhotoViewer } from '@ionic-native/photo-viewer';
 })
 export class NewServicePage {
   firebaseJobObject: any = {}
-  servicePictures: any = []
+  // servicePictures: any = []
+  showOtherInputBox:boolean = false;
   color = 'rgba(0, 0, 0, 0.18)'
   progress = 0
   error = ''
@@ -18,7 +19,7 @@ export class NewServicePage {
   serviceName: string = ''
   categories: string[] = []
   category: string = ''
-  newCategoryName: string = ''
+  // newCategoryName: string = ''
   constructor(public navCtrl: NavController,
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController,
@@ -37,16 +38,19 @@ export class NewServicePage {
             this.categories.push(service.category)
           }
         })
+        this.categories.push('add new category')
       }
     })
 
   }
 
   save() {
+
     if (this.serviceName == '') {
       this.error = 'Must have name!'
       return;
     }
+    console.log(this.category, this.serviceName)
     let loading = this.loadingCtrl.create({
       showBackdrop: false,
       spinner: 'crescent',
@@ -69,19 +73,27 @@ export class NewServicePage {
       this.category = ''
     })
   }
-  addCategory() {
-    if (this.newCategoryName == '') {
-      this.toastCtrl.create({
-        message: 'Please enter category name you want to add!',
-        duration: 3000
-      }).present()
-      return;
+  // addCategory() {
+  //   if (this.newCategoryName == '') {
+  //     this.toastCtrl.create({
+  //       message: 'Please enter category name you want to add!',
+  //       duration: 3000
+  //     }).present()
+  //     return;
+  //   }
+  //   this.categories.push(this.newCategoryName);
+  //   this.toastCtrl.create({
+  //     message: 'Category added to list!',
+  //     duration: 1500
+  //   }).present()
+  //   this.newCategoryName = ''
+  // }
+  onSelectChange(selectedValue){
+    if(selectedValue === 'add new category'){
+      this.category = '';
+      this.showOtherInputBox = true;
+    }else{
+      this.showOtherInputBox =false;
     }
-    this.categories.push(this.newCategoryName);
-    this.toastCtrl.create({
-      message: 'Category added to list!',
-      duration: 1500
-    }).present()
-    this.newCategoryName = ''
   }
 }

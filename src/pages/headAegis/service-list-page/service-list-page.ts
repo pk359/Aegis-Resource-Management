@@ -7,6 +7,7 @@ import firebase from 'firebase'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 
 @Component({
+  selector: 'service-list-page',
   templateUrl: 'service-list-page.html',
 })
 export class ServiceListPage {
@@ -16,7 +17,9 @@ export class ServiceListPage {
   progress = 0
   error = ''
   cUser: any
+  categories = []
   services = []
+  categoryAndServices = {}
   constructor(public navCtrl: NavController,
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController,
@@ -26,19 +29,29 @@ export class ServiceListPage {
 
     this.cUser = JSON.parse(window.localStorage.getItem('userdetails'));
     firebase.database().ref('services').on('value', snap => {
-      this.services = [];
       if (snap.val() != null) {
-        Object.keys(snap.val()).forEach(key => {
-          let service = new Service();
-          Object.assign(service, snap.val()[key]);
-          this.services.push(service);
+        //Get list of categoies;
+        this.categories = Object.keys(snap.val()).map(key=>{
+          return snap.val()[key]['category'];
         })
+        //Get Service in array format
+        this.services = Object.keys(snap.val()).map(key=>{
+          return snap.val()[key];
+        })
+        //Populate services on category basis
+        this.categories.forEach(category=>{
+          var serviceList = this.services.filter((s:Service)=>{
+            return s.category === category;
+          })
+          this.categoryAndServices[category] = serviceList;
+          console.log(serviceList)
+        })
+        console.log(this.categories, this.services)
       }
     })
   }
   onClickCreateService() {
     this.navCtrl.push(NewServicePage, {}, caches.has)
-
   }
   onClickService(service: Service) {
     let alert = this.alertCtrl.create({
@@ -63,5 +76,17 @@ export class ServiceListPage {
       ]
     })
     alert.present()
+  }
+  // getCategories(){
+  //   const categories = new Set();
+  //   this.services.forEach( (s:Service) =>{
+  //     categories.add(s)
+  //   });
+  //   return categories;
+  // }
+  getServicesForCategory(category:string){
+    return this.services.filter((s:Service)=>{
+      return s.category ===category
+    })
   }
 }

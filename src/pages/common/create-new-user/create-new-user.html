@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+    <ion-title>Create new user</ion-title>
+  </ion-navbar>
+
+</ion-header>
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>New User</ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Name:</ion-label>
+          <ion-input [(ngModel)]="name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Email:</ion-label>
+          <ion-input [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Role:</ion-label>
+          <ion-select [(ngModel)]="selectedRole">
+            <ion-option *ngFor="let role of roles" [value]="role.key">{{role.value}}</ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <button ion-button color="freshgreen" block (click)="createUser()">Submit</button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

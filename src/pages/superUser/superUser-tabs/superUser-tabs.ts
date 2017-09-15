@@ -1,4 +1,4 @@
-import { NewUserRequest } from './../../headAegis/new-user-request/new-user-request';
+
 import { ServiceListPage } from './../../headAegis/service-list-page/service-list-page';
 import { Historypage } from './../../common/history/history';
 import { FeedbackPage } from './../../feedback/feedback-page/feedback-page';
@@ -23,7 +23,6 @@ export class SuperUserTabs {
     this.pages = [
       { title: 'Current Jobs', icon: 'logo-buffer', component: CurrentJobsPage },
       { title: 'Service List', icon: 'ios-list-box', component: ServiceListPage },
-      { title: 'New User Request', icon: 'contacts', component: NewUserRequest },
       { title: 'Past Records', icon: 'ios-archive', component: Historypage },
       { title: 'Feedback', icon: 'ios-paper', component: FeedbackPage }
     ];

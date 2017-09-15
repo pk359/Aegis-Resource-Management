@@ -1,0 +1,19 @@
+login-page {
+    // ion-content {
+    //     background: #00467F;  /* fallback for old browsers */
+    //     background: -webkit-linear-gradient(to right, #A5CC82, #00467F);  /* Chrome 10-25, Safari 5.1-6 */
+    //     background: linear-gradient(to right, #A5CC82, #00467F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+    // }
+    position: relative;
+    div.auth-holder {
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: calc(100% - 24px);
+        transform: translate(-50%, -50%);
+       
+        // box-shadow: 1px 1px 11px 6px rgba(0, 0, 0, 0.3);
+    }
+}

@@ -19,20 +19,25 @@
     <ion-card-content>
       <ion-list>
         <ion-item>
-          <ion-label>Select category</ion-label>
-          <ion-select [(ngModel)]="category">
+          <ion-label inline>Category</ion-label>
+          <ion-select [(ngModel)]="category" (ionChange)="onSelectChange($event)">
             <ion-option *ngFor="let c of categories; let i of index" [value]="i">{{c}}</ion-option>
           </ion-select>
         </ion-item>
+        <ion-item *ngIf="showOtherInputBox">
+          <ion-label inline>New Category</ion-label>
+          <ion-input [(ngModel)]='category'></ion-input>
+        </ion-item>
         <ion-item>
-          <ion-input placeholder="Enter a service name" [(ngModel)]="serviceName"></ion-input>
+          <ion-label inline>Service name</ion-label>
+          <ion-input [(ngModel)]="serviceName"></ion-input>
         </ion-item>
       </ion-list>
       <button ion-button color="freshgreen" block (click)="save()">Save</button>
     </ion-card-content>
   </ion-card>
 
-  <ion-card>
+  <!-- <ion-card>
     <ion-card-header>
       New Category Form
     </ion-card-header>
@@ -40,5 +45,5 @@
       <ion-input placeholder="Enter a category name" [(ngModel)]='newCategoryName'> </ion-input>
       <button ion-button color="freshgreen" block outline (click)="addCategory()">Add Category</button>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 </ion-content>
