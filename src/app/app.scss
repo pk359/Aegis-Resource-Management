@@ -1,6 +1,4 @@
 // http://ionicframework.com/docs/v2/theming/
-
-
 // App Global Sass
 // --------------------------------------------------
 // Put style rules here that you want to apply globally. These
@@ -14,139 +12,192 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
-.chatBubble{
-
-  img.profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    position: absolute;
-    bottom: 10px;
-  }
-
-  img.profile-pic.left {
-    left: 10px;
-  }
-
-  img.profile-pic.right {
-    right: 10px;
-  }
-
-  .message {
-    font-size: medium;
-    word-wrap: break-word;
-    white-space: pre-wrap;
-  }
-
-  .message-detail {
-    white-space: nowrap;
-    font-size: 14px;
-  }
-
-  .chat-bubble {
-    border-radius: 3px;
-    display: inline-block;
-    padding: 10px 18px;
-    position: relative;
-    margin: 5px;
-    max-width: 80%;
-  }
-
-  .chat-bubble:before {
-    content: "\00a0";
-    display: block;
-    height: 16px;
-    width: 9px;
-    position: absolute;
-    bottom: -7.5px;
-  }
-
-  .chat-bubble.left {
-    background-color: #7cdaea;
-    float: left;
-    margin-left: 0px;
-  }
-
-  .chat-bubble.left:before {
-    background-color: #7cdaea;
-    left: 10px;
-    -webkit-transform: rotate(70deg) skew(5deg);
-  }
-
-  .chat-bubble.right {
-    background-color: #7cdaea;
-    color: #000;
-    float: right;
-    margin-right: 0px;
-  }
-
-  .chat-bubble.right:before {
-    background-color: #7cdaea;
-    right: 10px;
-    -webkit-transform: rotate(118deg) skew(-5deg);
-  }
-
-  .chat-bubble.right a.autolinker {
-    color: #000;
-    font-weight: bold;
-  }
-}
-
-ion-menu{
-  .scroll-content{
-    background: #118C4E;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom,#118C4E ,#47DF00);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #108C4D ,#47DF00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */       
-    .intro-holder{
-      background-image: url("../assets/images/rsz_aegis4.png"); //for you to change the picture!!
-      background-size: 97.5%;
-      font-family: 'Paytone One';
-      text-align: center;
-      height: 151px;
-      .welcome-header{
+.chatBubble {
+    img.profile-pic {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        position: absolute;
+        bottom: 10px;
+    }
+    img.profile-pic.left {
+        left: 10px;
+    }
+    img.profile-pic.right {
+        right: 10px;
+    }
+    .message {
+        font-size: medium;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+    }
+    .message-detail {
+        white-space: nowrap;
+        font-size: 14px;
+    }
+    .chat-bubble {
+        border-radius: 3px;
+        display: inline-block;
+        padding: 10px 18px;
         position: relative;
-        margin-top: 20px;
-        color:#118C4E;
-        font-size: 22px;
-        text-shadow: -.03em .03em #182642;
-      }
+        margin: 5px;
+        max-width: 80%;
     }
-    ion-item{
-      background:none;
-      color:white;
-
+    .chat-bubble:before {
+        content: "\00a0";
+        display: block;
+        height: 16px;
+        width: 9px;
+        position: absolute;
+        bottom: -7.5px;
     }
-  }
+    .chat-bubble.left {
+        background-color: #7cdaea;
+        float: left;
+        margin-left: 0px;
+    }
+    .chat-bubble.left:before {
+        background-color: #7cdaea;
+        left: 10px;
+        -webkit-transform: rotate(70deg) skew(5deg);
+    }
+    .chat-bubble.right {
+        background-color: #7cdaea;
+        color: #000;
+        float: right;
+        margin-right: 0px;
+    }
+    .chat-bubble.right:before {
+        background-color: #7cdaea;
+        right: 10px;
+        -webkit-transform: rotate(118deg) skew(-5deg);
+    }
+    .chat-bubble.right a.autolinker {
+        color: #000;
+        font-weight: bold;
+    }
 }
 
-ion-navbar{
-  // android phone
-  .toolbar-background-md{
-    background: #118C4E;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom,#108C4C ,#40C800);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #118C4E ,#40C800); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
-  }
-  .toolbar-title-md{
-    color:white
-  }
-  .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default{
-    color: white
-  }
-  .bar-button-default-md:hover:not(.disable-hover), .bar-button-clear-md-default:hover:not(.disable-hover), .bar-button-md-default:hover:not(.disable-hover){
-    color: white
-  }
-
-  // ios phone
-  .toolbar-background-ios{
-    background: #118C4E;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #118C4E ,#40C800);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #118C4E ,#40C800); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
-  }
-  .toolbar-title-ios{
-    color: white
-  }
-  .bar-button-default-ios, .bar-button-default.bar-button-ios-default, .bar-button-clear-ios-default{
-    color: white
-  }
+// ion-menu{
+//   .scroll-content{
+//     background: #118C4E;  /* fallback for old browsers */
+//     background: -webkit-linear-gradient(to bottom,#118C4E ,#47DF00);  /* Chrome 10-25, Safari 5.1-6 */
+//     background: linear-gradient(to bottom, #108C4D ,#47DF00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */       
+//     .intro-holder{
+//       background-image: url("../assets/images/rsz_aegis4.png"); //for you to change the picture!!
+//       background-size: 97.5%;
+//       font-family: 'Paytone One';
+//       text-align: center;
+//       height: 151px;
+//       .welcome-header{
+//         position: relative;
+//         margin-top: 20px;
+//         color:#118C4E;
+//         font-size: 22px;
+//         text-shadow: -.03em .03em #182642;
+//       }
+//     }
+//     ion-item{
+//       background:none;
+//       color:white;
+//     }
+//   }
+// }
+.custom {
+    .scroll-content {
+        background: #118C4E;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #118C4E, #47DF00);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #108C4D, #47DF00);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        .intro-holder {
+            background-image: url("../assets/images/rsz_aegis4.png"); //for you to change the picture!!
+            background-size: 97.5%;
+            font-family: 'Paytone One';
+            text-align: center;
+            height: 151px;
+            .welcome-header {
+                position: relative;
+                margin-top: 20px;
+                color: #118C4E;
+                font-size: 22px;
+                text-shadow: -.03em .03em #182642;
+            }
+        }
+        ion-item {
+            background: none;
+            color: white;
+        }
+    }
 }
 
+.custom2 {
+    .scroll-content {
+        background: #757519;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #CCCCB2, #757519);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #CCCCB2, #757519);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        .intro-holder {
+            background-image: url("../assets/images/orchard_hotel_logo2.png"); //for you to change the picture!!
+            background-size: 102.5%;
+            font-family: 'Paytone One';
+            text-align: center;
+            height: 150px;
+            .welcome-header {
+                position: relative;
+                margin-top: 20px;
+                color: #757519;
+                font-size: 22px;
+                text-shadow: -.03em .03em #182642;
+            }
+        }
+        ion-item {
+            background: none;
+            color: white;
+        }
+    }
+}
+
+ion-navbar {
+    // android phone
+    .toolbar-background-md {
+        background: #118C4E;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #108C4C, #40C800);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #118C4E, #40C800);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .toolbar-title-md {
+        color: white
+    }
+    .bar-button-default-md,
+    .bar-button-clear-md-default,
+    .bar-button-md-default {
+        color: white
+    }
+    .bar-button-default-md:hover:not(.disable-hover),
+    .bar-button-clear-md-default:hover:not(.disable-hover),
+    .bar-button-md-default:hover:not(.disable-hover) {
+        color: white
+    } // ios phone
+    .toolbar-background-ios {
+        background: #118C4E;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #118C4E, #40C800);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #118C4E, #40C800);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+    .toolbar-title-ios {
+        color: white
+    }
+    .bar-button-default-ios,
+    .bar-button-default.bar-button-ios-default,
+    .bar-button-clear-ios-default {
+        color: white
+    }
+}
