@@ -88,11 +88,9 @@ export class CurrentJobsPage {
   }
 
   showDetailsPage(key) {
-    if (this.cUser.hasAccessToJob(key) && this.cUser.role != 'sales') {
-      this.navCtrl.push(JobDetailsPage, {
-        jobKey: key
-      });
-    }
+    this.navCtrl.push(JobDetailsPage, {
+      jobKey: key
+    });
   }
 
   showToast(message) {
