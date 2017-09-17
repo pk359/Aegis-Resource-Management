@@ -7,7 +7,7 @@ export class User {
     role: string
     token: string
     public hasAccessToJob(job: Job) {
-        if (this.role == 'superUser' || this.role == 'headAegis' || this.role =='headEngineer') {
+        if (this.role == 'superUser' || this.role == 'headAegis' || this.role =='headEngineer' || this.role=='headHousekeeper' || this.role =='sales') {
             return true;
         } else if (this.role == 'tradesperson') {
             var found = false;

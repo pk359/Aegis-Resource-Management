@@ -12,8 +12,8 @@
 <ion-content class="card-background-page">
   <ion-card style="height:35%" *ngFor="let cj of currentJobs" padding (click)="showDetailsPage(cj.key)">
     <img src="assets/images/painting.png" />
-    <div class="card-title">{{cj.jobCreatorName}}</div>
-    <div class="card-subtitle"> Building: {{cj.building}} <br> Room: {{cj.room}} <br> Created On: <br> {{cj.getCreationTime()}}
+    <div class="card-title"> Building: {{cj.building}} <br> Room: {{cj.room}}</div>
+    <div class="card-subtitle">{{cj.jobCreatorName}} <br> Created On: <br> {{cj.getCreationTime()}}
       <ion-label *ngIf="cj.isCompletionApproved()">
         <ion-icon ios="ios-checkbox" md="md-checkbox" style="color:lightgreen"></ion-icon>
         Completed
@@ -21,9 +21,6 @@
       <ion-label *ngIf="!cj.isCompletionApproved()">
         <ion-icon ios="ios-alert" md="md-alert" color="danger"></ion-icon>
         Outstanding
-      </ion-label>
-      <ion-label *ngIf="cUser.role=='superUser'">
-        <button ion-button block (click)='removeRequest(cj)'>Remove Request</button>
       </ion-label>
     </div>
   </ion-card>

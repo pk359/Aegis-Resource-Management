@@ -26,7 +26,7 @@ export class CurrentJobsPage {
           Object.assign(job, snap.val()[key])
           if (this.cUser.hasAccessToJob(job) && !job.isApproveforProcess() && this.cUser.role != 'headAegis') {
             this.currentJobs.push(job)
-          } else if(this.cUser.hasAccessToJob(job) && job.isApproveforProcess()){
+          } else if (this.cUser.hasAccessToJob(job) && job.isApproveforProcess()) {
             this.currentJobs.push(job)
           }
         })
@@ -88,9 +88,11 @@ export class CurrentJobsPage {
   }
 
   showDetailsPage(key) {
-    this.navCtrl.push(JobDetailsPage, {
-      jobKey: key
-    });
+    if (this.cUser.hasAccessToJob(key) && this.cUser.role != 'sales') {
+      this.navCtrl.push(JobDetailsPage, {
+        jobKey: key
+      });
+    }
   }
 
   showToast(message) {
