@@ -1,3 +1,5 @@
+import { UserHelper } from './../pages/common/Utilities/user-helper';
+import { User } from './../pages/common/Model/User';
 import { Job } from './../pages/common/Model/Job';
 import { Component } from '@angular/core';
 import { Platform, IonicApp } from 'ionic-angular';
@@ -27,28 +29,29 @@ export class MyApp {
       }, 100)
     });
 
-
     setInterval(() => {
-      //get jobs from firebase 
-      firebase.database().ref('requests').once('value', d => {
-        if (d.val()) {
-          const o = d.val();
-          let count = 0;
-          Object.keys(o).forEach(key => {
-            const job = new Job();
-            Object.assign(job, o[key]);
-            if (job.isCompleted() && !job.isCompletionApproved()) {
-              count++;
+      if (UserHelper.getCurrentUser().role in ['headAegis', 'housekeeper', 'headEngineer', 'headHousekeeper']) {
+        //get jobs from firebase 
+        firebase.database().ref('requests').once('value', d => {
+          if (d.val()) {
+            const o = d.val();
+            let count = 0;
+            Object.keys(o).forEach(key => {
+              const job = new Job();
+              Object.assign(job, o[key]);
+              if (job.isCompleted() && !job.isCompletionApproved()) {
+                count++;
 
+              }
+            })
+            //TEST
+            if (count > 0) {
+              const msg = count + ' jobs pending for approval';
+              this.sendNotification(msg);
             }
-          })
-          //TEST
-          if (count > 0) {
-            const msg = count + ' jobs pending for approval';
-            this.sendNotification(msg);
           }
-        }
-      })
+        })
+      }
     }, 1000 * 60 * 60)
   }
   sendNotification(msg: string) {
