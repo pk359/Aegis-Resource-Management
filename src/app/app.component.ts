@@ -42,6 +42,7 @@ export class MyApp {
 
             }
           })
+          //TEST
           if (count > 0) {
             const msg = count + ' jobs pending for approval';
             this.sendNotification(msg);
