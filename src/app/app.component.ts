@@ -19,7 +19,7 @@ export class MyApp {
   count = 0;
   constructor(private platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private backgroundMode: BackgroundMode, private localNotifications: LocalNotifications, ionicapp: IonicApp) {
-    this.backgroundMode.enable();
+
     platform.ready().then(() => {
 
       statusBar.styleDefault();
@@ -28,9 +28,10 @@ export class MyApp {
       platform.registerBackButtonAction(function (event) {
       }, 100)
     });
+    if (UserHelper.getCurrentUser().role in ['headAegis', 'housekeeper', 'headEngineer', 'headHousekeeper']) {
+      this.backgroundMode.enable();
+      setInterval(() => {
 
-    setInterval(() => {
-      if (UserHelper.getCurrentUser().role in ['headAegis', 'housekeeper', 'headEngineer', 'headHousekeeper']) {
         //get jobs from firebase 
         firebase.database().ref('requests').once('value', d => {
           if (d.val()) {
@@ -51,8 +52,8 @@ export class MyApp {
             }
           }
         })
-      }
-    }, 1000 * 60 * 60)
+      }, 1000 * 60 * 60)
+    }
   }
   sendNotification(msg: string) {
     this.localNotifications.schedule({
