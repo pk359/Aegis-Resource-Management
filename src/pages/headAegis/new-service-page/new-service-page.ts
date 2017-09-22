@@ -88,7 +88,7 @@ export class NewServicePage {
   //   this.newCategoryName = ''
   // }
   onSelectChange(selectedValue){
-    if(selectedValue === 'add new category'){
+    if(selectedValue === 'new category'){
       this.category = '';
       this.showOtherInputBox = true;
     }else{

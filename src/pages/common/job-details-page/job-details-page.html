@@ -165,11 +165,4 @@
       </div>
     </ion-card-content>
   </ion-card>
-
-  <!--INVOICE-->
-  <ion-card *ngIf="job.isCompletionApproved()&& (userRole=='superUser' || userRole=='headAegis') ">
-    <button ion-button block (click)='sendInvoice()'>Send Invoice</button>
-  </ion-card>
-
-
   <a href="https://www.google.com.sg/" *ngIf="job.isCompletionApproved() && (userRole !='tradesperson' || userRole !='headAegis')">Feedback Link</a>
