@@ -8,53 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:817112257581:android:7f26d39c0069ec32",
+        "mobilesdk_app_id": "1:817112257581:android:40a8d413f23d93dc",
         "android_client_info": {
-          "package_name": "com.dexter.requestmanagement"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "817112257581-r286dsgc37vij9vtq7eft3dcdd3jpfdr.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.dexter.requestmanagement",
-            "certificate_hash": "379a74695fe020d2781202686ec69e5372eb7dcf"
-          }
-        },
-        {
-          "client_id": "817112257581-dfdja66k8cf0dls0edpjbkqnmh7hve2c.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDWnqfsiRq1aLV3s3MltD6v7RWI6labS4Q"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "817112257581-dfdja66k8cf0dls0edpjbkqnmh7hve2c.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:817112257581:android:f1d7d5a2a1c770b2",
-        "android_client_info": {
-          "package_name": "com.ionicframework.aegistabs105684"
+          "package_name": "com.aegis.aegis_services"
         }
       },
       "oauth_client": [
