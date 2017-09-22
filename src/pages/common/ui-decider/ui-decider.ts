@@ -1,3 +1,4 @@
+import { MessageBoardPage } from './../message-board-page/message-board-page';
 import { HeadEngineerTabs } from './../../headEngineer/headEngineer-tabs/headEngineer-tabs';
 import { TradesPersonTabs } from './../../tradesperson/trades-person-tabs/trades-person-tabs';
 import { LoginPage } from './../login-page/login-page';
@@ -34,10 +35,10 @@ export class UIDecider {
       if (cU.role == 'headAegis') this.navCtrl.push(HeadAegisTabs)
       //roles: headEngineer, engineer, headHousekeeper and sales are from hotel side and does same thing
       //of viewing current jobs
-        else if (cU.role == 'headEngineer' || cU.role == 'engineer' || cU.role == 'headHousekeeper' || cU.role == 'sales') this.navCtrl.push(HeadEngineerTabs)
+      else if (cU.role == 'headEngineer' || cU.role == 'engineer' || cU.role == 'headHousekeeper' || cU.role == 'sales') this.navCtrl.push(HeadEngineerTabs)
       else if (cU.role == 'housekeeper') this.navCtrl.push(HousekeeperTabs)
       else if (cU.role == 'tradesperson') this.navCtrl.push(TradesPersonTabs)
-        else if (cU.role == 'none') this.navCtrl.push(MessagePage, {
+      else if (cU.role == 'none') this.navCtrl.push(MessagePage, {
         message: 'Please wait for administrator to assign you a role.'
       })
       else if (cU.role == 'superUser') this.navCtrl.setRoot(SuperUserTabs)
@@ -52,10 +53,12 @@ export class UIDecider {
         let jobKey = data.key;
         let page = data.page;
         if (page == 'messageboard') {
-
+          this.navCtrl.push(MessageBoardPage, {
+            jobKey: jobKey
+          })
         } else if (page == 'detail') {
           this.navCtrl.push(JobDetailsPage, {
-            key: jobKey
+            jobKey: jobKey
           })
         }
       }
