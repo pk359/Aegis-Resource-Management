@@ -51,7 +51,7 @@ export class ServiceListPage {
     })
   }
   onClickCreateService() {
-    this.navCtrl.push(NewServicePage, {}, caches.has)
+    this.navCtrl.push(NewServicePage, {})
   }
   onClickService(service: Service) {
     let alert = this.alertCtrl.create({

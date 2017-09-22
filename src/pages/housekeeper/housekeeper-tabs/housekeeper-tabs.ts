@@ -1,5 +1,4 @@
 import { NewOrderPage } from './../new-order-page/new-order-page';
-import { FeedbackPage } from './../../feedback/feedback-page/feedback-page';
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { Component, ViewChild } from '@angular/core';
 import { Nav } from 'ionic-angular'
@@ -22,9 +21,7 @@ export class HousekeeperTabs {
   constructor(public navCtrl: NavController) {
     this.pages = [
       {title: 'Current Jobs', icon:'logo-buffer', component: CurrentJobsPage},
-      {title: 'New Order', icon:'ios-clipboard', component: NewOrderPage},
-      // {title: 'Past Records', icon:'ios-archive', component: Historypage},
-      // {title: 'Feedback', icon: 'ios-paper', component: FeedbackPage}
+      {title: 'New Order', icon:'ios-clipboard', component: NewOrderPage}
     ];
     this.cUser = UserHelper.getCurrentUser()
   }

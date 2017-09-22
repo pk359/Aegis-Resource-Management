@@ -1,7 +1,6 @@
 
 import { ServiceListPage } from './../../headAegis/service-list-page/service-list-page';
 import { Historypage } from './../../common/history/history';
-import { FeedbackPage } from './../../feedback/feedback-page/feedback-page';
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { Component, ViewChild } from '@angular/core';
 import { Nav } from 'ionic-angular'
@@ -23,8 +22,7 @@ export class SuperUserTabs {
     this.pages = [
       { title: 'Current Jobs', icon: 'logo-buffer', component: CurrentJobsPage },
       { title: 'Service List', icon: 'ios-list-box', component: ServiceListPage },
-      { title: 'Past Records', icon: 'ios-archive', component: Historypage },
-      { title: 'Feedback', icon: 'ios-paper', component: FeedbackPage }
+      { title: 'Past Records', icon: 'ios-archive', component: Historypage }
     ];
     this.cUser = UserHelper.getCurrentUser()
   }

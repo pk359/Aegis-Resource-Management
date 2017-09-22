@@ -14,7 +14,6 @@ import { MessagePage } from '../pages/common/message-page/message-page'
 import { JobDetailsPage } from '../pages/common/job-details-page/job-details-page'
 import { FollowUpPage } from '../pages/common/follow-up-page/follow-up-page'
 import { MessageBoardPage } from './../pages/common/message-board-page/message-board-page';
-import { FeedbackPage } from '../pages/feedback/feedback-page/feedback-page';
 import { Historypage } from './../pages/common/history/history';
 
 //HeadAegis Side
@@ -71,7 +70,7 @@ var firebaseConfig = {
      HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
     HousekeeperTabs, NewOrderPage,
     TradesPersonTabs, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage, FeedbackPage,Historypage ,CreateNewUserPage
+    ServiceListPage, MessageBoardPage ,Historypage ,CreateNewUserPage
   ],
   imports: [
     BrowserModule,
@@ -86,7 +85,7 @@ var firebaseConfig = {
     HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
     HousekeeperTabs, NewOrderPage, 
     TradesPersonTabs, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage, FeedbackPage,Historypage, CreateNewUserPage
+    ServiceListPage, MessageBoardPage,Historypage, CreateNewUserPage
   ],
   providers: [
     StatusBar,

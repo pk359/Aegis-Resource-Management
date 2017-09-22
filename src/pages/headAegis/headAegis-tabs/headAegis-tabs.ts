@@ -1,5 +1,4 @@
 import { Historypage } from './../../common/history/history';
-import { FeedbackPage } from './../../feedback/feedback-page/feedback-page';
 import { ServiceListPage } from './../service-list-page/service-list-page';
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { Component, ViewChild } from '@angular/core';

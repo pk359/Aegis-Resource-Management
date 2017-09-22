@@ -1,4 +1,4 @@
-import { FeedbackPage } from './../../feedback/feedback-page/feedback-page';
+
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { Component, ViewChild } from '@angular/core';
 import { Nav } from 'ionic-angular'
@@ -19,7 +19,6 @@ export class TradesPersonTabs {
   constructor(public navCtrl: NavController) {
     this.pages = [
       { title: 'Current Jobs', icon: 'logo-buffer', component: CurrentJobsPage },
-      { title: 'Feedback', icon: 'ios-paper', component: FeedbackPage }
     ];
     this.cUser = UserHelper.getCurrentUser()
   }

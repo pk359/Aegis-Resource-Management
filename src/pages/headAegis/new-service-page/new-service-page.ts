@@ -38,10 +38,9 @@ export class NewServicePage {
             this.categories.push(service.category)
           }
         })
-        this.categories.push('add new category')
       }
+      this.categories.push('new category')
     })
-
   }
 
   save() {

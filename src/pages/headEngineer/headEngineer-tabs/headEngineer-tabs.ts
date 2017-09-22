@@ -1,4 +1,3 @@
-import { FeedbackPage } from './../../feedback/feedback-page/feedback-page';
 import { CurrentJobsPage } from './../../common/current-jobs-page/current-jobs-page';
 import { Component, ViewChild } from '@angular/core';
 import { Nav } from 'ionic-angular'
@@ -8,6 +7,7 @@ import { NavController } from 'ionic-angular';
 import { LoginPage } from "../../common/login-page/login-page";
 import { Historypage } from '../../common/history/history';
 import { CreateNewUserPage } from '../../common/create-new-user/create-new-user';
+import { NewOrderPage } from '../../housekeeper/new-order-page/new-order-page';
 
 @Component({
   templateUrl: 'headEngineer-tabs.html'
@@ -19,19 +19,24 @@ export class HeadEngineerTabs {
   rootPage: any = CurrentJobsPage;
   constructor(public navCtrl: NavController) {
     this.pages = [
-      { title: 'Current Jobs', icon: 'logo-buffer', component: CurrentJobsPage },
-      { title: 'Feedback', icon: 'ios-paper', component: FeedbackPage }
+      { title: 'Current Jobs', icon: 'logo-buffer', component: CurrentJobsPage }
     ];
     this.cUser = UserHelper.getCurrentUser();
     console.log(this.cUser)
-    if(this.cUser['role']==='headEngineer'){
+    if (this.cUser['role'] === 'headEngineer') {
       this.pages.push(
-        { title: 'Past Records', icon: 'ios-archive', component: Historypage },
+        ...[
+          { title: 'Past Records', icon: 'ios-archive', component: Historypage },
+          { title: 'Create New User', icon: 'person-add', component: CreateNewUserPage }
+        ]
       )
     }
-    if(this.cUser['role']=== 'headEngineer' || this.cUser['role']=== 'headHousekeeper'){
+    if (this.cUser['role'] === 'headHousekeeper') {
       this.pages.push(
-        { title: 'Create New User', icon: 'person-add', component: CreateNewUserPage },
+        ...[
+          { title: 'Create New User', icon: 'person-add', component: CreateNewUserPage },
+          { title: 'New Order', icon: 'ios-clipboard', component: NewOrderPage }
+        ]
       )
     }
   }
