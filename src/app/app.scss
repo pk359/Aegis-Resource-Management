@@ -157,6 +157,37 @@ ion-navbar, ion-menu{
     }
 }
 
+
+.Shangri-la {
+    .scroll-content {
+        background: #757519;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #CCCCB2, #757519);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #CCCCB2, #757519);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        .intro-holder {
+            background-image: url("../assets/images/Shangri-La_Hotel,_Singapore_logo.jpg"); //for you to change the picture!!
+
+        }
+
+    }
+}
+
+.shangri-la-nav {
+    // android phone
+    .toolbar-background-md, .toolbar-background-ios {
+        background: #757519;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #CCCCB2, #757519);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #CCCCB2, #757519);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    }
+}
+
+
 .hotel-nav {
     // android phone
     .toolbar-background-md, .toolbar-background-ios {
