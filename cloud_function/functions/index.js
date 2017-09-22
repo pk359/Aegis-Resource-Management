@@ -20,18 +20,24 @@ const sendToTopic = function sendToTopic(topic, title, data, body = 'Press me to
     console.log('sending notification to ' + topic + ' topic!')
     return new Promise((resolve, reject) => {
         admin.database().ref('users/').once('value', e => {
+            const promises = [];
             if (e.exists()) {
                 const o = e.val();
                 Object.keys(o).forEach(key => {
                     const user = o[key];
-                    if (user.role === topic) {
-                        if (!user.name in except) {
-                            admin.messaging().sendToDevice(topic, payLoad, options);
+                    if (user.role == topic) {
+                        if (except.indexOf(user.name) < 0) {
+                            const token = user.token;
+                            if (token) {
+                                promises.push(admin.messaging().sendToDevice(token, payLoad, options));
+                            }
                         }
                     }
                 });
             }
-            resolve();
+            Promise.all(promises).then(_ => {
+                resolve();
+            });
         });
     });
 }
@@ -102,23 +108,23 @@ exports.general = functions.database.ref('/requests/{pushId}/').onWrite(event =>
         promisses.push(sendToTopic('headEngineer', 'A new request has been created, please approve', data))
         promisses.push(sendToTopic('sales', 'A new request has been created, please approve', data))
         promisses.push(sendToTopic('headHousekeeper', newJob.jobCreatorName + ' has created a request', data))
-    } else if (oldJob.processApprovalTime !== newJob.processApprovalTime) {
+    } else if (oldJob.processApprovalTime != newJob.processApprovalTime) {
         promisses.push(sendToTopic('headAegis', 'An request has been confirmed, please assign tradesperson', data))
-    } else if (oldJob.tradespersonAssignmentTime !== newJob.tradespersonAssignmentTime) {
+    } else if (oldJob.tradespersonAssignmentTime != newJob.tradespersonAssignmentTime) {
         promisses.push(sendToTopic('headAegis', 'A request has been assigned and dispatched!', data))
         promisses.push(sendToTradespersons(newJob, 'You have been assigned to a new job!', data));
         promisses.push(sendToTopic('sales', 'A request has been assigned and dispatched!', data))
-    } else if (oldJob.checkInTime !== newJob.checkInTime) {
+    } else if (oldJob.checkInTime != newJob.checkInTime) {
         promisses.push(sendToTopic('headAegis', 'A tradesperson has checked in to a request!', data))
         promisses.push(sendToHosuekeepr(newJob, 'Tradesperson has checked in to your request!', data))
         promisses.push(sendToTopic('sales', 'A tradesperson has checked in to a request!', data))
-    } else if (oldJob.completionTime !== newJob.completionTime) {
+    } else if (oldJob.completionTime != newJob.completionTime) {
         promisses.push(sendToTopic('headAegis', 'A tradesperson has mark a request as complete!', data))
         promisses.push(sendToHosuekeepr(newJob, 'Tradesperson has completed your request now waiting for approval!', data))
         promisses.push(sendToTopic('sales', 'A tradesperson has mark a request as complete!', data))
         promisses.push(sendToTopic('headHousekeeper', 'A tradesperson has mark a request as complete!', data))
         promisses.push(sendToTopic('headEngineer', 'A tradesperson has mark a request as complete! Awaits for approval', data))
-    } else if (oldJob.completionApprovalTime !== newJob.completionApprovalTime) {
+    } else if (oldJob.completionApprovalTime != newJob.completionApprovalTime) {
         promisses.push(sendToTopic('headAegis', 'A request completion has been aprroved!', data))
         promisses.push(sendToTradespersons(newJob, 'Your completion has been approved. Well done!', data));
         promisses.push(sendToTopic('sales', 'A request completion has been aprroved!', data))
