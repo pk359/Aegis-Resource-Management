@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>817112257581-7g29violdbtrcohnnutfuo58i3e3vln2.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.817112257581-7g29violdbtrcohnnutfuo58i3e3vln2</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>817112257581-r0r21sqiupvce99ftmfnbef0mp0tgo20.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAONHTjekVIxT7CVy1SAoA_6CPx655diok</string>
+	<key>GCM_SENDER_ID</key>
+	<string>817112257581</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.aegis.aegis-services</string>
+	<key>PROJECT_ID</key>
+	<string>questmanagement-a67c5</string>
+	<key>STORAGE_BUCKET</key>
+	<string>questmanagement-a67c5.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true/>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
+	<key>IS_GCM_ENABLED</key>
+	<true/>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true/>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:817112257581:ios:daf4853c88762254</string>
+	<key>DATABASE_URL</key>
+	<string>https://questmanagement-a67c5.firebaseio.com</string>
+</dict>
+</plist>

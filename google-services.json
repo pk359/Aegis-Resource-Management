@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "817112257581-r0r21sqiupvce99ftmfnbef0mp0tgo20.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aegis.aegis_services",
+            "certificate_hash": "f3e383699de9480b102afbeee012011ba4f993a7"
+          }
+        },
+        {
           "client_id": "817112257581-dfdja66k8cf0dls0edpjbkqnmh7hve2c.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,21 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817112257581-7g29violdbtrcohnnutfuo58i3e3vln2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aegis.aegis-services",
+                "app_store_id": "4253534554354"
+              }
+            },
+            {
+              "client_id": "817112257581-dfdja66k8cf0dls0edpjbkqnmh7hve2c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
