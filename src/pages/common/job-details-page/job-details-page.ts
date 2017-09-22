@@ -8,9 +8,12 @@ import { TimeHelper } from './../Utilities/time-helper';
 import { Job } from './../Model/Job';
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController, ActionSheetController } from 'ionic-angular';
-import { AngularFire } from 'angularfire2'
-import firebase from 'firebase'
+import { AngularFire } from 'angularfire2';
+import firebase from 'firebase';
 import { PhotoViewer } from '@ionic-native/photo-viewer';
+
+
+import { CurrentJobsPage } from './../current-jobs-page/current-jobs-page';
 @Component({
   templateUrl: 'job-details-page.html',
 })
@@ -74,7 +77,9 @@ export class JobDetailsPage {
           text: 'Agree',
           handler: () => {
             this.job.approveProcess(this.currentUser);
-            firebase.database().ref('requests/' + this.job.key).remove()
+            firebase.database().ref('requests/' + this.job.key).remove().then(_=>{
+              this.navCtrl.push(CurrentJobsPage)
+            })
           }
         }
       ]
@@ -114,9 +119,12 @@ export class JobDetailsPage {
       alert.addButton('Cancel');
       alert.addButton({
         text: 'Okay',
-        handler: jsonString => {
-          var tp: User = JSON.parse(jsonString)
-          job.assignTradesperson(tp)
+        handler: (tradespersonList) => {
+          //Call assign tradesperson for each tradesperson choosen
+          tradespersonList.forEach(tp=>{
+            console.log(JSON.parse(tp))
+            job.assignTradesperson(JSON.parse(tp))
+          })
           firebase.database().ref('requests/' + job.key).update(job).then(() => {
             this.showToast('Workers have been assigned successfully.');
           })

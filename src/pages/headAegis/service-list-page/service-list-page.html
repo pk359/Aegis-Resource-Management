@@ -19,6 +19,7 @@
   <ion-item-group *ngFor="let category of categories">
     <ion-item-divider color="light">{{category}}</ion-item-divider>
     <ion-item class="service-name" *ngFor="let service of categoryAndServices[category]">
+      
         {{service.name}}
             <ion-icon color="danger" name="remove-circle" item-end tappable (click)='onClickService(service)'></ion-icon> 
     </ion-item>

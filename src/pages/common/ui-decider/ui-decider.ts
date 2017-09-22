@@ -43,7 +43,7 @@ export class UIDecider {
       else if (cU.role == 'superUser') this.navCtrl.setRoot(SuperUserTabs)
     } else {
       this.navCtrl.resize();
-      this.navCtrl.push(LoginPage, {}, caches.delete)
+      this.navCtrl.push(LoginPage, {})
     }
   }
   doNotificationStuff() {

@@ -12,6 +12,8 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+
 .chatBubble {
     img.profile-pic {
         width: 40px;
@@ -78,70 +80,33 @@
     }
 }
 
-// ion-menu{
-//   .scroll-content{
-//     background: #118C4E;  /* fallback for old browsers */
-//     background: -webkit-linear-gradient(to bottom,#118C4E ,#47DF00);  /* Chrome 10-25, Safari 5.1-6 */
-//     background: linear-gradient(to bottom, #108C4D ,#47DF00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */       
-//     .intro-holder{
-//       background-image: url("../assets/images/rsz_aegis4.png"); //for you to change the picture!!
-//       background-size: 97.5%;
-//       font-family: 'Paytone One';
-//       text-align: center;
-//       height: 151px;
-//       .welcome-header{
-//         position: relative;
-//         margin-top: 20px;
-//         color:#118C4E;
-//         font-size: 22px;
-//         text-shadow: -.03em .03em #182642;
-//       }
-//     }
-//     ion-item{
-//       background:none;
-//       color:white;
-//     }
-//   }
-// }
-.custom {
-    .scroll-content {
-        background: #118C4E;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #118C4E, #47DF00);
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #108C4D, #47DF00);
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-        .intro-holder {
-            background-image: url("../assets/images/rsz_aegis4.png"); //for you to change the picture!!
-            background-size: 97.5%;
-            font-family: 'Paytone One';
-            text-align: center;
-            height: 151px;
-            .welcome-header {
-                position: relative;
-                margin-top: 20px;
-                color: #118C4E;
-                font-size: 22px;
-                text-shadow: -.03em .03em #182642;
-            }
-        }
-        ion-item {
-            background: none;
-            color: white;
-        }
-    }
-}
 
-.custom2 {
-    .scroll-content {
-        background: #757519;
-        /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #CCCCB2, #757519);
-        /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #CCCCB2, #757519);
-        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+ion-navbar, ion-menu{
+    .toolbar-title-md {
+        color: white
+    }
+    .bar-button-default-md,
+    .bar-button-clear-md-default,
+    .bar-button-md-default {
+        color: white
+    }
+    .bar-button-default-md:hover:not(.disable-hover),
+    .bar-button-clear-md-default:hover:not(.disable-hover),
+    .bar-button-md-default:hover:not(.disable-hover) {
+        color: white
+    }
+    .toolbar-title-ios {
+        color: white
+    }
+    .bar-button-default-ios,
+    .bar-button-default.bar-button-ios-default,
+    .bar-button-clear-ios-default {
+        color: white
+    }
+
+    .scroll-content{
         .intro-holder {
-            background-image: url("../assets/images/orchard_hotel_logo2.png"); //for you to change the picture!!
             background-size: 102.5%;
             font-family: 'Paytone One';
             text-align: center;
@@ -161,45 +126,60 @@
     }
 }
 
-ion-navbar {
+.aegis {
+    .scroll-content {
+        background: #118C4E;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #118C4E, #47DF00);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #108C4D, #47DF00);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        .intro-holder {
+            background-image: url("../assets/images/rsz_aegis4.png"); //for you to change the picture!!
+        }
+    }
+}
+
+.hotel {
+    .scroll-content {
+        background: #757519;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #CCCCB2, #757519);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #CCCCB2, #757519);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+        .intro-holder {
+            background-image: url("../assets/images/orchard_hotel_logo2.png"); //for you to change the picture!!
+
+        }
+
+    }
+}
+
+.hotel-nav {
     // android phone
-    .toolbar-background-md {
-        background: #118C4E;
+    .toolbar-background-md, .toolbar-background-ios {
+        background: #757519;
         /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #108C4C, #40C800);
+        background: -webkit-linear-gradient(to bottom, #CCCCB2, #757519);
         /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #118C4E, #40C800);
+        background: linear-gradient(to bottom, #CCCCB2, #757519);
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
-    .toolbar-title-md {
-        color: white
-    }
-    .bar-button-default-md,
-    .bar-button-clear-md-default,
-    .bar-button-md-default {
-        color: white
-    }
-    .bar-button-default-md:hover:not(.disable-hover),
-    .bar-button-clear-md-default:hover:not(.disable-hover),
-    .bar-button-md-default:hover:not(.disable-hover) {
-        color: white
-    } // ios phone
-    .toolbar-background-ios {
+}
+
+.aegis-nav{
+
+    .toolbar-background-md, .toolbar-background-ios {
         background: #118C4E;
         /* fallback for old browsers */
-        background: -webkit-linear-gradient(to bottom, #118C4E, #40C800);
+        background: -webkit-linear-gradient(to bottom, #118C4E, #47DF00);
         /* Chrome 10-25, Safari 5.1-6 */
-        background: linear-gradient(to bottom, #118C4E, #40C800);
+        background: linear-gradient(to bottom, #108C4D, #47DF00);
         /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     }
-    .toolbar-title-ios {
-        color: white
-    }
-    .bar-button-default-ios,
-    .bar-button-default.bar-button-ios-default,
-    .bar-button-clear-ios-default {
-        color: white
-    }
+
 }
 
 ion-label{

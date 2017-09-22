@@ -4,7 +4,8 @@
       Job Details
     </ion-title>
     <ion-buttons end>
-      <button ion-button round (click)="onClickGoToMessageBoardButton()" color="royal">Follow up
+      <button ion-button icon-only (click)="onClickGoToMessageBoardButton()" color="royal">
+          <ion-icon name="text"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -13,7 +14,7 @@
 <!--DETAILED CARD-->
 <ion-content padding style="text-align: center">
   <ion-card>
-    <ion-card-header style="text-align:center;font-size:20px;color:dodgerblue; overflow:inherit; white-space:normal" block>
+    <ion-card-header style="text-align:center;font-size:20px;color:dodgerblue; overflow:inherit; white-space:normal">
       <ion-icon icon-left md="md-bookmark"></ion-icon>
       Job Details From Housekeeper
     </ion-card-header>
@@ -40,7 +41,7 @@
   </ion-card>
 
   <!-- Approve Process -->
-  <ion-card *ngIf="(userRole != 'headAegis' || userRole !='tradesperson')">
+  <ion-card *ngIf="!(userRole === 'headAegis' || userRole ==='tradesperson')">
     <ion-card-header>
       <ion-item>
         <ion-icon icon-left *ngIf="job.isApproveforProcess()" ios="ios-checkmark-circle" md="md-checkmark-circle" color="success"></ion-icon>
@@ -51,12 +52,8 @@
     <ion-card-content>
       <!-- IF NOT APPROVE FOR PROCESSING -->
       <ion-item>
-        <div item-start *ngIf="!job.isApproveforProcess() && (userRole== 'superUser' || userRole=='headEngineer')">
-          <button ion-button block (click)="onclickApproveProcess()">Approve</button>
-        </div>
-        <div item-end *ngIf="!job.isApproveforProcess() && (userRole== 'superUser' || userRole=='headEngineer')">
-          <button ion-button block (click)="onclickRejectProcess()">Reject</button>
-        </div>
+        <button item-start *ngIf="!job.isApproveforProcess() && (userRole== 'superUser' || userRole=='headEngineer')" round color="Sblue" ion-button (click)="onclickApproveProcess()">Approve</button>
+        <button item-end *ngIf="!job.isApproveforProcess() && (userRole== 'superUser' || userRole=='headEngineer')" round color="Sblue" ion-button (click)="onclickRejectProcess()">Reject</button>
       </ion-item>
     </ion-card-content>
   </ion-card>
@@ -73,7 +70,7 @@
     <ion-card-content>
       <!--IF HAVENT ASSIGN TRADESPERSON-->
       <div *ngIf="!job.isTradespersonAssigned() && job.isApproveforProcess() && (userRole=='superUser' || userRole=='headAegis')">
-        <button ion-button block (click)="assignTradesperson(job)">Assign</button>
+        <button round color="Sblue" ion-button (click)="assignTradesperson(job)">Assign</button>
       </div>
       <!--IF ASSIGNED-->
       <div *ngIf="job.isTradespersonAssigned()">
@@ -102,21 +99,26 @@
 
       <!--IF NO CHECKIN-->
       <div *ngIf="!job.isCheckedIn() && job.isTradespersonAssigned() && (userRole=='superUser' || userRole=='tradesperson')">
-        <button ion-button block (click)="takeCheckinPhoto()">Check-in photo </button>
-        <ion-card *ngFor="let photo of photoHelper.photos">
-          <img src="data:image/jpeg;base64,{{photo.image}}" />
-        </ion-card>
-        <button ion-button block (click)="checkin()" [disabled]="photoHelper.photos.length <= 0">Check-in</button>
+
+
+        <ion-row>
+          <ion-col col-4 *ngFor="let photo of photoHelper.photos">
+            <img src="data:image/jpeg;base64,{{photo.image}}" />
+          </ion-col>
+        </ion-row>
+        <ion-item>
+          <button item-start round color="Sblue" ion-button (click)="takeCheckinPhoto()">Take photo </button>
+          <button item-end round color="danger" ion-button (click)="checkin()" [disabled]="photoHelper.photos.length <= 0">Submit</button>
+        </ion-item>
       </div>
 
       <!--IF CHECKEDIN-->
-      <div *ngIf="job.isCheckedIn()">
-        <ion-slides loop>
-          <ion-slide *ngFor="let url of job.checkInPhotos">
-            <img style="height:150px; margin: auto;" [src]="url" (click)="showInFullScreen(url)" />
-          </ion-slide>
-        </ion-slides>
-      </div>
+
+      <ion-row *ngIf="job.isCheckedIn()">
+        <ion-col col-4 *ngFor="let url of job.checkInPhotos">
+          <img style="height:150px; margin: auto;" [src]="url" (click)="showInFullScreen(url)" />
+        </ion-col>
+      </ion-row>
     </ion-card-content>
   </ion-card>
 
@@ -132,21 +134,31 @@
     <ion-card-content>
       <!--IF HAVENT COMPLETE-->
       <div *ngIf="!job.isCompleted() && job.isCheckedIn() && (userRole=='superUser' || userRole=='tradesperson')">
-        <button ion-button block (click)="takeCompletionPhoto()">Completion photo</button>
-        <ion-card *ngFor="let photo of photoHelper.photos">
-          <img src="data:image/jpeg;base64,{{photo.image}}" />
-        </ion-card>
-        <button ion-button block (click)="confirmCompletion()" [disabled]="photoHelper.photos.length <= 0">Confirm Completion</button>
+
+        <ion-row>
+          <ion-col col-4 *ngFor="let photo of photoHelper.photos">
+            <img src="data:image/jpeg;base64,{{photo.image}}" />
+          </ion-col>
+        </ion-row>
+        <ion-item>
+          <button item-start round color="Sblue" ion-button (click)="takeCompletionPhoto()">Take photo</button>
+          <button item-end round color="danger" ion-button (click)="confirmCompletion()" [disabled]="photoHelper.photos.length <= 0">Submit</button>
+        </ion-item>
       </div>
 
       <!--IF COMPLETED-->
-      <div *ngIf="job.isCompleted()">
+      <!-- <div *ngIf="job.isCompleted()">
         <ion-slides loop>
           <ion-slide *ngFor="let url of job.completionPhotos">
             <img style="height:150px; margin: auto;" [src]="url" (click)="showInFullScreen(url)" />
           </ion-slide>
         </ion-slides>
-      </div>
+      </div> -->
+      <ion-row *ngIf="job.isCompleted()">
+        <ion-col col-4 *ngFor="let url of job.completionPhotos">
+          <img style="height:150px; margin: auto;" [src]="url" (click)="showInFullScreen(url)" />
+        </ion-col>
+      </ion-row>
     </ion-card-content>
   </ion-card>
 
@@ -160,8 +172,8 @@
       </ion-item>
     </ion-card-header>
     <ion-card-content>
-      <div *ngIf="!job.isCompletionApproved() && job.isCompleted() && (userRole=='superUser' || userRole=='headEngineer') ">
-        <button ion-button block (click)=onClickApproveCompletion()>Approve Completion</button>
+      <div *ngIf="!job.isCompletionApproved() && job.isCompleted() && (userRole=='superUser' || userRole=='headEngineer')">
+        <button round color="Sblue" ion-button (click)=onClickApproveCompletion()>Approve Completion</button>
       </div>
     </ion-card-content>
   </ion-card>

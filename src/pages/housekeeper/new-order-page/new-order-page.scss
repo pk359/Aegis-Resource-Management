@@ -1,0 +1,31 @@
+new-order-page{
+    ul.service-list {
+        list-style-type: decimal;
+        margin-left:30px;
+        margin-right:30px;
+        border: 1px solid #488aff;
+        border-radius: 5px;
+      }
+      .category-name {
+        div.input-wrapper{
+            margin-left: 25px;
+          }
+      }
+    
+      .img-wrap {
+        position: relative;
+      }
+    
+      .img-wrap .close-icon-image {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        z-index: 100;
+      }
+
+      .category-dropright-icon{
+        position: absolute;
+        right: 20px;
+        color: red;
+      }
+}

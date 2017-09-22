@@ -8,11 +8,7 @@
     </ion-title>
   </ion-navbar>
 </ion-header>
-<style>
-  ion-item {
-    margin-top: 6px;
-  }
-</style>
+
 <ion-content padding>
   <h2 ion-text text-center>Place your order</h2>
   <ion-row>
@@ -39,41 +35,37 @@
 
   <ion-list>
     <ion-list-header>
-      Select services
+      Choose category services:
     </ion-list-header>
-    <ion-item *ngFor="let category of categories" no-lines>
-      <ion-label color="primary">{{category}}</ion-label>
-      <ion-checkbox (ionChange)="selectService($event, category)"></ion-checkbox>
+    <ion-item class="category-name" *ngFor="let category of categories" (click)="showAlertWithServices(category)" no-lines>
+      {{category}}
+      <ion-icon class="category-dropright-icon" name="ios-arrow-dropright-circle-outline"></ion-icon>
     </ion-item>
   </ion-list>
-  <style>
-    .img-wrap {
-      position: relative;
-    }
 
-    .img-wrap .close-icon-image {
-      position: absolute;
-      top: 2px;
-      right: 2px;
-      z-index: 100;
-    }
-  </style>
+  <ul class="service-list" *ngIf="jobData.serviceList">
+    Selected services:
+    <li *ngFor="let service of jobData.serviceList" text-wrap> 
+      {{service}}
+    </li>
+  </ul>
+
   <ion-list>
     <ion-list-header>
       Add Pictures
     </ion-list-header>
-    <ion-item>
-      <button ion-button clear block icon-right icon-only (click)="snap()">  
-          <ion-icon name="camera"></ion-icon>
-      </button>
-    </ion-item>
     <ion-row>
       <ion-col class="img-wrap" *ngFor="let photo of this.photoHelper.photos; let i = index">
         <ion-icon class="close-icon-image" icon-left ios="ios-close-circle" md="md-close-circle" (click)="deleteImage(i)"></ion-icon>
         <img src="data:image/jpeg;base64,{{photo.image}}" (click)="imageSelected(i)" />
       </ion-col>
     </ion-row>
+    <ion-item style="text-align:center">
+        <button ion-button round color="Sblue" icon-right (click)="snap()">  
+            <ion-icon name="camera" style="margin-right:10px"></ion-icon> Take photo
+        </button>
+      </ion-item>
   </ion-list>
   <h4 text-center style="color:red">{{error}}</h4>
-  <button ion-button color="freshgreen" block (click)="placeRequest()">Submit Request</button>
+  <button style="margin-top:30px" round color="Sblue" ion-button block (click)="placeRequest()">Submit Request</button>
 </ion-content>

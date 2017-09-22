@@ -10,6 +10,7 @@ import firebase from 'firebase'
 import { Camera } from '@ionic-native/camera'
 import { PhotoViewer } from '@ionic-native/photo-viewer';
 @Component({
+  selector: 'new-order-page',
   templateUrl: 'new-order-page.html',
 })
 export class NewOrderPage {
@@ -23,29 +24,39 @@ export class NewOrderPage {
   jobData: Job = new Job();
   services = []
   photoHelper: PhotoHelper
-  categories: string[] = []
+  categories = new Set()
+  categoryAndServices = []
   constructor(public navCtrl: NavController,
     public navParams: NavParams, public af: AngularFire,
     public modalCtrl: ModalController, public camera: Camera,
     public loadingCtrl: LoadingController, public toastCtrl: ToastController,
     public photoViewer: PhotoViewer, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController) {
     this.cUser = UserHelper.getCurrentUser()
-    firebase.database().ref('services/').on('value', data => {
-      this.services = []
-      this.categories = []
-      if (data.val()) {
-        Object.keys(data.val()).forEach(key => {
-          let service: Service = new Service();
-          Object.assign(service, data.val()[key]);
-          this.services.push();
-          if (this.categories.indexOf(service.category) < 0) {
-            this.categories.push(service.category);
-          }
+
+    firebase.database().ref('services').on('value', snap => {
+      if (snap.val() != null) {
+        //Get list of categoies;
+        Object.keys(snap.val()).map(key => {
+          this.categories.add(snap.val()[key]['category']);
         })
+        //Get Service in array format
+        this.services = Object.keys(snap.val()).map(key => {
+          return snap.val()[key];
+        })
+        //Populate services on category basis
+        this.categories.forEach(category => {
+          var serviceList = this.services.filter((s: Service) => {
+            return s.category === category;
+          })
+          this.categoryAndServices[category] = serviceList;
+          console.log(serviceList)
+        })
+        console.log(this.categories, this.services)
       }
     })
     this.photoHelper = new PhotoHelper(this.cUser.name, this.camera)
   }
+
   selectService(event, value) {
     var index = this.jobData.serviceList.indexOf(value);
     if (event.checked) {
@@ -156,6 +167,56 @@ export class NewOrderPage {
     }).present()
   }
   remove(array, element) {
+  }
+
+  //Show alert with all the services under a category
+  showAlertWithServices(category: string) {
+
+    let alert = this.alertCtrl.create();
+    alert.setTitle(category);
+
+    this.categoryAndServices[category].map(service => {
+
+      var checked = this.jobData.serviceList.indexOf(service.name) > -1;
+      alert.addInput({
+        type: 'checkbox',
+        label: service.name,
+        value: service.name,
+        checked: checked
+      });
+
+    })
+
+    alert.addButton({
+      text: 'Okay',
+      handler: (data: any) => {
+
+        // if (data.length > 0) {
+          //Get the list of data from new array that are not already in the service list
+          this.categoryAndServices[category].forEach(service => {
+
+            var indexOfServiceInServiceList = this.jobData.serviceList.indexOf(service.name);
+            if (data.indexOf(service.name) > -1 && indexOfServiceInServiceList < 0) {
+              this.jobData.serviceList.push(service.name);
+            }
+
+            if (data.indexOf(service.name) < 0 && indexOfServiceInServiceList > -1) {
+              this.jobData.serviceList.splice(indexOfServiceInServiceList, 1);
+            }
+          })
+
+          //Add only which are checked. 
+
+          //Remove which are not checked under this category from service list
+
+         
+        // }
+        console.log(this.jobData.serviceList);
+      }
+    });
+
+    alert.present();
+
   }
 }
 
