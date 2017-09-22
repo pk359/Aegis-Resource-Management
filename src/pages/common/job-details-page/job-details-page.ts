@@ -42,7 +42,7 @@ export class JobDetailsPage {
   onclickApproveProcess() {
     //remove from here
     let confirm = this.alertCtrl.create({
-      title: 'Confirm Process Approval?',
+      title: 'Confirm Request Approval?',
       message: 'Acknowledge the requested job details?',
       buttons: [
         {
@@ -66,8 +66,8 @@ export class JobDetailsPage {
   onclickRejectProcess() {
     //remove from here
     let confirm = this.alertCtrl.create({
-      title: 'Confirm Process Approval?',
-      message: 'Acknowledge the requested job details?',
+      title: 'Dismiss Request Approval?',
+      message: 'Remove the requested job details?',
       buttons: [
         {
           text: 'Disagree',
