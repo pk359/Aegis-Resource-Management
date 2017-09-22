@@ -1,8 +1,8 @@
-// @Flow
+
 var functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
-const sendToTopic = function sendToTopic(topic, title, data, body = 'Press me to view detail') {
+const sendToTopic = function sendToTopic(topic, title, data, body = 'Press me to view detail', except/*: string[]*/ = []) {
     const payLoad = {
         notification: {
             title: title,
@@ -16,8 +16,24 @@ const sendToTopic = function sendToTopic(topic, title, data, body = 'Press me to
         priority: "high",
         timeToLive: 60 * 60 * 2
     };
+    // admin.messaging().sendToTopic(topic, payLoad, options);
     console.log('sending notification to ' + topic + ' topic!')
-    return admin.messaging().sendToTopic(topic, payLoad, options);
+    return new Promise((resolve, reject) => {
+        admin.database().ref('users/').once('value', e => {
+            if (e.exists()) {
+                const o = e.val();
+                Object.keys(o).forEach(key => {
+                    const user = o[key];
+                    if (user.role === topic) {
+                        if (!user.name in except) {
+                            admin.messaging().sendToDevice(topic, payLoad, options);
+                        }
+                    }
+                });
+            }
+            resolve();
+        });
+    });
 }
 const sentToDevice = function sendToDevice(token, title, data, body) {
     const payLoad = {
@@ -51,7 +67,7 @@ const sendToUsers = function sendToUsers(uids, title, data, body) {
     return Promise.all(promisses);
 }
 const getTradespersonUids = function getTradespersonUids(job) {
-    uids = []
+    const uids = []
     job.tradespersonList.forEach(function (user) {
         uids.push(user.uid)
     }, this);
@@ -86,7 +102,7 @@ exports.general = functions.database.ref('/requests/{pushId}/').onWrite(event =>
         promisses.push(sendToTopic('headEngineer', 'A new request has been created, please approve', data))
         promisses.push(sendToTopic('sales', 'A new request has been created, please approve', data))
         promisses.push(sendToTopic('headHousekeeper', newJob.jobCreatorName + ' has created a request', data))
-    } else if (oldJob.processApproval !== newJob.processApproval) {
+    } else if (oldJob.processApprovalTime !== newJob.processApprovalTime) {
         promisses.push(sendToTopic('headAegis', 'An request has been confirmed, please assign tradesperson', data))
     } else if (oldJob.tradespersonAssignmentTime !== newJob.tradespersonAssignmentTime) {
         promisses.push(sendToTopic('headAegis', 'A request has been assigned and dispatched!', data))
@@ -127,7 +143,7 @@ exports.messageboard = functions.database.ref('/requests/{requestID}/messageBoar
     admin.database().ref('/requests/' + requestKey).once('value').then(result => {
         const job = result.val()
         promisses.push(sendToTopic('manager', sender + ' has posted on messageboard', data, body = text))
-        uids = []
+        const uids = []
         job.tradespersonList.forEach(user => {
             if (user.name != sender) {
                 uids.push(user.uid)
@@ -137,9 +153,9 @@ exports.messageboard = functions.database.ref('/requests/{requestID}/messageBoar
         if (job.jobCreatorName != sender) {
             promisses.push(sendToHosuekeepr(job, sender + ' has posted on messageboard', data, body = text))
         }
-        promisses.push(sendToTopic('headHousekeeper', sender + ' has posted on messageboard', data, body = text))
-        promisses.push(sendToTopic('headEngineer', sender + ' has posted on messageboard', data, body = text))
-        promisses.push(sendToTopic('headAegis', sender + ' has posted on messageboard', data, body = text))
+        promisses.push(sendToTopic('headHousekeeper', sender + ' has posted on messageboard', data, body = text, except = [sender]))
+        promisses.push(sendToTopic('headEngineer', sender + ' has posted on messageboard', data, body = text, except = [sender]))
+        promisses.push(sendToTopic('headAegis', sender + ' has posted on messageboard', data, body = text, except = [sender]))
 
     })
     return Promise.all(promisses)
