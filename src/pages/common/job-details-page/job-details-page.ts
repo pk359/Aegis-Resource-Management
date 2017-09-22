@@ -1,4 +1,3 @@
-import { InvoicePage } from './../../headAegis/invoice-page/invoice-page';
 import { MessageBoardPage } from './../message-board-page/message-board-page';
 import { Photo } from './../Model/Photo';
 import { Camera } from '@ionic-native/camera';
@@ -77,7 +76,7 @@ export class JobDetailsPage {
           text: 'Agree',
           handler: () => {
             this.job.approveProcess(this.currentUser);
-            firebase.database().ref('requests/' + this.job.key).remove().then(_=>{
+            firebase.database().ref('requests/' + this.job.key).remove().then(_ => {
               this.navCtrl.push(CurrentJobsPage)
             })
           }
@@ -121,7 +120,7 @@ export class JobDetailsPage {
         text: 'Okay',
         handler: (tradespersonList) => {
           //Call assign tradesperson for each tradesperson choosen
-          tradespersonList.forEach(tp=>{
+          tradespersonList.forEach(tp => {
             console.log(JSON.parse(tp))
             job.assignTradesperson(JSON.parse(tp))
           })
@@ -234,7 +233,5 @@ export class JobDetailsPage {
     confirm.present();
   }
 
-  sendInvoice() {
-    this.navCtrl.push(InvoicePage, { job: this.job })
-  }
+
 }

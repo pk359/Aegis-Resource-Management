@@ -19,7 +19,6 @@ import { Historypage } from './../pages/common/history/history';
 //HeadAegis Side
 
 import { HeadAegisTabs } from '../pages/headAegis/headAegis-tabs/headAegis-tabs'
-import { InvoicePage } from '../pages/headAegis/invoice-page/invoice-page'
 import { NewServicePage } from './../pages/headAegis/new-service-page/new-service-page';
 import { ServiceListPage } from './../pages/headAegis/service-list-page/service-list-page';
 
@@ -67,10 +66,10 @@ var firebaseConfig = {
   declarations: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-     HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
+    HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage,
     HousekeeperTabs, NewOrderPage,
     TradesPersonTabs, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage ,Historypage ,CreateNewUserPage
+    ServiceListPage, MessageBoardPage, Historypage, CreateNewUserPage
   ],
   imports: [
     BrowserModule,
@@ -82,10 +81,10 @@ var firebaseConfig = {
   entryComponents: [
     MyApp, UIDecider,
     LoginPage, MessagePage, JobDetailsPage, FollowUpPage,
-    HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage, InvoicePage,
-    HousekeeperTabs, NewOrderPage, 
+    HeadAegisTabs, HeadEngineerTabs, CurrentJobsPage,
+    HousekeeperTabs, NewOrderPage,
     TradesPersonTabs, SuperUserTabs, NewServicePage,
-    ServiceListPage, MessageBoardPage,Historypage, CreateNewUserPage
+    ServiceListPage, MessageBoardPage, Historypage, CreateNewUserPage
   ],
   providers: [
     StatusBar,
