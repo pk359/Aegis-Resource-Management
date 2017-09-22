@@ -17,7 +17,7 @@ export class ServiceListPage {
   progress = 0
   error = ''
   cUser: any
-  categories = []
+  categories = new Set()
   services = []
   categoryAndServices = {}
   constructor(public navCtrl: NavController,
@@ -31,16 +31,17 @@ export class ServiceListPage {
     firebase.database().ref('services').on('value', snap => {
       if (snap.val() != null) {
         //Get list of categoies;
-        this.categories = Object.keys(snap.val()).map(key=>{
-          return snap.val()[key]['category'];
+
+        Object.keys(snap.val()).forEach(key => {
+          this.categories.add(snap.val()[key]['category']);
         })
         //Get Service in array format
-        this.services = Object.keys(snap.val()).map(key=>{
+        this.services = Object.keys(snap.val()).map(key => {
           return snap.val()[key];
         })
         //Populate services on category basis
-        this.categories.forEach(category=>{
-          var serviceList = this.services.filter((s:Service)=>{
+        this.categories.forEach(category => {
+          var serviceList = this.services.filter((s: Service) => {
             return s.category === category;
           })
           this.categoryAndServices[category] = serviceList;
@@ -84,9 +85,9 @@ export class ServiceListPage {
   //   });
   //   return categories;
   // }
-  getServicesForCategory(category:string){
-    return this.services.filter((s:Service)=>{
-      return s.category ===category
+  getServicesForCategory(category: string) {
+    return this.services.filter((s: Service) => {
+      return s.category === category
     })
   }
 }

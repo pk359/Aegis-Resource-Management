@@ -44,7 +44,6 @@ export class NewServicePage {
   }
 
   save() {
-
     if (this.serviceName == '') {
       this.error = 'Must have name!'
       return;
