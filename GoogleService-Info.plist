@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>817112257581-7g29violdbtrcohnnutfuo58i3e3vln2.apps.googleusercontent.com</string>
+	<string>817112257581-rb19tqb14o43f7oh1m3cbcrq6105v9iu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.817112257581-7g29violdbtrcohnnutfuo58i3e3vln2</string>
+	<string>com.googleusercontent.apps.817112257581-rb19tqb14o43f7oh1m3cbcrq6105v9iu</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>817112257581-r0r21sqiupvce99ftmfnbef0mp0tgo20.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -19,7 +19,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.aegis.aegis-services</string>
+	<string>AegisServices</string>
 	<key>PROJECT_ID</key>
 	<string>questmanagement-a67c5</string>
 	<key>STORAGE_BUCKET</key>
@@ -35,7 +35,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:817112257581:ios:daf4853c88762254</string>
+	<string>1:817112257581:ios:db7175c05a7c5e58</string>
 	<key>DATABASE_URL</key>
 	<string>https://questmanagement-a67c5.firebaseio.com</string>
 </dict>

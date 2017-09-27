@@ -71,7 +71,10 @@
     "cordova": {
         "plugins": {
             "com-sarriaroman-photoviewer": {},
-            "cordova-plugin-camera": {},
+            "cordova-plugin-camera": {
+                "CAMERA_USAGE_DESCRIPTION": "Aegis Services snaps picture to add it to job details",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": "Aegis Services picks up images to fullfill job details"
+            },
             "cordova-plugin-console": {},
             "cordova-plugin-device": {},
             "cordova-plugin-email": {},

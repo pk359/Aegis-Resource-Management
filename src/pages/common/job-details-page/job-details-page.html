@@ -177,4 +177,6 @@
       </div>
     </ion-card-content>
   </ion-card>
-  <a href="https://www.google.com.sg/" *ngIf="job.isCompletionApproved() && (userRole !='tradesperson' || userRole !='headAegis')">Feedback Link</a>
+  <ion-card *ngIf="job.isCompletionApproved() && (userRole !='tradesperson' || userRole !='headAegis')">
+    <a href="https://www.surveymonkey.com/r/P2765SW">Leave us a feedback</a>
+  </ion-card>
